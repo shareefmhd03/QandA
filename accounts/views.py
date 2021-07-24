@@ -11,11 +11,11 @@ def session_check(request):
         return True
 
 def login_view(request):
-
     if request.method == 'POST':
         usernam   = request.POST['username']
         password  = request.POST['password1']
-        user = auth.authenticate(username = usernam, password=password)
+        print(usernam, password)
+        user = auth.authenticate(request, username = usernam, password=password)
         auth.login(request, user)
         return redirect('index')
     return render(request, 'user/login.html')
@@ -46,8 +46,7 @@ def register(request):
     }
     return render(request, 'user/login.html',context)
 
-def index(request):
-    return render(request, 'user/index.html')
+
 
 
 def logout_view(request):

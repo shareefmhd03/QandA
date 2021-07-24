@@ -1,17 +1,10 @@
-{% extends 'user/user_base.html' %}
-{% load static %}
+<form action="">
+    <label for="id_question_title">Question title:</label><input type="text" name="question_title" maxlength="200" required="" id="id_question_title">
+<label for="id_question">Question:</label><textarea name="question" cols="40" rows="10" required="" id="id_question"></textarea>
+<label for="id_attachment">Attachment:</label><input type="file" name="attachment" accept="image/*" id="id_attachment">
+<label for="id_tags">Tags:</label><select name="tags" required="" id="id_tags">
+  <option value="" selected="">---------</option>
 
-
-{% block contend %}
-
-<form action="{% url 'sample'%}" method="POST">
-    {% csrf_token %}
-    <label for="id_email">Email address:</label><input type="email" name="email" maxlength="254" id="id_email">
-    <label for="id_first_name">First name:</label><input type="text" name="first_name" maxlength="150" id="id_first_name">
-    <label for="id_last_name">Last name:</label><input type="text" name="last_name" maxlength="150" id="id_last_name">
-    <label for="id_phone">Phone:</label><input type="text" name="phone" maxlength="12" required="" id="id_phone">
-    <label for="id_password1">Password:</label><input type="password" name="password1" autocomplete="new-password" required="" id="id_password1"><br><span class="helptext"><ul><li>Your password can’t be too similar to your other personal information.</li><li>Your password must contain at least 8 characters.</li><li>Your password can’t be a commonly used password.</li><li>Your password can’t be entirely numeric.</li></ul></span>
-    <label for="id_password2">Password confirmation:</label><input type="password" name="password2" autocomplete="new-password" required="" id="id_password2"><br><span class="helptext">Enter the same password as before, for verification.</span>
-    <input type="submit" value="submit">
+</select>
+    <input type="submit" ,="" value="ask">
 </form>
-{% endblock %}

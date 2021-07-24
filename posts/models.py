@@ -1,3 +1,4 @@
+from profiles.models import Profile
 from django.db import models
 from django.db.models.deletion import CASCADE
 from django.db.models.fields import DateTimeField
@@ -9,9 +10,9 @@ from accounts.models import Accounts
 
 
 class Posts(models.Model):
-    image = models.ImageField(blank = True, upload_to = 'images')
+    image = models.ImageField(blank = True, upload_to = 'posts_images')
     description = models.TextField()
-    # author = models.ForeignKey(Accounts,on_delete=models.CASCADE)
+    author = models.ForeignKey(Profile,on_delete=models.CASCADE, null = True, blank=True)
     upvote = models.ManyToManyField(Accounts, default=None, blank = True)
     # downvote = models.ManyToManyField(Accounts, default=None)
 

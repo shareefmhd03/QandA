@@ -5,21 +5,17 @@
 {% block contend %}
 
 	
-
-	
 	<div class="breadcrumbs">
 		<section class="container">
 			<div class="row">
 				<div class="col-md-12">
-					<h1>Ask Question</h1>
+					<h1>Blog 1</h1>
 				</div>
 				<div class="col-md-12">
 					<div class="crumbs">
 						<a href="#">Home</a>
 						<span class="crumbs-span">/</span>
-						<a href="#">Pages</a>
-						<span class="crumbs-span">/</span>
-						<span class="current">Ask Question</span>
+						<span class="current">Blog 1</span>
 					</div>
 				</div>
 			</div><!-- End row -->
@@ -28,59 +24,55 @@
 	
 	<section class="container main-content">
 		<div class="row">
+			{% if blog_exist %}
 			<div class="col-md-9">
+				{% for bl in blog %}
+				<article class="post clearfix">
+					<div class="post-inner">
+				        <div class="post-img"><a href="single_post.html"><img src="/media/{{bl.img}}"alt=""></a></div>
+				        <h2 class="post-title"><span class="post-type"><i class="icon-picture"></i></span><a href="single_post.html">{{bl.title}}</a></h2>
+						<p>{{bl.description}}</p>
+			            <div class="post-meta">
+			                <span class="meta-author"><i class="icon-user"></i><a href="#">Administrator</a></span>
+			                <span class="meta-date"><i class="icon-time"></i>September 30 , 2013</span>
+			                <span class="meta-categories"><i class="icon-suitcase"></i><a href="#">Wordpress</a></span>
+			                <span class="meta-comment"><i class="icon-comments-alt"></i><a href="#">15 comments</a></span>
+			            </div>
+				        <div class="post-content">
+				            <a href="single_post.html" class="post-read-more button color small">Continue reading</a>
+				        </div><!-- End post-content -->
+				    </div><!-- End post-inner -->
+				</article><!-- End article.post -->
+				{% endfor %}
 				
-				<div class="page-content ask-question">
-					<div class="boxedtitle page-title"><h2>Ask Question</h2></div>
-					
-					<p>Duis dapibus aliquam mi, eget euismod sem scelerisque ut. Vivamus at elit quis urna adipiscing iaculis. Curabitur vitae velit in neque dictum blandit. Proin in iaculis neque.</p>
-					
-					<div class="form-style form-style-3" id="question-submit">
-						<form action="{% url 'ask_question' %}" method="POST" enctype='multipart/form-data'>
-							{% csrf_token %}
-							<div class="form-inputs clearfix">
-								<p>
-									<label class="required">Question Title<span>*</span></label>
-									<input type="text" id="question-title" name="question_title">
-									<span class="form-description">Please choose an appropriate title for the question to answer it even easier .</span>
-								</p>
-								<div id="form-textarea">
-									<p>
-										<label class="required">Question<span>*</span></label>
-										<textarea id="question-details" name="question" aria-required="true" cols="58" rows="8"></textarea>
-										<span class="form-description">Type the description thoroughly and in detail .</span>
-									</p>
-								</div>
-								
-								<p>
-									<label>Tags</label>
-									<!-- <p class="input" name="tags" id="question_tags" data-seperator=",">{{form.tags</p> -->
-									
-									<span class="form-description">Please choose  suitable Keywords Ex : <span class="color">question , poll</span> .</span>
-								</p>
-								
-							
-								
-								
-								<label>Attachment</label>
-								<div class="fileinputs">
-									<!-- <input type="file" class="file" name="attachment"> -->
-									<div class="fakefile">
-										{{form.attachment}}
-										<button type="button" class="button small margin_0">Select file (screenshots)</button>
-										<span><i class="icon-arrow-up"></i>Browse</span>
-									</div>
-									<span class="form-description">Please choose an appropriate title for the question to answer it even easier .</span>
-								</div>
-								
-							</div>
-							<p class="form-submit">
-								<input type="submit" id="publish-question" value="Submit Your Question" class="button color small submit">
-							</p>
-						</form>
-					</div>
-				</div><!-- End page-content -->
+				
+				
+				<div class="pagination">
+				    <a href="#" class="prev-button"><i class="icon-angle-left"></i></a>
+				    <span class="current">1</span>
+				    <a href="#">2</a>
+				    <a href="#">3</a>
+				    <a href="#">4</a>
+				    <a href="#">5</a>
+				    <span>...</span>
+				    <a href="#">11</a>
+				    <a href="#">12</a>
+				    <a href="#">13</a>
+				    <a href="#" class="next-button"><i class="icon-angle-right"></i></a>
+				</div><!-- End pagination -->
 			</div><!-- End main -->
+			{%else%}
+				<!-- <h4>You Don't have any blogs</h4> -->
+				<div class="col-md-9">
+			
+					<article class="post clearfix">
+						
+							<h4>You Don't have any blogs</h4>
+					
+					</article><!-- End article.post -->
+				
+				</div><!-- End main -->
+				{% endif %}
 			<aside class="col-md-3 sidebar">
 				<div class="widget widget_stats">
 					<h3 class="widget_title">Stats</h3>
@@ -222,10 +214,4 @@
 		</div><!-- End row -->
 	</section><!-- End container -->
 	
-	
-
-
-
-
-
-{% endblock %}
+	{% endblock %}
