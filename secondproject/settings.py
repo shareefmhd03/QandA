@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'profiles',
     'q_and_a',
     'blog',
+    'froala_editor',
     
 ]
 
@@ -54,9 +55,12 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    
 ]
 
 ROOT_URLCONF = 'secondproject.urls'
+
+AUTHENTICATION_BACKENDS = ('django.contrib.auth.backends.ModelBackend',)
 
 TEMPLATES = [
     {

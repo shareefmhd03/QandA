@@ -1,29 +1,20 @@
+
+
 from django.db import models
-from django.db.models.deletion import DO_NOTHING
-from django.db.models.fields import BLANK_CHOICE_DASH
-from django.db.models.fields.related import OneToOneField
 from accounts.models import Accounts
+from froala_editor.fields import FroalaField
 
+class Tags(models.Model):
+    tag_name = models.CharField(max_length=20)
 
-# class Tags(models.Model):
-#     tag_name = models.CharField(max_length=25)
-#     tag_desc = models.TextField(blank=True)
-
-#     def __str__(self):
-#         return self.tag_name
-
-
-
-
+    def __str__(self):
+        return self.tag_name
 
 class Question(models.Model):
-    question_title  = models.CharField(max_length=200)
-    user  = models.ForeignKey(Accounts, on_delete=models.CASCADE)
-    # tags =  models.ForeignKey(Tags, related_name='tag', on_delete=DO_NOTHING)
-    attachment = models.ImageField(upload_to = 'media', blank = True)
-    question = models.TextField()
-    # answer = models.ForeignKey(Answer, blank = True, on_delete=DO_NOTHING, null=True)
-
+    question_title = models.CharField(max_length=200)
+    user = models.ForeignKey(Accounts, on_delete=models.DO_NOTHING)
+    question = FroalaField()
+    tags = models.ManyToManyField(Tags)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -31,12 +22,14 @@ class Question(models.Model):
         return self.question_title
 
 class Answer(models.Model):
-    answer_title  = models.CharField(max_length=200)
+    answer_title = models.CharField(max_length=200)
     user = models.ForeignKey(Accounts, on_delete=models.DO_NOTHING)
     description = models.TextField()
-    attachment = models.ImageField(upload_to = 'media', blank = True)
-    # question = models.OneToOneField(Question, on_delete=models.CASCADE, blank=True, null=True)
-    question = models.ForeignKey(Question,on_delete=models.CASCADE, blank=True, null=True)
+    attachment = models.ImageField(upload_to='media', blank=True)
+    question = models.ForeignKey(
+        Question, on_delete=models.CASCADE, blank=True, null=True)
+    tags = models.ManyToManyField(Tags)
+    is_solved =models.BooleanField(blank=True, null=True, default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -44,3 +37,12 @@ class Answer(models.Model):
         return self.answer_title
 
 
+
+class PointsTable(models.Model):
+    user = models.ForeignKey(Accounts, on_delete=models.CASCADE)
+    point = models.IntegerField()
+    solved_questions = models.ForeignKey(Question, on_delete=models.CASCADE)
+    asked_questions  = models.ForeignKey(Answer, on_delete=models.CASCADE)
+
+
+    

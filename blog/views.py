@@ -1,37 +1,51 @@
-from typing import ContextManager
 from blog.forms import BlogForm
 from blog.models import Blog
 from django.shortcuts import redirect, render
 
 # Create your views here.
 def view_blog(request):
-    blog_exist = Blog.objects.filter(user = request.user).exists()
-    blog = Blog.objects.filter(user = request.user)
-    context= {
-        'blog':blog,
-        'blog_exist':blog_exist,
+    all_blogs = Blog.objects.all()
+    context={
+        'all_blogs':all_blogs,
     }
+    try:
+        blog_exist = Blog.objects.filter(user = request.user).exists()
+        blog = Blog.objects.filter(user = request.user)
+        context['blog']=  blog
+        context['blog_exist'] = blog_exist
+    except Exception as e:
+        print(e)
     return render(request, 'user/blog.html',context)
 
 
 
 def add_blog(request):
-    if request.user.is_authenticated:
-        if request.method == 'POST':
-            form = BlogForm(request.POST, request.FILES)
-            if form.is_valid():
-                titl = form.cleaned_data['title']
-                print(titl,'-------------------')
-                desc = form.cleaned_data['description']
-                image = form.cleaned_data['img']
-                blog = Blog(title = titl, description = desc, img = image, user = request.user)
-                blog.save()
-                return redirect('view_blog')
-    form = BlogForm()
-    context= {
-        'form': form
-    }
+    context = {}
+    try:
+        if request.user.is_authenticated:
+            if request.method == 'POST':
+                form = BlogForm(request.POST, request.FILES)
+                if form.is_valid():
+                    titl = form.cleaned_data['title']
+                    desc = form.cleaned_data['description']
+                    image = form.cleaned_data['img']
+                    blog = Blog(title = titl, description = desc, img = image, user = request.user)
+                    blog.save()
+                    return redirect('view_blog')
+            form = BlogForm()
+            context['form'] = form
+    except Exception as e:
+        print(e)
     return render(request, 'user/blog_form.html',context)
 
+def blog_detailed_view(request, slug):
+    context = {}
+    try:
+        single_blog = Blog.objects.filter(slug = slug)
+        context['single_blog'] = single_blog
 
-    
+    except Exception as e:
+        print(e)
+    return render(request, 'user/single_post.html', context)
+        
+ 

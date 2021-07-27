@@ -1,8 +1,7 @@
 from django.contrib import admin
-from django.db.models.query_utils import Q
-from .models import Answer, Question
+from .models import Answer, Question, Tags
 
 
-# admin.site.register(Tags)
 admin.site.register(Answer)
 admin.site.register(Question)
+admin.site.register(Tags)

@@ -1,27 +1,30 @@
-from django.contrib import auth
+from django.contrib.auth import authenticate
 from accounts.models import Accounts
 from django.shortcuts import redirect, render
 from . forms import RegistrationForm
-from django.contrib.auth import logout
+from django.contrib.auth import logout,login
+from django.contrib import messages
+from django.views.decorators.cache import cache_control
 
 # Create your views here.
 
 def session_check(request):
     if request.session['loggedin'] == True:
         return True
-
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def login_view(request):
     if request.method == 'POST':
         usernam   = request.POST['username']
-        password  = request.POST['password1']
-        print(usernam, password)
-        user = auth.authenticate(request, username = usernam, password=password)
-        auth.login(request, user)
+        passwd  = request.POST['password1']
+        
+        user = authenticate(request, username = usernam, password=passwd)
+
+        login(request, user)
         return redirect('index')
     return render(request, 'user/login.html')
 
 
-
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def register(request):
     if request.method == 'POST':
 
@@ -39,6 +42,7 @@ def register(request):
             user = Accounts.objects.create_user(
                 first_name = firstname, last_name = lastname, email = email, password=password1, phone = phone,username = username)
             user.save()
+            # messages.success(request, 'Account created successfully')
             return redirect('login_view')
     form = RegistrationForm()
     context = {

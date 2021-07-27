@@ -29,6 +29,7 @@ urlpatterns = [
     path('q_and_a/', include('q_and_a.urls')),
     path('blog/', include('blog.urls')),
     path('profiles/', include('profiles.urls')),
+    path('froala_editor/',include('froala_editor.urls')),
     # path('accounts/', include('accounts.urls')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 

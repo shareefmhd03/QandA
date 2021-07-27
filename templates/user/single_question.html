@@ -3,20 +3,38 @@
 
 
 {% block contend %}
+<div class="breadcrumbs">
+    <section class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>{{bl.title}}</h1>
+            </div>
+            <div class="col-md-12">
+                <div class="crumbs">
+                    <a href="{% url 'index' %}">Home</a>
+                    <span class="crumbs-span">/</span>
+                    <a href="#">Question</a>
+                    <span class="crumbs-span">/</span>
+                    <span class="current"></span>
+                </div>
+            </div>
+        </div><!-- End row -->
+    </section><!-- End container -->
+</div><!-- End breadcrumbs -->
 	<section class="container main-content ">
 		<div class="row">
 			<div class="col-md-9">
 				{% for que in question %}
 				<article class="question single-question question-type-normal">
 					<h2>
-						<a href="single_question.html">{{que.question_title}}</a>
+					{{que.question_title}}
 					</h2>
-					<a class="question-report" href="{% url 'answer' que.id %}">Report</a>
-					<div class="question-type-main"><i class="icon-question-sign"></i>Post your answer</div>
+					<a class="question-report" href="{% url 'edit_question' que.id %}">Report</a>
+					<a  href= "{% url 'answer' que.id %}" class="question-type-main"><i class="icon-question-sign"></i>Post your answer</a>
 					<div class="question-inner">
 						<div class="clearfix"></div>
 						<div class="question-desc">
-							<p>{{que.question}}</p>
+							<p>{{que.question|safe}}</p>
 						</div>
 						<div class="question-details">
 							<span class="question-answered question-answered-done"><i class="icon-ok"></i>solved</span>
@@ -38,7 +56,7 @@
 				
 				<div class="share-tags page-content">
 					<div class="question-tags"><i class="icon-tags"></i>
-						<a href="#">wordpress</a>, <a href="#">question</a>, <a href="#">developer</a>
+					 <a href="#">question</a>, <a href="#">developer</a>
 					</div>
 					<div class="share-inside-warp">
 						<ul>
@@ -143,7 +161,7 @@
 					                    </div>
 					                    <a class="comment-reply" href="#"><i class="icon-reply"></i>Reply</a> 
 					                </div>
-					                <div class="text"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi adipiscing gravida odio, sit amet suscipit risus ultrices eu. Fusce viverra neque at purus laoreet consequat. Vivamus vulputate posuere nisl quis consequat.</p>
+					                <div class="text"><p>{{ans.description}}</p>
 					                </div>
 									<div class="question-answered question-answered-done"><i class="icon-ok"></i>Best Answer</div>
 					            </div>
