@@ -24,12 +24,12 @@ class Question(models.Model):
 class Answer(models.Model):
     answer_title = models.CharField(max_length=200)
     user = models.ForeignKey(Accounts, on_delete=models.DO_NOTHING)
-    description = models.TextField()
-    attachment = models.ImageField(upload_to='media', blank=True)
+    description = FroalaField()
+    
     question = models.ForeignKey(
         Question, on_delete=models.CASCADE, blank=True, null=True)
     tags = models.ManyToManyField(Tags)
-    is_solved =models.BooleanField(blank=True, null=True, default=False)
+    is_solved =models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -39,10 +39,10 @@ class Answer(models.Model):
 
 
 class PointsTable(models.Model):
-    user = models.ForeignKey(Accounts, on_delete=models.CASCADE)
-    point = models.IntegerField()
-    solved_questions = models.ForeignKey(Question, on_delete=models.CASCADE)
-    asked_questions  = models.ForeignKey(Answer, on_delete=models.CASCADE)
+    user = models.OneToOneField(Accounts, on_delete=models.CASCADE, blank = True, null=True)
+    point = models.IntegerField(blank = True, null=True)
+    solved_questions = models.ManyToManyField(Question, blank = True)
+    asked_questions  = models.ManyToManyField(Answer, blank = True)
 
-
-    
+    def __str__(self):
+        return self.user.username

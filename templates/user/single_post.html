@@ -1,270 +1,480 @@
-{% extends 'user/user_base.html' %}
+﻿{% extends 'user/user-base.html' %}
 
 {% load static %}
 
 
-{% block contend %}
+{% block content %}
+{% include 'user/includes/header_base.html' %}
 
-{% for bl in single_blog %}
-<div class="breadcrumbs">
-    <section class="container">
+
+  <!-- =-=-=-=-=-=-= Main Area =-=-=-=-=-=-= -->
+  <div class="main-content-area">
+
+    <!-- =-=-=-=-=-=-= Page Breadcrumb =-=-=-=-=-=-= -->
+    <section class="page-title">
+      <div class="container">
         <div class="row">
-            <div class="col-md-12">
-                <h1>{{bl.title}}</h1>
+          <div class="col-md-6 col-sm-7 co-xs-12 text-left">
+            <h1>Blog Detail</h1>
+          </div>
+          <!-- end col -->
+          
+          <div class="col-md-6 col-sm-5 co-xs-12 text-right">
+            <div class="bread">
+              <ol class="breadcrumb">
+                <li><a href="#">Home</a>
+                </li>
+                <li><a href="#">Pages</a>
+                </li>
+                <li class="active">Blog Single</li>
+              </ol>
             </div>
-            <div class="col-md-12">
-                <div class="crumbs">
-                    <a href="{% url 'index' %}">Home</a>
-                    <span class="crumbs-span">/</span>
-                    <a href="#">Blog</a>
-                    <span class="crumbs-span">/</span>
-                    <span class="current">{{bl.title}}</span>
-                </div>
-            </div>
-        </div><!-- End row -->
-    </section><!-- End container -->
-</div><!-- End breadcrumbs -->
+            <!-- end bread -->
+          </div>
+          <!-- end col -->
+        </div>
+        <!-- end row -->
+      </div>
+      <!-- end container -->
+    </section>
 
-<section class="container main-content page-full-width">
-    <div class="row">
-        <div class="col-md-12">
-            <article class="post single-post clearfix">
-                <div class="post-inner">
-                    <div class="post-img"><img src="/media/{{bl.img}}" alt=""></div>
-                    <h2 class="post-title"><span class="post-type"><i class="icon-film"></i></span>{{bl.title}}</h2>
-                        <div class="post-meta">
-                            <span class="meta-author"><i class="icon-user"></i><a href="#">{{bl.user}}</a></span>
-                            <span class="meta-date"><i class="icon-time"></i>{{bl.created_at}}</span>
-                       
-                            <span class="meta-comment"><i class="icon-comments-alt"></i><a href="#">15 comments</a></span>
-                        </div>
-                    <div class="post-content">
-                        <p>{{bl.description|safe}}</p>
-                    </div><!-- End post-content -->
-                    <div class="clearfix"></div>
-                </div><!-- End post-inner -->
-            </article><!-- End article.post -->
-            
-            <div class="share-tags page-content">
-                <div class="post-tags"><i class="icon-tags"></i>
-                    <a href="#">projects</a>,
-                    <a href="#">Portfolio</a>,
-                    <a href="#">Wordpress</a>,
-                    <a href="#">Html</a>,
-                    <a href="#">Css</a>,
-                    <a href="#">jQuery</a>,
-                    <a href="#">2code</a>,
-                    <a href="#">vbegy</a>
-                </div>
-                <div class="share-inside-warp">
-                    <ul>
-                        <li>
-                            <a href="#" original-title="Facebook">
-                                <span class="icon_i">
-                                    <span class="icon_square" icon_size="20" span_bg="#3b5997" span_hover="#666">
-                                        <i i_color="#FFF" class="social_icon-facebook"></i>
-                                    </span>
-                                </span>
-                            </a>
-                            <a href="#" target="_blank">Facebook</a>
-                        </li>
-                        <li>
-                            <a href="#" target="_blank">
-                                <span class="icon_i">
-                                    <span class="icon_square" icon_size="20" span_bg="#00baf0" span_hover="#666">
-                                        <i i_color="#FFF" class="social_icon-twitter"></i>
-                                    </span>
-                                </span>
-                            </a>
-                            <a target="_blank" href="#">Twitter</a>
-                        </li>
-                        <li>
-                            <a href="#" target="_blank">
-                                <span class="icon_i">
-                                    <span class="icon_square" icon_size="20" span_bg="#ca2c24" span_hover="#666">
-                                        <i i_color="#FFF" class="social_icon-gplus"></i>
-                                    </span>
-                                </span>
-                            </a>
-                            <a href="#" target="_blank">Google plus</a>
-                        </li>
-                        <li>
-                            <a href="#" target="_blank">
-                                <span class="icon_i">
-                                    <span class="icon_square" icon_size="20" span_bg="#e64281" span_hover="#666">
-                                        <i i_color="#FFF" class="social_icon-dribbble"></i>
-                                    </span>
-                                </span>
-                            </a>
-                            <a href="#" target="_blank">Dribbble</a>
-                        </li>
-                        <li>
-                            <a target="_blank" href="#">
-                                <span class="icon_i">
-                                    <span class="icon_square" icon_size="20" span_bg="#c7151a" span_hover="#666">
-                                        <i i_color="#FFF" class="icon-pinterest"></i>
-                                    </span>
-                                </span>
-                            </a>
-                            <a href="#" target="_blank">Pinterest</a>
-                        </li>
-                    </ul>
-                    <span class="share-inside-f-arrow"></span>
-                    <span class="share-inside-l-arrow"></span>
-                </div><!-- End share-inside-warp -->
-                <div class="share-inside"><i class="icon-share-alt"></i>Share</div>
-                <div class="clearfix"></div>
-            </div><!-- End share-tags -->
-            {% endfor %}
-            <div class="about-author clearfix">
-                <div class="author-image">
-                    <a href="#" original-title="admin" class="tooltip-n"><img alt="" src="https://2code.info/demo/html/ask-me/images/demo/admin.jpeg"></a>
-                </div>   
-                <div class="author-bio">
-                    <h4>About the Author</h4>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed viverra auctor neque. Nullam lobortis, sapien vitae lobortis tristique.
-                </div>
-            </div><!-- End about-author -->
-            
-            <div id="related-posts">
-                <h2>Related Posts</h2>
-                <ul class="related-posts">
-                    <li class="related-item"><h3><a href="#"><i class="icon-double-angle-right"></i>This is a Standard Post .</a></h3></li>
-                    <li class="related-item"><h3><a href="#"><i class="icon-double-angle-right"></i>Post Without Image .</a></h3></li>
-                    <li class="related-item"><h3><a href="#"><i class="icon-double-angle-right"></i>Beautiful Gallery Post .</a></h3></li>
-                    <li class="related-item"><h3><a href="#"><i class="icon-double-angle-right"></i>This Is A Video Post .</a></h3></li>
+    <!-- =-=-=-=-=-=-= Page Breadcrumb End =-=-=-=-=-=-= -->
+
+    <!-- =-=-=-=-=-=-= Blog & News =-=-=-=-=-=-= -->
+    
+    <section id="blog" class="custom-padding white">
+      <div class="container">
+
+        <!-- Row -->
+        <div class="row">
+
+          <!-- Left Side Content -->
+          <div class="col-sm-12 col-xs-12 col-md-8">
+
+            <!-- Blog Grid -->
+            {% for bl in single_blog %}
+
+            <div class="blog-detial">
+              <div class="blog-image"> <img alt="blog-image1" class="img-responsive" src="/media/{{bl.img}}"> </div>
+              <div class="blog-content">
+                <h5>{{bl.title}}</h5>
+                <ul class="post-meta">
+                  <li>By {{bl.user}}</li>
+                  <li>{{bl.created_at}}</li>
                 </ul>
-            </div><!-- End related-posts -->
-            
-            <div id="commentlist" class="page-content">
-                <div class="boxedtitle page-title"><h2>Comments ( <span class="color">5</span> )</h2></div>
-                <ol class="commentlist clearfix">
-                    <li class="comment">
-                        <div class="comment-body clearfix"> 
-                            <div class="avatar"><img alt="" src="https://2code.info/demo/html/ask-me/images/demo/admin.jpeg"></div>
-                            <div class="comment-text">
-                                <div class="author clearfix">
-                                    <div class="comment-meta">
-                                        <span>admin</span>
-                                        <div class="date">January 15 , 2014 at 10:00 pm</div> 
-                                    </div>
-                                    <a class="comment-reply" href="#"><i class="icon-reply"></i>Reply</a> 
-                                </div>
-                                <div class="text"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi adipiscing gravida odio, sit amet suscipit risus ultrices eu. Fusce viverra neque at purus laoreet consequat. Vivamus vulputate posuere nisl quis consequat.</p>
-                                </div>
-                            </div>
-                        </div>
-                        <ul class="children">
-                            <li class="comment">
-                                <div class="comment-body clearfix"> 
-                                    <div class="avatar"><img alt="" src="https://2code.info/demo/html/ask-me/images/demo/avatar.png"></div>
-                                    <div class="comment-text">
-                                        <div class="author clearfix">
-                                            <div class="comment-meta">
-                                                <span>admin</span>
-                                                <div class="date">January 15 , 2014 at 10:00 pm</div> 
-                                            </div>
-                                            <a class="comment-reply" href="#"><i class="icon-reply"></i>Reply</a> 
-                                        </div>
-                                        <div class="text"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi adipiscing gravida odio, sit amet suscipit risus ultrices eu. Fusce viverra neque at purus laoreet consequat. Vivamus vulputate posuere nisl quis consequat.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <ul class="children">
-                                    <li class="comment">
-                                        <div class="comment-body clearfix"> 
-                                            <div class="avatar"><img alt="" src="https://2code.info/demo/html/ask-me/images/demo/admin.jpeg"></div>
-                                            <div class="comment-text">
-                                                <div class="author clearfix">
-                                                    <div class="comment-meta">
-                                                        <span>admin</span>
-                                                        <div class="date">January 15 , 2014 at 10:00 pm</div> 
-                                                    </div>
-                                                    <a class="comment-reply" href="#"><i class="icon-reply"></i>Reply</a> 
-                                                </div>
-                                                <div class="text"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi adipiscing gravida odio, sit amet suscipit risus ultrices eu. Fusce viverra neque at purus laoreet consequat. Vivamus vulputate posuere nisl quis consequat.</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                 </ul><!-- End children -->
-                            </li>
-                            <li class="comment">
-                                <div class="comment-body clearfix"> 
-                                        <div class="avatar"><img alt="" src="https://2code.info/demo/html/ask-me/images/demo/avatar.png"></div>
-                                        <div class="comment-text">
-                                            <div class="author clearfix">
-                                                <div class="comment-meta">
-                                                    <span>admin</span>
-                                                    <div class="date">January 15 , 2014 at 10:00 pm</div> 
-                                                </div>
-                                                <a class="comment-reply" href="#"><i class="icon-reply"></i>Reply</a> 
-                                            </div>
-                                            <div class="text"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi adipiscing gravida odio, sit amet suscipit risus ultrices eu. Fusce viverra neque at purus laoreet consequat. Vivamus vulputate posuere nisl quis consequat.</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                            </li>
-                        </ul><!-- End children -->
-                    </li>
-                    <li class="comment">
-                        <div class="comment-body clearfix"> 
-                            <div class="avatar"><img alt="" src="https://2code.info/demo/html/ask-me/images/demo/avatar.png"></div>
-                            <div class="comment-text">
-                                <div class="author clearfix">
-                                    <div class="comment-meta">
-                                        <span>admin</span>
-                                        <div class="date">January 15 , 2014 at 10:00 pm</div> 
-                                    </div>
-                                    <a class="comment-reply" href="#"><i class="icon-reply"></i>Reply</a> 
-                                </div>
-                                <div class="text"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi adipiscing gravida odio, sit amet suscipit risus ultrices eu. Fusce viverra neque at purus laoreet consequat. Vivamus vulputate posuere nisl quis consequat.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                </ol><!-- End commentlist -->
-            </div><!-- End page-content -->
-            
-            <div id="respond" class="comment-respond page-content clearfix">
-                <div class="boxedtitle page-title"><h2>Leave a reply</h2></div>
-                <form action="#" method="post" id="commentform" class="comment-form">
-                    <div id="respond-inputs" class="clearfix">
-                        <p>
-                            <label class="required" for="comment_name">Name<span>*</span></label>
-                            <input name="author" type="text" value="" id="comment_name" aria-required="true">
-                        </p>
-                        <p>
-                            <label class="required" for="comment_email">E-Mail<span>*</span></label>
-                            <input name="email" type="text" value="" id="comment_email" aria-required="true">
-                        </p>
-                        <p class="last">
-                            <label class="required" for="comment_url">Website<span>*</span></label>
-                            <input name="url" type="text" value="" id="comment_url">
-                        </p>
-                    </div>
-                    <div id="respond-textarea">
-                        <p>
-                            <label class="required" for="comment">Comment<span>*</span></label>
-                            <textarea id="comment" name="comment" aria-required="true" cols="58" rows="10"></textarea>
-                        </p>
-                    </div>
-                    <p class="form-submit">
-                        <input name="submit" type="submit" id="submit" value="Post Comment" class="button small color">
-                    </p>
-                </form>
-            </div>
-            
-            <div class="post-next-prev clearfix">
-                <p class="prev-post">
-                    <a href="#"><i class="icon-double-angle-left"></i>&nbsp;Prev post</a>
-                </p>
-                <p class="next-post">
-                    <a href="#">Next post&nbsp;<i class="icon-double-angle-right"></i></a>                                
-                </p>
-            </div><!-- End post-next-prev -->
-        </div><!-- End main -->
-    </div><!-- End row -->
-</section><!-- End container -->
 
-{% endblock %}
+              </div>
+                <p>{{bl.description|safe}}</p>
+              <div class="clearfix"></div>
+
+              <div class="entry-footer">
+                <div class="post-admin">
+                  <i class="icon-profile-male"></i>Posted by<a href="#">{{bl.user}}</a>
+                </div>
+                {% if author %}
+                <a href="{% url 'edit_blog' bl.slug %}">edit your blog here</a>
+                {% else %}
+                {% endif %}
+                <!-- <div class="tags">
+                  <i class="fa fa-tags"></i>
+                  <a href="#">Pets</a>
+                  <a href="#">Veterinary</a>
+                  <a href="#">Dog</a>
+                  <a href="#">Ear</a>
+                  <a href="#">Cleaning</a>
+                  <a href="#">Doctor</a>
+                </div> -->
+              </div>
+
+              <div class="clearfix"></div>
+
+              <div class="blog-section">
+                <div class="blog-heading">
+                  <h2>Comments (20)</h2>
+                  <hr>
+                </div>
+
+                <ol class="comment-list">
+                  <!-- comment-list    -->
+                  <li class="comment">
+                    <div class="comment-info">
+                      <img class="pull-left hidden-xs img-circle" src="https://templates.scriptsbundle.com/knowledge/demo/images/authors/7.jpg" alt="author">
+                      <div class="author-desc">
+                        <div class="author-title">
+                          <strong>Rebbica Alex</strong>
+                          <ul class="list-inline pull-right">
+                            <li><a href="#">22 Feb 2016</a>
+                            </li>
+                            <li><a href="#"><i class="fa fa-reply"></i> Reply</a>
+                            </li>
+                          </ul>
+                        </div>
+                        <p>You wanna be where everyboody knows Your name. And a we knooow Flipper lives in a world full of wonder flying there-under under the sea creepy and kooky</p>
+                      </div>
+                    </div>
+                    <ol class="children">
+                      <li class="comment">
+                        <div class="comment-info">
+                          <img class="pull-left hidden-xs img-circle" src="https://templates.scriptsbundle.com/knowledge/demo/images/authors/8.jpg" alt="author">
+                          <div class="author-desc">
+                            <div class="author-title">
+                              <strong>Tpmy Waston</strong>
+                              <ul class="list-inline pull-right">
+                                <li><a href="#">22 Feb 2016</a>
+                                </li>
+                                <li><a href="#"><i class="fa fa-reply"></i> Reply</a>
+                                </li>
+                              </ul>
+                            </div>
+                            <p>The first mate and his Skipper too this is will do their very best to make the most others comfortable in their tropic lives in a world of wonder.</p>
+                          </div>
+                        </div>
+                        <!-- .comment-info -->
+                      </li>
+                    </ol>
+                    <!-- .children -->
+                  </li>
+                  <!-- comment -->
+                  <li class="comment">
+                    <div class="comment-info">
+                      <img class="pull-left hidden-xs img-circle " src="https://templates.scriptsbundle.com/knowledge/demo/images/authors/9.jpg" alt="author">
+                      <div class="author-desc">
+                        <div class="author-title">
+                          <strong>Ricky John</strong>
+                          <ul class="list-inline pull-right">
+                            <li><a href="#">18 Jan 2016</a>
+                            </li>
+                            <li><a href="#"><i class="fa fa-reply"></i> Reply</a>
+                            </li>
+                          </ul>
+                        </div>
+                        <p>You wanna be where everyboody knows Your name. And a we knooow Flipper lives in a world full of wonder flying there-under under the sea creepy and kooky</p>
+                      </div>
+                    </div>
+                    <!-- .comment-info -->
+                  </li>
+                  <!-- .comment -->
+                </ol>
+
+              </div>
+
+              <div class="clearfix"></div>
+
+              <div class="blog-section">
+                <div class="blog-heading">
+                  <h2>leave your comment </h2>
+                  <hr>
+                </div>
+                <div class="commentform">
+                  <form>
+                    <div class="row">
+                    <div class="col-md-6 col-sm-12">
+                      <div class="form-group">
+                        <label>Name <span class="required">*</span>
+                        </label>
+                        <input type="text" class="form-control" placeholder="">
+                      </div>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                      <div class="form-group">
+                        <label>Email <span class="required">*</span>
+                        </label>
+                        <input type="email" class="form-control" placeholder="">
+                      </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12">
+                      <div class="form-group">
+                        <label>Comment <span class="required">*</span>
+                        </label>
+                        <textarea class="form-control" placeholder="" rows="8" cols="6"></textarea>
+                      </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 margin-top-20 clearfix">
+                      <button type="submit"  class="btn btn-primary">Post Your Comment</button>
+                    </div>
+                    </div> 
+                  </form>
+                  
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+
+            <!-- Blog Grid -->
+
+
+
+            <div class="clearfix"></div>
+            <!-- Pagination End -->
+          </div>
+          <!-- Left Content End -->
+
+          <!-- Blog Right Sidebar -->
+          <div class="col-sm-12 col-xs-12 col-md-4">
+
+            <!-- sidebar -->
+            <div class="side-bar">
+
+              <!-- widget -->
+              <div class="widget">
+                <div class="latest-news">
+                  <h2>Latest News</h2>
+                  <hr class="widget-separator no-margin">
+
+                  <div class="news-post">
+                    <div class="post">
+                      <figure class="post-thumb"><img alt="" src="https://templates.scriptsbundle.com/knowledge/demo/images/blog/small-1.png">
+                      </figure>
+                      <h4><a href="#">Differentiate Yourself And Attract More Attention </a></h4>
+                      <div class="post-info">1 hour ago</div>
+                    </div>
+
+                    <div class="post">
+                      <figure class="post-thumb"><img alt="" src="https://templates.scriptsbundle.com/knowledge/demo/images/blog/small-2.png">
+                      </figure>
+                      <h4><a href="#">Differentiate Yourself And Attract More Attention </a></h4>
+                      <div class="post-info">1 hour ago</div>
+                    </div>
+
+                    <div class="post">
+                      <figure class="post-thumb"><img alt="" src="https://templates.scriptsbundle.com/knowledge/demo/images/blog/small-3.png">
+                      </figure>
+                      <h4><a href="#">Differentiate Yourself And Attract More Attention </a></h4>
+                      <div class="post-info">1 hour ago</div>
+                    </div>
+
+                    <div class="post">
+                      <figure class="post-thumb"><img alt="" src="https://templates.scriptsbundle.com/knowledge/demo/images/blog/small-4.png">
+                      </figure>
+                      <h4><a href="#">Differentiate Yourself And Attract More Attention </a></h4>
+                      <div class="post-info">1 hour ago</div>
+                    </div>
+
+                  </div>
+
+                </div>
+              </div>
+              <!-- widget end -->
+
+              <!-- widget -->
+              <div class="widget">
+                <div class="category">
+                  <h2>Category</h2>
+                  <hr class="widget-separator no-margin">
+                  <ul>
+                    <li><a href="#">Web Design </a> <span>33</span>
+                    </li>
+                    <li><a href="#">Graphic Design</a> <span>45</span>
+                    </li>
+                    <li><a href="#">App Development</a> <span>34</span>
+                    </li>
+                    <li><a href="#">3D Design</a> <span>7</span>
+                    </li>
+                    <li><a href="#">Plugin Development</a> <span>13</span>
+                    </li>
+                    <li><a href="#">Expert Review</a> <span>553</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <!-- widget end -->
+
+              <!-- widget -->
+              <div class="widget">
+                <div class="gallery">
+                  <h2>Gallery</h2>
+                  <hr class="widget-separator no-margin">
+                  <div class="gallery-image">
+                    <a href="#"><img alt="" src="https://templates.scriptsbundle.com/knowledge/demo/images/blog/small-5.png">
+                    </a>
+                    <a href="#"><img alt="" src="https://templates.scriptsbundle.com/knowledge/demo/images/blog/small-6.png">
+                    </a>
+                    <a href="#"><img alt="" src="https://templates.scriptsbundle.com/knowledge/demo/images/blog/small-7.png">
+                    </a>
+                    <a href="#"><img alt="" src="https://templates.scriptsbundle.com/knowledge/demo/images/blog/small-8.png">
+                    </a>
+                    <a href="#"><img alt="" src="https://templates.scriptsbundle.com/knowledge/demo/images/blog/small-9.png">
+                    </a>
+                    <a href="#"><img alt="" src="https://templates.scriptsbundle.com/knowledge/demo/images/blog/small-10.png">
+                    </a>
+                    <a href="#"><img alt="" src="https://templates.scriptsbundle.com/knowledge/demo/images/blog/small-1.png">
+                    </a>
+                    <a href="#"><img alt="" src="https://templates.scriptsbundle.com/knowledge/demo/images/blog/small-2.png">
+                    </a>
+                    <a href="#"><img alt="" src="https://templates.scriptsbundle.com/knowledge/demo/images/blog/small-3.png">
+                    </a>
+                    <a href="#"><img alt="" src="https://templates.scriptsbundle.com/knowledge/demo/images/blog/small-4.png">
+                    </a>
+                    <a href="#"><img alt="" src="https://templates.scriptsbundle.com/knowledge/demo/images/blog/small-11.png">
+                    </a>
+                    <a href="#"><img alt="" src="https://templates.scriptsbundle.com/knowledge/demo/images/blog/small-12.png">
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <!-- widget end -->
+
+              <!-- widget -->
+              <div class="widget">
+                <div class="archive">
+                  <h2>Archives</h2>
+                  <hr class="widget-separator no-margin">
+                  <ul>
+                    <li><a href="#">August 2016</a> <span>13</span>
+                    </li>
+                    <li><a href="#">July 2016</a> <span>23</span>
+                    </li>
+                    <li><a href="#">June 2016 </a><span>322</span>
+                    </li>
+                    <li><a href="#">May 2016  </a><span>12</span>
+                    </li>
+                    <li><a href="#">April 2014 </a><span>333</span>
+                    </li>
+
+                  </ul>
+                </div>
+              </div>
+              <!-- widget end -->
+
+              <!-- widget -->
+              <div class="widget">
+                <div class="recent-comments">
+                  <h2>Recent Comments</h2>
+                  <hr class="widget-separator no-margin">
+                  <ul id="recentcomments">
+                    <li class="recentcomments"> <span class="comment-author-link">John Doe</span> on <a href="#">bootstrap vs foundation</a> </li>
+                    <li class="recentcomments"> <span class="comment-author-link">Emily Copper</span> on <a href="#">how to get data from URL in PHP</a> </li>
+                    <li class="recentcomments"> <span class="comment-author-link">Alex Martin</span> on <a href="#">My SQL PHP Multi Layer Drop Down List from Databse</a> </li>
+                    <li class="recentcomments"> <span class="comment-author-link">Tina Martin</span> on <a href="#">PHP Multi Layer Drop Down List from Databse</a> </li>
+
+                  </ul>
+                </div>
+              </div>
+              <!-- widget end -->
+
+              <!-- widget -->
+              <div class="widget">
+                <div class="widget_tag_cloud">
+                  <h2>Tags cloud</h2>
+                  <hr class="widget-separator no-margin">
+                  <div class="tag_cloud">
+                    <a href="#.">Hair</a>
+                    <a href="#.">Waxing</a>
+                    <a href="#.">Body</a>
+                    <a href="#.">Oil</a>
+                    <a href="#.">Facials</a>
+                    <a href="#.">Cutting</a>
+
+                    <a href="#.">Blowouts</a>
+                    <a href="#.">Curling</a>
+                    <a href="#.">Makeup</a>
+                  </div>
+                </div>
+              </div>
+              <!-- widget end -->
+
+            </div>
+            <!-- sidebar end -->
+
+          </div>
+          <!-- Blog Right Sidebar End -->
+
+        </div>
+
+        <!-- Row End -->
+      </div>
+      <!-- end container -->
+    </section>
+    <!-- =-=-=-=-=-=-= Blog & News end =-=-=-=-=-=-= -->
+
+    <!-- =-=-=-=-=-=-= Our Clients =-=-=-=-=-=-= -->
+    <section class="custom-padding" id="clients">
+      <div class="container">
+
+        <!-- Row -->
+        <div class="row">
+
+          <!-- col-md-2 client-block -->
+          <div class="col-md-2 col-xs-6 col-sm-4 client-block">
+
+            <!-- client-item client-item-style-2 -->
+            <div class="client-item client-item-style-2">
+              <a title="Client Logo" href="#"> <img alt="Clients Logo" src="https://templates.scriptsbundle.com/knowledge/demo/images/clients/client_5.png"> </a>
+            </div>
+            <!-- /client-item client-item-style-2 -->
+
+          </div>
+          <!-- /col-md-2 client-block -->
+
+          <!-- col-md-2 client-block -->
+          <div class="col-md-2 col-xs-6 col-sm-4 client-block">
+
+            <!-- client-item client-item-style-2 -->
+            <div class="client-item client-item-style-2">
+              <a title="Client Logo" href="#"> <img alt="Clients Logo" src="https://templates.scriptsbundle.com/knowledge/demo/images/clients/client_6.png"> </a>
+            </div>
+            <!-- /client-item client-item-style-2 -->
+
+          </div>
+          <!-- /col-md-2 client-block -->
+
+          <!-- col-md-2 client-block -->
+          <div class="col-md-2 col-xs-6 col-sm-4 client-block">
+
+            <!-- client-item client-item-style-2 -->
+            <div class="client-item client-item-style-2">
+              <a title="Client Logo" href="#"> <img alt="Clients Logo" src="https://templates.scriptsbundle.com/knowledge/demo/images/clients/client_7.png"> </a>
+            </div>
+            <!-- /client-item client-item-style-2 -->
+
+          </div>
+          <!-- /col-md-2 client-block -->
+
+          <!-- col-md-2 client-block -->
+          <div class="col-md-2 col-xs-6 col-sm-4 client-block">
+
+            <!-- client-item client-item-style-2 -->
+            <div class="client-item client-item-style-2">
+              <a title="Client Logo" href="#"> <img alt="Clients Logo" src="https://templates.scriptsbundle.com/knowledge/demo/images/clients/client_8.png"> </a>
+            </div>
+            <!-- /client-item client-item-style-2 -->
+
+          </div>
+          <!-- /col-md-2 client-block -->
+
+          <!-- col-md-2 client-block -->
+          <div class="col-md-2 col-xs-6 col-sm-4 client-block">
+
+            <!-- client-item client-item-style-2 -->
+            <div class="client-item client-item-style-2">
+              <a title="Client Logo" href="#"> <img alt="Clients Logo" src="https://templates.scriptsbundle.com/knowledge/demo/images/clients/client_9.png"> </a>
+            </div>
+            <!-- /client-item client-item-style-2 -->
+
+          </div>
+          <!-- /col-md-2 client-block -->
+
+          <!-- col-md-2 client-block -->
+          <div class="col-md-2 col-xs-6 col-sm-4 client-block">
+
+            <!-- client-item client-item-style-2 -->
+            <div class="client-item client-item-style-2">
+              <a title="Client Logo" href="#"> <img alt="Clients Logo" src="https://templates.scriptsbundle.com/knowledge/demo/images/clients/client_10.png"> </a>
+            </div>
+            <!-- /client-item client-item-style-2 -->
+
+          </div>
+          <!-- /col-md-2 client-block -->
+
+        </div>
+        <!-- Row End -->
+
+      </div>
+      <!-- end container -->
+    </section>
+    <!-- =-=-=-=-=-=-= Our Clients -end =-=-=-=-=-=-= -->
+
+  </div>
+  <!-- =-=-=-=-=-=-= Main Area End =-=-=-=-=-=-= -->
+
+ {% endblock %}

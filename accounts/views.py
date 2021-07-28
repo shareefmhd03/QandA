@@ -1,7 +1,7 @@
 from django.contrib.auth import authenticate
 from accounts.models import Accounts
 from django.shortcuts import redirect, render
-from . forms import RegistrationForm
+from .forms import RegistrationForm
 from django.contrib.auth import logout,login
 from django.contrib import messages
 from django.views.decorators.cache import cache_control
@@ -24,11 +24,11 @@ def login_view(request):
     return render(request, 'user/login.html')
 
 
-@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+# @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def register(request):
+    form = RegistrationForm(request.POST or None)
     if request.method == 'POST':
 
-        form = RegistrationForm(request.POST)
         if form.is_valid():
 
             firstname = form.cleaned_data['first_name']
@@ -37,18 +37,17 @@ def register(request):
             phone = form.cleaned_data['phone']
             password1 = form.cleaned_data['password1']
             password2 = form.cleaned_data['password2']
-            print(firstname,lastname)
             username = email.split('@')[0]+''
             user = Accounts.objects.create_user(
                 first_name = firstname, last_name = lastname, email = email, password=password1, phone = phone,username = username)
             user.save()
             # messages.success(request, 'Account created successfully')
             return redirect('login_view')
-    form = RegistrationForm()
+    # form = RegistrationForm()
     context = {
         'form': form,
     }
-    return render(request, 'user/login.html',context)
+    return render(request, 'user/signup.html',context)
 
 
 

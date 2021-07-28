@@ -1,3 +1,4 @@
+from json.encoder import JSONEncoder
 from typing import Annotated
 
 from django.http.response import JsonResponse
@@ -30,9 +31,10 @@ def question_from_index(request):
         title = request.POST['title']
         quest = Question(question_title = title, user = request.user)
         quest.save()
-        return JsonResponse({
-            'msg':'success',
-        })
+        # return JsonResponse({
+        #     'msg':'success',
+        # })
+        return redirect('index')
 
 def ask_question(request):
     try:
@@ -66,6 +68,8 @@ def edit_question(request, question):
     quest = Question.objects.get(id = question)
     form = AskQusestionForm(instance=quest)
     if Question.objects.filter(user = request.user, id= question).exists():
+        solved = Question.objects.filter(user = request.user, id= question).exists()
+
         if request.method == 'POST':
             form = AskQusestionForm(request.POST, request.FILES, instance = quest)
             print('post request')
@@ -79,6 +83,7 @@ def edit_question(request, question):
                 return redirect('index')
     context = {
             'form':form,
+            'solved':solved,
             }
     return render(request, 'user/ask_question.html',context)
     
@@ -92,28 +97,58 @@ def answer(request, question):
             if form.is_valid():
                 title = form.cleaned_data['answer_title']
                 desc = form.cleaned_data['description']
-                attach = form.cleaned_data['attachment']
 
-                ans = Answer(answer_title = title, user = request.user, description = desc, attachment = attach, question = quest )
+
+                ans = Answer(answer_title = title, user = request.user, description = desc, question = quest )
                 ans.save()
                 return redirect('view_answer', int(question))
         form = AnswerForm()
         context ={
             'form':form,
         }
-        return render(request,'user/answer_form.html',context)
     return render(request, 'user/login.html')
 
 
 
 def view_answer(request, pk):
     quest = Question.objects.filter(id = pk)
+    solved = Question.objects.filter(user = request.user, id= pk).exists()
     answer = Answer.objects.filter(question_id = pk)
+    form = AnswerForm()
     context = {
         'question':quest,
         'answer':answer,
+        'solved':solved,
+        'form':form,
     }
     return render(request, 'user/single_question.html', context)
 
-def related_questions(request):
-    rl = Question.objects.filter(tag = tag)
+# def related_questions(request):
+#     rl = Question.objects.filter(tag = tag)
+
+def solved(request):
+    if request.method == 'POST':
+        print('hello')
+        answer_id = request.POST['data']
+        answer = Answer.objects.filter(id  = answer_id)
+        try:
+            if answer.is_solved == False:
+                answer.is_solved = True
+               
+            answer.save()
+            print(answer_id)
+        except:
+            pass
+        
+        return redirect('view_answer', answer_id)
+    # return JsonResponse({'error':'error'})
+
+
+
+def question_list(request):
+    question = Question.objects.all().order_by('-created_at')
+
+    context={
+        'question':question,
+    }
+    return render(request, 'user/questions_list.html', context)

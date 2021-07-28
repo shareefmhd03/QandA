@@ -1,172 +1,305 @@
-{% extends 'user/user_base.html' %}
+﻿{% extends 'user/user-base.html' %}
 {% load static %}
 
 
-{% block contend %}
-<div class="breadcrumbs">
-    <section class="container">
+{% block content %}
+{% include 'user/includes/header_base.html' %}
+
+  <!-- =-=-=-=-=-=-= Main Area =-=-=-=-=-=-= -->
+  <div class="main-content-area">
+
+    <!-- =-=-=-=-=-=-= Page Breadcrumb =-=-=-=-=-=-= -->
+    <section class="page-title">
+      <div class="container">
         <div class="row">
-            <div class="col-md-12">
-                <h1>{{bl.title}}</h1>
+          <div class="col-md-6 col-sm-7 co-xs-12 text-left">
+            <h1>Question Details</h1>
+          </div>
+          <!-- end col -->
+          <div class="col-md-6 col-sm-5 co-xs-12 text-right">
+            <div class="bread">
+              <ol class="breadcrumb">
+                <li><a href="#">Home</a>
+                </li>
+                <li><a href="#">Pages</a>
+                </li>
+                <li class="active">Question</li>
+              </ol>
             </div>
-            <div class="col-md-12">
-                <div class="crumbs">
-                    <a href="{% url 'index' %}">Home</a>
-                    <span class="crumbs-span">/</span>
-                    <a href="#">Question</a>
-                    <span class="crumbs-span">/</span>
-                    <span class="current"></span>
+            <!-- end bread -->
+          </div>
+          <!-- end col -->
+        </div>
+        <!-- end row -->
+      </div>
+      <!-- end container -->
+    </section>
+
+    <!-- =-=-=-=-=-=-= Page Breadcrumb End =-=-=-=-=-=-= -->
+
+    <!-- =-=-=-=-=-=-= Question Details =-=-=-=-=-=-= -->
+
+    <section class="section-padding-80 white question-details">
+      <div class="container">
+        <!-- Row -->
+        <div class="row">
+          <div class="col-md-8 col-lg-8 col-sm-12 col-xs-12">
+            <!-- Question Detail -->
+			{% for que in question %}
+            <!-- Question Listing -->
+            <div class="listing-grid ">
+              <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                  <h3><a href="#"> {{que.question_title}}</a></h3>
+                  <div class="listing-meta"> <span><i class="fa fa-clock-o" aria-hidden="true"></i>8 mintes ago</span> <span><i class="fa fa fa-eye" aria-hidden="true"></i> 750 Views</span> </div>
                 </div>
+                <div class="col-md-12 col-sm-12 col-xs-12">
+					<p>{{que.question|safe}}</p>
+                  <!-- <strong>Html Structure</strong>
+                  <pre class="brush: php; syntaxhighlight"> -->
+
+
+ 								</pre>
+                  <p> I have tried adding a margin to the left of the main content to push it over but it looks horrible when resized to smaller device. </p>
+                  <p>What is the correct way to achieve a fixed sidebar whilst still maintaining responsiveness? </p>
+                  <div class="tagcloud"> <a href="#">html</a> <a href="#">css</a> <a href="#">bootstrap</a> </div>
+                </div>
+              </div>
             </div>
-        </div><!-- End row -->
-    </section><!-- End container -->
-</div><!-- End breadcrumbs -->
-	<section class="container main-content ">
-		<div class="row">
-			<div class="col-md-9">
-				{% for que in question %}
-				<article class="question single-question question-type-normal">
-					<h2>
-					{{que.question_title}}
-					</h2>
-					<a class="question-report" href="{% url 'edit_question' que.id %}">Report</a>
-					<a  href= "{% url 'answer' que.id %}" class="question-type-main"><i class="icon-question-sign"></i>Post your answer</a>
-					<div class="question-inner">
-						<div class="clearfix"></div>
-						<div class="question-desc">
-							<p>{{que.question|safe}}</p>
-						</div>
-						<div class="question-details">
-							<span class="question-answered question-answered-done"><i class="icon-ok"></i>solved</span>
-							<span class="question-favorite"><i class="icon-star"></i>5</span>
-						</div>
-						<span class="question-category"><a href="#"><i class="icon-folder-close"></i>wordpress</a></span>
-						<span class="question-date"><i class="icon-time"></i>4 mins ago</span>
-						<span class="question-comment"><a href="#"><i class="icon-comment"></i>5 Answer</a></span>
-						<span class="question-view"><i class="icon-user"></i>70 views</span>
-						<span class="single-question-vote-result">+22</span>
-						<ul class="single-question-vote">
-							<li><a href="#" class="single-question-vote-down" title="Dislike"><i class="icon-thumbs-down"></i></a></li>
-							<li><a href="#" class="single-question-vote-up" title="Like"><i class="icon-thumbs-up"></i></a></li>
-						</ul>
-						<div class="clearfix"></div>
-					</div>
-				</article>
-				{% endfor %}
+            <!-- Question Listing End -->
+			
+
+            <div class="clearfix"></div>
+            <!-- Thread Reply -->
+            <div class="thread-reply">
+				<h2>Thread Reply </h2>
 				
-				<div class="share-tags page-content">
-					<div class="question-tags"><i class="icon-tags"></i>
-					 <a href="#">question</a>, <a href="#">developer</a>
-					</div>
-					<div class="share-inside-warp">
-						<ul>
-							<li>
-								<a href="#" original-title="Facebook">
-									<span class="icon_i">
-										<span class="icon_square" icon_size="20" span_bg="#3b5997" span_hover="#666">
-											<i i_color="#FFF" class="social_icon-facebook"></i>
-										</span>
-									</span>
-								</a>
-								<a href="#" target="_blank">Facebook</a>
-							</li>
-							<li>
-								<a href="#" target="_blank">
-									<span class="icon_i">
-										<span class="icon_square" icon_size="20" span_bg="#00baf0" span_hover="#666">
-											<i i_color="#FFF" class="social_icon-twitter"></i>
-										</span>
-									</span>
-								</a>
-								<a target="_blank" href="#">Twitter</a>
-							</li>
-							<li>
-								<a href="#" target="_blank">
-									<span class="icon_i">
-										<span class="icon_square" icon_size="20" span_bg="#ca2c24" span_hover="#666">
-											<i i_color="#FFF" class="social_icon-gplus"></i>
-										</span>
-									</span>
-								</a>
-								<a href="#" target="_blank">Google plus</a>
-							</li>
-							<li>
-								<a href="#" target="_blank">
-									<span class="icon_i">
-										<span class="icon_square" icon_size="20" span_bg="#e64281" span_hover="#666">
-											<i i_color="#FFF" class="social_icon-dribbble"></i>
-										</span>
-									</span>
-								</a>
-								<a href="#" target="_blank">Dribbble</a>
-							</li>
-							<li>
-								<a target="_blank" href="#">
-									<span class="icon_i">
-										<span class="icon_square" icon_size="20" span_bg="#c7151a" span_hover="#666">
-											<i i_color="#FFF" class="icon-pinterest"></i>
-										</span>
-									</span>
-								</a>
-								<a href="#" target="_blank">Pinterest</a>
-							</li>
-						</ul>
-						<span class="share-inside-f-arrow"></span>
-						<span class="share-inside-l-arrow"></span>
-					</div><!-- End share-inside-warp -->
-					<div class="share-inside"><i class="icon-share-alt"></i>Share</div>
-					<div class="clearfix"></div>
-				</div><!-- End share-tags -->
-				
-				<div class="about-author clearfix">
-				    <div class="author-image">
-				    	<a href="#" original-title="admin" class="tooltip-n"><img alt="" src="https://2code.info/demo/html/ask-me/images/demo/admin.jpeg"></a>
-				    </div>
-				    <div class="author-bio">
-				        <h4>About the Author</h4>
-				        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed viverra auctor neque. Nullam lobortis, sapien vitae lobortis tristique.
-				    </div>
-				</div><!-- End about-author -->
-				
-				<div id="related-posts">
-					<h2>Related questions</h2>
-					<ul class="related-posts">
-						<li class="related-item"><h3><a href="#"><i class="icon-double-angle-right"></i>This Is My Second Poll Question</a></h3></li>
-						<li class="related-item"><h3><a href="#"><i class="icon-double-angle-right"></i>This is my third Question</a></h3></li>
-						<li class="related-item"><h3><a href="#"><i class="icon-double-angle-right"></i>This is my fourth Question</a></h3></li>
-						<li class="related-item"><h3><a href="#"><i class="icon-double-angle-right"></i>This is my fifth Question</a></h3></li>
-					</ul>
-				</div><!-- End related-posts -->
-				
-				<div id="commentlist" class="page-content">
-					<div class="boxedtitle page-title"><h2>Answers ( <span class="color">5</span> )</h2></div>
-					<ol class="commentlist clearfix">
-					    <li class="comment">
-							
-							{%for ans in answer %}
-					        <div class="comment-body comment-body-answered clearfix"> 
-					            <div class="avatar"><img alt="" src="https://2code.info/demo/html/ask-me/images/demo/admin.jpeg"></div>
-					            <div class="comment-text">
-					                <div class="author clearfix">
-					                	<div class="comment-author"><a href="#">{{ans.user}}</a></div>
-					                	<div class="comment-vote">
-											<ul class="question-vote">
-												<li><a href="#" class="question-vote-up" title="Like"></a></li>
-						                		<li><a href="#" class="question-vote-down" title="Dislike"></a></li>
-						                	</ul>
-					                	</div>
-					                	<span class="question-vote-result">+1</span>
-					                	<div class="comment-meta">
-											<div class="date"><i class="icon-time"></i>{{ans.created_at}}</div> 
-					                    </div>
-					                    <a class="comment-reply" href="#"><i class="icon-reply"></i>Reply</a> 
-					                </div>
-					                <div class="text"><p>{{ans.description}}</p>
-					                </div>
-									<div class="question-answered question-answered-done"><i class="icon-ok"></i>Best Answer</div>
-					            </div>
-					        </div>
-							
-							{% endfor %}
-					    
-	{% endblock %}
+				<!-- Reply Grid -->
+				{% for ans in answer %}
+              <div class="media-block card-box ribbon-content">
+                <div class="ribbon base"><span>Correct Answer</span>
+                </div>
+
+                <div class="media-left">
+                  <a data-toggle="tooltip" data-placement="bottom" data-original-title="Martina Jaz" href="#">
+                    <img class="img-sm" alt="Profile Picture" src="https://templates.scriptsbundle.com/knowledge/demo/images/authors/9.jpg">
+
+                  </a>
+
+                </div>
+                <div class="media-body">
+                  <div class="mar-btm">
+                    <h4><a href="#" class="btn-link text-semibold media-heading box-inline">{{ans.user.first_name}}</a></h4>
+                    <p class="text-muted text-sm"><i class="fa fa-mobile fa-lg"></i> - {{ans.created_at}}</p>
+                  </div>
+                  <p>{{ans.description|safe}}</p>
+                  
+                  <div class="pad-ver pull-right">
+
+                    <a class="btn btn-sm btn-default btn-hover-success" data-toggle="tooltip" data-placement="bottom" data-original-title="Like This Answer" href="#"><i class="fa fa-thumbs-up"></i></a>
+                    <a class="btn btn-sm btn-default btn-hover-danger" href="#" data-original-title="Spam" data-placement="bottom" data-toggle="tooltip"><i class="fa fa-thumbs-down"></i></a>
+
+                  </div>
+
+                </div>
+              </div>
+			  {% endfor %}
+
+              <div class="clearfix"></div>
+
+              <form method="POST" action="{% url 'answer' que.id %}">
+				  {% csrf_token %}
+                <div class="form-group">
+                  <label>Post Your Answer</label>
+				  {{form.media}}
+				  {{form.as_p}}
+                </div>
+
+                <button class="btn btn-primary btn-lg btn-block">Post Your Answer</button>
+
+              </form>
+			  {% endfor %}
+            </div>
+            <!-- Thread Reply End -->
+
+          </div>
+
+          <!-- Right Sidebar -->
+          <div class="col-md-4 col-sm-12 col-xs-12 clearfix">
+
+            <!-- sidebar -->
+            <div class="side-bar">
+              <div class="widget">
+                <div class="widget-image widget-image-sm"> <img alt="image" src="https://templates.scriptsbundle.com/knowledge/demo/images/light-background.jpg">
+                  <div class="widget-image-content text-center"> <img class="img-thumbnail" alt="avatar" src="https://templates.scriptsbundle.com/knowledge/demo/images/authors/12.jpg">
+                    <h2 class="widget-heading text-light"><strong>John Doe</strong></h2>
+                    <h4 class="widget-heading text-light-op"><em>Graphic Designer</em></h4>
+                  </div>
+                </div>
+                <div class="widget-content widget-content-full border-bottom">
+                  <div class="row text-center">
+                    <div class="col-xs-6 push-inner-top-bottom border-right">
+                      <h3 class="widget-heading"><i class=" icon-trophy push"></i> <br>
+                                            <small><strong>34,157</strong> Experience</small></h3>
+                    </div>
+                    <div class="col-xs-6 push-inner-top-bottom">
+                      <h3 class="widget-heading"><i class=" icon-profile-male themed-color-social push"></i> <br>
+                                            <small><strong>58.6k</strong> Followers</small></h3>
+                    </div>
+                  </div>
+                </div>
+                <div class="widget-content border-bottom">
+                  <h4>About</h4>
+                  <p>Proin ac nibh rutrum lectus rhoncus eleifend. Sed porttitor pretium venenatis. Suspendisse potenti. Aliquam quis ligula elit.</p>
+                  <p>Sed porttitor pretium venenatis. Suspendisse potenti. Aliquam quis ligula elit. Aliquam at orci ac neque semper dictum.</p>
+                </div>
+                <div class="widget-content">
+
+                  <div class="btn-group"> <a title="" data-toggle="tooltip" class="btn btn-default" href="javascript:void(0)" data-original-title="Facebook"><i class="fa fa-facebook fa-fw"></i></a> <a title="" data-toggle="tooltip" class="btn btn-default" href="javascript:void(0)" data-original-title="Twitter"><i class="fa fa-twitter fa-fw"></i></a> <a title="" data-toggle="tooltip" class="btn btn-default" href="javascript:void(0)" data-original-title="Google Plus"><i class="fa fa-google-plus fa-fw"></i></a> <a title="" data-toggle="tooltip" class="btn btn-default" href="javascript:void(0)" data-original-title="Pinterest"><i class="fa fa-pinterest fa-fw"></i></a> <a title="" data-toggle="tooltip" class="btn btn-default" href="javascript:void(0)" data-original-title="Dribbble"><i class="fa fa-dribbble fa-fw"></i></a> </div>
+                </div>
+              </div>
+
+              <!-- widget -->
+              <div class="widget">
+                <div class="recent-comments">
+                  <h2>Hot Questions</h2>
+                  <hr class="widget-separator no-margin">
+                  <ul>
+                    <li><a href="#">Twitter Bootsrap 3.0 - tabs-left not working anymore?</a>
+                    </li>
+                    <li><a href="#">Changing the color on my tabbed left bootstrap3 tabs</a>
+                    </li>
+                    <li><a href="#">How to create tabs on the left in bootstrap.js v3.0.0? </a>
+                    </li>
+                    <li><a href="#">Bootstrap horizontal form with left floated side tabs</a>
+                    </li>
+                    <li><a href="#">A Repository class - would you use it to handle multi records? </a>
+                    </li>
+                    <li><a href="#">Realurl generating unwanted language codes inside url </a>
+                    </li>
+                    <li><a href="#">post data from html form to php script and return result to ajax/js/jquery </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <!-- widget -->
+
+              <!-- widget -->
+              <div class="widget">
+                <div class="recent-comments">
+                  <h2>Recent Comments</h2>
+                  <hr class="widget-separator no-margin">
+                  <ul id="recentcomments">
+                    <li class="recentcomments"> <span class="comment-author-link">John Doe</span> on <a href="#">bootstrap vs foundation</a> </li>
+                    <li class="recentcomments"> <span class="comment-author-link">Emily Copper</span> on <a href="#">how to get data from URL in PHP</a> </li>
+                    <li class="recentcomments"> <span class="comment-author-link">Alex Martin</span> on <a href="#">My SQL PHP Multi Layer Drop Down List from Databse</a> </li>
+                    <li class="recentcomments"> <span class="comment-author-link">Tina Martin</span> on <a href="#">PHP Multi Layer Drop Down List from Databse</a> </li>
+                    <li class="recentcomments"> <span class="comment-author-link">Alex Henz</span> on <a href="#">Can't use custom width with Angular-Slick</a> </li>
+                    <li class="recentcomments"> <span class="comment-author-link">Coty Embry</span> on <a href="#">Use Digital Ocean to create node.js server or creating website on Wordpress?</a> </li>
+                  </ul>
+                </div>
+              </div>
+              <!-- widget end -->
+
+            </div>
+            <!-- sidebar end -->
+          </div>
+          <!-- Right Sidebar End -->
+
+        </div>
+        <!-- Row End -->
+      </div>
+    </section>
+    <!-- =-=-=-=-=-=-= Question Details end =-=-=-=-=-=-= -->
+
+    <!-- =-=-=-=-=-=-= Our Clients =-=-=-=-=-=-= -->
+    <section class="custom-padding" id="clients">
+      <div class="container">
+
+        <!-- Row -->
+        <div class="row">
+
+          <!-- col-md-2 client-block -->
+          <div class="col-md-2 col-xs-6 col-sm-4 client-block">
+
+            <!-- client-item client-item-style-2 -->
+            <div class="client-item client-item-style-2">
+              <a title="Client Logo" href="#"> <img alt="Clients Logo" src="https://templates.scriptsbundle.com/knowledge/demo/images/clients/client_5.png"> </a>
+            </div>
+            <!-- /client-item client-item-style-2 -->
+
+          </div>
+          <!-- /col-md-2 client-block -->
+
+          <!-- col-md-2 client-block -->
+          <div class="col-md-2 col-xs-6 col-sm-4 client-block">
+
+            <!-- client-item client-item-style-2 -->
+            <div class="client-item client-item-style-2">
+              <a title="Client Logo" href="#"> <img alt="Clients Logo" src="https://templates.scriptsbundle.com/knowledge/demo/images/clients/client_6.png"> </a>
+            </div>
+            <!-- /client-item client-item-style-2 -->
+
+          </div>
+          <!-- /col-md-2 client-block -->
+
+          <!-- col-md-2 client-block -->
+          <div class="col-md-2 col-xs-6 col-sm-4 client-block">
+
+            <!-- client-item client-item-style-2 -->
+            <div class="client-item client-item-style-2">
+              <a title="Client Logo" href="#"> <img alt="Clients Logo" src="https://templates.scriptsbundle.com/knowledge/demo/images/clients/client_7.png"> </a>
+            </div>
+            <!-- /client-item client-item-style-2 -->
+
+          </div>
+          <!-- /col-md-2 client-block -->
+
+          <!-- col-md-2 client-block -->
+          <div class="col-md-2 col-xs-6 col-sm-4 client-block">
+
+            <!-- client-item client-item-style-2 -->
+            <div class="client-item client-item-style-2">
+              <a title="Client Logo" href="#"> <img alt="Clients Logo" src="https://templates.scriptsbundle.com/knowledge/demo/images/clients/client_8.png"> </a>
+            </div>
+            <!-- /client-item client-item-style-2 -->
+
+          </div>
+          <!-- /col-md-2 client-block -->
+
+          <!-- col-md-2 client-block -->
+          <div class="col-md-2 col-xs-6 col-sm-4 client-block">
+
+            <!-- client-item client-item-style-2 -->
+            <div class="client-item client-item-style-2">
+              <a title="Client Logo" href="#"> <img alt="Clients Logo" src="https://templates.scriptsbundle.com/knowledge/demo/images/clients/client_9.png"> </a>
+            </div>
+            <!-- /client-item client-item-style-2 -->
+
+          </div>
+          <!-- /col-md-2 client-block -->
+
+          <!-- col-md-2 client-block -->
+          <div class="col-md-2 col-xs-6 col-sm-4 client-block">
+
+            <!-- client-item client-item-style-2 -->
+            <div class="client-item client-item-style-2">
+              <a title="Client Logo" href="#"> <img alt="Clients Logo" src="https://templates.scriptsbundle.com/knowledge/demo/images/clients/client_10.png"> </a>
+            </div>
+            <!-- /client-item client-item-style-2 -->
+
+          </div>
+          <!-- /col-md-2 client-block -->
+
+        </div>
+        <!-- Row End -->
+
+      </div>
+      <!-- end container -->
+    </section>
+    <!-- =-=-=-=-=-=-= Our Clients -end =-=-=-=-=-=-= -->
+
+  </div>
+  <!-- =-=-=-=-=-=-= Main Area End =-=-=-=-=-=-= -->
+
+  {% endblock %}

@@ -1,200 +1,271 @@
-{% extends 'user/user_base.html' %}
+﻿{% extends 'user/user-base.html' %}
 {% load static %}
+    {% block content %}
 
-
-{% block contend %}
-<div class="loader"><div class="loader_html"></div></div>
-
-<div id="wrap" class="grid_1200">
-	
-	<div class="login-panel">
-		<section class="container">
-			<div class="row">
-				<div class="col-md-6">
-					<div class="page-content">
-						<h2>Login</h2>
-						<div class="form-style form-style-3">
-							<form action="{% url 'login_view' %}" method="POST">
-								{% csrf_token %}
-								<div class="form-inputs clearfix">
-									<p class="login-text">
-										<input type="text" value="Username" name="username" >
-										<i class="icon-user"></i>
-									</p>
-									<p class="login-password">
-										<input type="password" value="Password" name="password1" >
-										<i class="icon-lock"></i>
-										<a href="#">Forget</a>
-									</p>
-								</div>
-								<p class="form-submit login-submit">
-									<input type="submit" value="Log in" class="button color small login-submit submit">
-								</p>
-								<div class="rememberme">
-									<label><input type="checkbox" checked="checked"> Remember Me</label>
-								</div>
-							</form>
-						</div>
-					</div><!-- End page-content -->
-				</div><!-- End col-md-6 -->
-				<div class="col-md-6">
-					<div class="page-content Register">
-						<h2>Register Now</h2>
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi adipiscing gravdio, sit amet suscipit risus ultrices eu. Fusce viverra neque at purus laoreet consequa. Vivamus vulputate posuere nisl quis consequat.</p>
-						<a class="button color small signup">Create an account</a>
-					</div><!-- End page-content -->
-				</div><!-- End col-md-6 -->
-			</div>
-		</section>
-	</div><!-- End login-panel -->
-	
-	<div class="panel-pop" id="signup">
-		<h2>Register Now<i class="icon-remove"></i></h2>
-		<div class="form-style form-style-3">
-			<form action="{% url 'register' %}" method="POST">
-				{% csrf_token %}
-			
-				<!-- <div class="form-inputs clearfix">
-					<p>
-						<label class="required">Email<span>*</span></label>
-						<input type="email" name="email" maxlength="254" id="id_email">
-					</p>
-					<p>
-						<label class="required">First Name<span>*</span></label>
-						<input type="text" name="first_name" maxlength="150" id="id_first_name">
-					</p>
-					<p>
-						<label class="required">Last Name Name<span>*</span></label>
-						<input type="text" name="last_name" maxlength="150" id="id_last_name">
-					</p>
-					<p>
-						<label class="required">Phone<span>*</span></label>
-						<input type="text" name="phone" maxlength="12" id="id_phone">
-					</p>
-					<p>
-						<label class="required">Password<span>*</span></label>
-						<input type="password" name="password1" autocomplete="new-password" required="" id="id_password1">
-					</p>
-					<p>
-						<label class="required">Confirm Password<span>*</span></label>
-						<input type="text" name="password2" autocomplete="new-password" required="" id="id_password2">
-					</p>
-				</div>  -->
-			{{form}}
-				<p class="form-submit">
-					<input type="submit" value="Signup" class="button color small submit">
-				</p>
-			</form>
-		</div>
-	</div><!-- End signup -->
-	
-	<div class="panel-pop" id="lost-password">
-		<h2>Lost Password<i class="icon-remove"></i></h2>
-		<div class="form-style form-style-3">
-			<p>Lost your password? Please enter your username and email address. You will receive a link to create a new password via email.</p>
-			<form>
-				<div class="form-inputs clearfix">
-					<p>
-						<label class="required">Username<span>*</span></label>
-						<input type="text">
-					</p>
-					<p>
-						<label class="required">E-Mail<span>*</span></label>
-						<input type="email">
-					</p>
-				</div>
-				<p class="form-submit">
-					<input type="submit" value="Reset" class="button color small submit">
-				</p>
-			</form>
-			<div class="clearfix"></div>
-		</div>
-	</div><!-- End lost-password -->
-	
-	<div id="header-top">
-		<section class="container clearfix">
-			<nav class="header-top-nav">
-				<ul>
-					<li><a href="contact_us.html"><i class="icon-envelope"></i>Contact</a></li>
-					<li><a href="#"><i class="icon-headphones"></i>Support</a></li>
-					<li><a href="login.html" id="login-panel"><i class="icon-user"></i>Login Area</a></li>
+  <div class="preloader"><span class="preloader-gif"></span>
+  </div>
+  <!-- =-=-=-=-=-=-= HEADER =-=-=-=-=-=-= -->
+  <div class="top-bar">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-4 col-md-4 col-sm-6 col-xs-4">
+				<ul class="top-nav nav-left">
+					<li><a href="">Home</a>
+					</li>
+					<li class="hidden-xs"><a href="">Blog</a>
+					</li>
+					<li  class="hidden-xs"><a href="">Contact Us</a>
+					</li>
 				</ul>
-			</nav>
-			<div class="header-search">
-				<form>
-				    <input type="text" value="Search here ..." onfocus="if(this.value=='Search here ...')this.value='';" onblur="if(this.value=='')this.value='Search here ...';">
-				    <button type="submit" class="search-submit"></button>
-				</form>
 			</div>
-		</section><!-- End container -->
-	</div><!-- End header-top -->
-	
-	
-	<div class="breadcrumbs">
-		<section class="container">
-			<div class="row">
-				<div class="col-md-12">
-					<h1>Login</h1>
-				</div>
-				<div class="col-md-12">
-					<div class="crumbs">
-						<a href="{% url 'index' %}">Home</a>
-						<span class="crumbs-span">/</span>
-						<a href="">Pages</a>
-						<span class="crumbs-span">/</span>
-						<span class="current">Login</span>
-					</div>
-				</div>
-			</div><!-- End row -->
-		</section><!-- End container -->
-	</div><!-- End breadcrumbs -->
-	
-	<section class="container main-content">
-		<div class="login">
-			<div class="row">
-				<div class="col-md-6">
-					{% if messages %}
-					<ul class="messages">
-						{% for message in messages %}
-						<li{% if message.tags %} class="{{ message.tags}}"{% endif %}>{{ message }}</li>
-						{% endfor %}
-					</ul>
-					{% endif %}
-					<div class="page-content">
-						<h2>Login</h2>
-						<div class="form-style form-style-3">
-							<form action="{% url 'login_view' %}" method="POST">
-								{% csrf_token%}
-								<div class="form-inputs clearfix">
-									<p class="login-text">
-										<input type="text" value="Username" name="username" onfocus="if (this.value == 'Username') {this.value = '';}" onblur="if (this.value == '') {this.value = 'Username';}">
-										<i class="icon-user"></i>
-									</p>
-									<p class="login-password">
-										<input type="password" value="Password" name="password1" onfocus="if (this.value == 'Password') {this.value = '';}" onblur="if (this.value == '') {this.value = 'Password';}">
-										<i class="icon-lock"></i>
-										<a href="#">Forget</a>
-									</p>
-								</div>
-								<p class="form-submit login-submit">
-									<input type="submit" value="Log in" class="button color small login-submit submit">
-								</p>
-								<div class="rememberme">
-									<label><input type="checkbox" checked="checked"> Remember Me</label>
-								</div>
-							</form>
-						</div>
-					</div><!-- End page-content -->
-				</div><!-- End col-md-6 -->
-				<div class="col-md-6">
-					<div class="page-content">
-						<h2>Register Now</h2>
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi adipiscing gravdio, sit amet suscipit risus ultrices eu. Fusce viverra neque at purus laoreet consequa. Vivamus vulputate posuere nisl quis consequat.</p>
-						<a class="button small color signup">Create an account</a>
-					</div><!-- End page-content -->
-				</div><!-- End col-md-6 -->
-			</div><!-- End row -->
-		</div><!-- End login -->
-	</section><!-- End container -->
-	
-	{% endblock %}
+			<div class="col-lg-8 col-md-8 col-sm-6 col-xs-8">
+				<ul class="top-nav nav-right">
+					<li><a href="#"><i class="fa fa-lock" aria-hidden="true"></i>Login</a>
+					</li>
+					<li><a href=""><i class="fa fa-user-plus" aria-hidden="true"></i>Signup</a>
+          </li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+  <!-- =-=-=-=-=-=-= HEADER Navigation =-=-=-=-=-=-= -->
+  <div class="navbar navbar-default">
+    <div class="container">
+      <!-- header -->
+      <div class="navbar-header">
+        <button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <!-- logo -->
+        <a href="https://templates.scriptsbundle.com/knowledge/demo/index.html" class="navbar-brand"><img class="img-responsive" alt="" src="https://templates.scriptsbundle.com/knowledge/demo/images/logo.png">
+        </a>
+        <!-- header end -->
+      </div>
+      <!-- navigation menu -->
+      <div class="navbar-collapse collapse">
+        <!-- right bar -->
+        <ul class="nav navbar-nav navbar-right">
+          <li class="hidden-sm"><a href="https://templates.scriptsbundle.com/knowledge/demo/how-work.html">How  It Works</a>
+          </li>
+          <li><a href="https://templates.scriptsbundle.com/knowledge/demo/listing.html">Browse Questions</a>
+          </li>
+          <li class="dropdown"> <a class="dropdown-toggle " data-hover="dropdown" data-toggle="dropdown" data-animations="fadeInUp">Pages <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+              <li><a href="https://templates.scriptsbundle.com/knowledge/demo/index.html">Home </a>
+              </li>
+              <li><a href="https://templates.scriptsbundle.com/knowledge/demo/index2.html">Home 2</a>
+              </li>
+              <li><a href="https://templates.scriptsbundle.com/knowledge/demo/question-detial.html">Question Detail</a>
+              </li>
+              <li><a href="https://templates.scriptsbundle.com/knowledge/demo/blog.html">Blog</a>
+              </li>
+              <li><a href="https://templates.scriptsbundle.com/knowledge/demo/blog-1.html">Blog RightSide Bar</a>
+              </li>
+              <li><a href="https://templates.scriptsbundle.com/knowledge/demo/blog-2.html">Blog LeftSide Bar</a>
+              </li>
+              <li><a href="https://templates.scriptsbundle.com/knowledge/demo/blog-detial.html">Blog Single</a>
+              </li>
+              <li><a href="https://templates.scriptsbundle.com/knowledge/demo/404.html">Error Page</a>
+							</li>
+              <li><a href="https://templates.scriptsbundle.com/knowledge/demo/contact.html">Contact Us</a>
+              </li>
+              <li><a href="https://templates.scriptsbundle.com/knowledge/demo/contact-2.html">Contact With Map</a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <div class="btn-nav"><a href="https://templates.scriptsbundle.com/knowledge/demo/post-question.html" class="btn btn-primary btn-small navbar-btn">Post Question</a>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <!-- navigation menu end -->
+      <!--/.navbar-collapse -->
+    </div>
+  </div>
+  <!-- HEADER Navigation End -->
+
+  <!-- =-=-=-=-=-=-= Main Area =-=-=-=-=-=-= -->
+  <div class="main-content-area">
+
+    <!-- =-=-=-=-=-=-= Page Breadcrumb =-=-=-=-=-=-= -->
+    <section class="page-title">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6 col-sm-7 co-xs-12 text-left">
+            <h1>Sign In To Your Account</h1>
+          </div>
+          <!-- end col -->
+          <div class="col-md-6 col-sm-5 co-xs-12 text-right">
+            <div class="bread">
+              <ol class="breadcrumb">
+                <li><a href="{% url 'index' %}">Home</a>
+                </li>
+                </li>
+                <li class="active">Sign In</li>
+              </ol>
+            </div>
+            <!-- end bread -->
+          </div>
+          <!-- end col -->
+        </div>
+        <!-- end row -->
+      </div>
+      <!-- end container -->
+    </section>
+
+    <!-- =-=-=-=-=-=-= Page Breadcrumb End =-=-=-=-=-=-= -->
+
+    <!-- =-=-=-=-=-=-= Login Form =-=-=-=-=-=-= -->
+    <section class="section-padding-80 white" id="login">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
+
+            <div class="box-panel">
+
+              <!-- buttons top -->
+              <a href="#" class="btn btn-default facebook"><i class="fa fa-facebook icons"></i> Sign In with Facebook</a>
+              <a href="#" class="btn btn-default google"><i class="fa fa-google-plus icons"></i> Sign In with Google</a>
+              <!-- end buttons top -->
+
+              <p class="text-center margin-top-10"><span class="span-line">OR</span>
+              </p>
+
+              <!-- form login -->
+              <form  action="{% url 'login_view' %}" method="POST">
+				  {% csrf_token %}
+                <div class="form-group">
+                  <label>Username</label>
+                  <input type="text" placeholder="Username" name="username" class="form-control">
+                </div>
+                <div class="form-group">
+                  <label>Password</label>
+                  <input type="password" name="password1" placeholder="Your Password" class="form-control">
+                </div>
+                <div class="form-group">
+                  <div class="row">
+                    <div class="col-xs-6">
+                      <div class="checkbox flat-checkbox">
+                        <label>
+                          <input type="checkbox">
+                          <span class="fa fa-check"></span> Remember me?
+                        </label>
+                      </div>
+                    </div>
+                    <div class="col-xs-6 text-right">
+                      <p class="help-block"><a data-toggle="modal" href="#myModal">Forgot password?</a>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <button class="btn btn-primary btn-lg btn-block">Log In</button>
+
+              </form>
+              <!-- form login -->
+
+            </div>
+          </div>
+
+          <div class="clearfix"></div>
+        </div>
+      </div>
+      <!-- end container -->
+    </section>
+    <!-- =-=-=-=-=-=-= Login Form   End =-=-=-=-=-=-= -->
+
+    <!-- =-=-=-=-=-=-= Our Clients =-=-=-=-=-=-= -->
+    <section class="custom-padding" id="clients">
+      <div class="container">
+
+        <!-- Row -->
+        <div class="row">
+
+          <!-- col-md-2 client-block -->
+          <div class="col-md-2 col-xs-6 col-sm-4 client-block">
+
+            <!-- client-item client-item-style-2 -->
+            <div class="client-item client-item-style-2">
+              <a title="Client Logo" href="#"> <img alt="Clients Logo" src="https://templates.scriptsbundle.com/knowledge/demo/images/clients/client_5.png"> </a>
+            </div>
+            <!-- /client-item client-item-style-2 -->
+
+          </div>
+          <!-- /col-md-2 client-block -->
+
+          <!-- col-md-2 client-block -->
+          <div class="col-md-2 col-xs-6 col-sm-4 client-block">
+
+            <!-- client-item client-item-style-2 -->
+            <div class="client-item client-item-style-2">
+              <a title="Client Logo" href="#"> <img alt="Clients Logo" src="https://templates.scriptsbundle.com/knowledge/demo/images/clients/client_6.png"> </a>
+            </div>
+            <!-- /client-item client-item-style-2 -->
+
+          </div>
+          <!-- /col-md-2 client-block -->
+
+          <!-- col-md-2 client-block -->
+          <div class="col-md-2 col-xs-6 col-sm-4 client-block">
+
+            <!-- client-item client-item-style-2 -->
+            <div class="client-item client-item-style-2">
+              <a title="Client Logo" href="#"> <img alt="Clients Logo" src="https://templates.scriptsbundle.com/knowledge/demo/images/clients/client_7.png"> </a>
+            </div>
+            <!-- /client-item client-item-style-2 -->
+
+          </div>
+          <!-- /col-md-2 client-block -->
+
+          <!-- col-md-2 client-block -->
+          <div class="col-md-2 col-xs-6 col-sm-4 client-block">
+
+            <!-- client-item client-item-style-2 -->
+            <div class="client-item client-item-style-2">
+              <a title="Client Logo" href="#"> <img alt="Clients Logo" src="https://templates.scriptsbundle.com/knowledge/demo/images/clients/client_8.png"> </a>
+            </div>
+            <!-- /client-item client-item-style-2 -->
+
+          </div>
+          <!-- /col-md-2 client-block -->
+
+          <!-- col-md-2 client-block -->
+          <div class="col-md-2 col-xs-6 col-sm-4 client-block">
+
+            <!-- client-item client-item-style-2 -->
+            <div class="client-item client-item-style-2">
+              <a title="Client Logo" href="#"> <img alt="Clients Logo" src="https://templates.scriptsbundle.com/knowledge/demo/images/clients/client_9.png"> </a>
+            </div>
+            <!-- /client-item client-item-style-2 -->
+
+          </div>
+          <!-- /col-md-2 client-block -->
+
+          <!-- col-md-2 client-block -->
+          <div class="col-md-2 col-xs-6 col-sm-4 client-block">
+
+            <!-- client-item client-item-style-2 -->
+            <div class="client-item client-item-style-2">
+              <a title="Client Logo" href="#"> <img alt="Clients Logo" src="https://templates.scriptsbundle.com/knowledge/demo/images/clients/client_10.png"> </a>
+            </div>
+            <!-- /client-item client-item-style-2 -->
+
+          </div>
+          <!-- /col-md-2 client-block -->
+
+        </div>
+        <!-- Row End -->
+
+      </div>
+      <!-- end container -->
+    </section>
+    <!-- =-=-=-=-=-=-= Our Clients -end =-=-=-=-=-=-= -->
+
+  </div>
+  <!-- =-=-=-=-=-=-= Main Area End =-=-=-=-=-=-= -->
+
+  {% endblock %}

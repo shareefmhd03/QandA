@@ -1,0 +1,118 @@
+{% block header %}
+
+
+<div class="preloader"><span class="preloader-gif"></span>
+</div>
+<!-- =-=-=-=-=-=-= HEADER =-=-=-=-=-=-= -->
+<div class="top-bar">
+  <div class="container">
+      <div class="row">
+          <div class="col-lg-4 col-md-4 col-sm-6 col-xs-4">
+              <ul class="top-nav nav-left">
+                  <li><a href="{% url 'index' %}">Home</a>
+                  </li>
+                  <li class="hidden-xs"><a href="{% url 'view_blog' %}">Blog</a>
+                  </li>
+                  <li  class="hidden-xs"><a href="#">Contact Us</a>
+                  </li>
+              </ul>
+          </div>
+          <div class="col-lg-8 col-md-8 col-sm-6 col-xs-8">
+              <ul class="top-nav nav-right">
+                {% if user.is_authenticated %}
+                  <li class="dropdown"> 
+                      <a class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown" data-animations="fadeInUp">
+                          <img class="img-circle resize" alt="" src="">
+                          <span class="hidden-xs small-padding">
+                              <span>{{user}}</span>
+                           <i class="fa fa-caret-down"></i>
+                          </span>
+                      </a>
+                      <ul class="dropdown-menu ">
+                          <li><a href=""><i class=" icon-bargraph"></i> Dashboard</a></li>
+                          <li><a href=""><i class=" icon-gears"></i> Profile Setting</a></li>
+                          <li><a href=""><i class="icon-heart"></i> Questions</a></li>
+                          <li><a href="{% url 'logout' %}"><i class="icon-lock"></i> Logout</a></li>
+                        </ul>
+                      </li>
+                          {% else %}
+                          <li><a href="{% url 'login_view' %}"><i class="fa fa-lock" aria-hidden="true"></i>Login</a>
+                          </li>
+                          <li><a href="{% url 'register' %}"><i class="fa fa-user-plus" aria-hidden="true"></i>Signup</a>
+                          </li>
+                          
+                          {% endif %}
+                     
+              </ul>
+          </div>
+      </div>
+  </div>
+</div>
+<!-- =-=-=-=-=-=-= HEADER Navigation =-=-=-=-=-=-= -->
+<div class="navbar navbar-default">
+  <div class="container">
+    <!-- header -->
+    <div class="navbar-header">
+      <button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <!-- logo -->
+      <a href="" class="navbar-brand"><img class="img-responsive" alt="" src="https://templates.scriptsbundle.com/knowledge/demo/images/logo.png">
+      </a>
+      <!-- search form -->
+      <form role="search" class="navbar-form pull-left">
+        <div class="icon-addon addon-lg">
+          <input type="text" id="email" class="form-control" placeholder="Ask From Experts..">
+          <label title="email" rel="tooltip" class="glyphicon glyphicon-search" for="email"></label>
+        </div>
+      </form>
+      <!-- header end -->
+      <!-- header end -->
+    </div>
+    <!-- navigation menu -->
+    <div class="navbar-collapse collapse">
+      <!-- right bar -->
+      <ul class="nav navbar-nav navbar-right">
+        <li class="hidden-sm"><a href="#">How  It Works</a>
+        </li>
+        <li><a href="#">Browse Questions</a>
+        </li>
+        <li class="dropdown"> <a class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown" data-animations="fadeInUp">Pages <b class="caret"></b></a>
+          <ul class="dropdown-menu">
+            <li><a href="https://templates.scriptsbundle.com/knowledge/demo/index.html">Home </a>
+            </li>
+            <li><a href="index2.html">Home 2</a>
+            </li>
+            <li><a href="https://templates.scriptsbundle.com/knowledge/demo/question-detial.html">Question Details</a>
+            </li>
+            <li><a href="https://templates.scriptsbundle.com/knowledge/demo/blog.html">Blog</a>
+            </li>
+            <li><a href="https://templates.scriptsbundle.com/knowledge/demo/blog-1.html">Blog RightSide Bar</a>
+            </li>
+            <li><a href="https://templates.scriptsbundle.com/knowledge/demo/blog-2.html">Blog LeftSide Bar</a>
+            </li>
+            <li><a href="https://templates.scriptsbundle.com/knowledge/demo/blog-detial.html">Blog Single</a>
+            </li>
+            <li><a href="https://templates.scriptsbundle.com/knowledge/demo/404.html">Error Page</a>
+                          </li>
+            <li><a href="https://templates.scriptsbundle.com/knowledge/demo/contact.html">Contact Us</a>
+            </li>
+            <li><a href="https://templates.scriptsbundle.com/knowledge/demo/contact-2.html">Contact With Map</a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <div class="btn-nav"><a href="{% url 'ask_question' %}" class="btn btn-primary btn-small navbar-btn">Post Question</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <!-- navigation menu end -->
+    <!--/.navbar-collapse -->
+  </div>
+</div>
+<!-- HEADER Navigation End -->
+
+{% endblock %}
