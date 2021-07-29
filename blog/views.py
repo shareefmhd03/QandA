@@ -1,8 +1,7 @@
-from blog.forms import BlogForm
-from blog.models import Blog
+from blog.forms import BlogForm, CommentForm
+from blog.models import Blog, Comments, Reply
 from django.shortcuts import redirect, render
 
-# Create your views here.
 def view_blog(request):
     all_blogs = Blog.objects.all()
     
@@ -40,17 +39,27 @@ def add_blog(request):
     return render(request, 'user/blog_form.html',context)
 
 def blog_detailed_view(request, slug):
-    author = Blog.objects.filter(user = request.user, slug = slug).exists()
-
-    context = {
-        'author':author,
-    }
+    context={}
+    dictt ={}
+    li = []
+    form = CommentForm()
+    single_blog = Blog.objects.get(slug = slug)
+    comments = Comments.objects.filter(blog_id = single_blog)
+    reply = Reply.objects.all()
+    
     try:
-        single_blog = Blog.objects.filter(slug = slug)
-        context['single_blog'] = single_blog
+        author = Blog.objects.filter(user = request.user, slug = slug).exists()
 
-    except Exception as e:
-        print(e)
+        context['author'] = author
+    except:
+        pass
+    context ={
+        'form':form,
+        'comments':comments,
+        'reply':reply,
+        'single_blog':single_blog
+    }
+
     return render(request, 'user/single_post.html', context)
         
  
@@ -78,3 +87,39 @@ def edit_blog(request, slug):
             
             context['form'] = form
     return render(request, 'user/blog_form.html',context)
+
+
+
+def my_blog(request):
+    context ={}
+    blog = Blog.objects.filter(user= request.user)
+    context['blog'] = blog
+    return render(request, 'user/my_blog.html', context)
+
+
+def comment_section(request, slug):
+    if request.user.is_authenticated:
+        blog= Blog.objects.get(slug = slug)
+        if request.method == 'POST':
+            form = CommentForm(request.POST)
+            if form.is_valid:
+                comment = request.POST['comment']
+                post_slug = request.POST['post_slug']
+                Comments.objects.create(user = request.user, blog = blog, comment = comment)
+                # blog_detailed_view(request, post_slu)
+                return redirect('blog_detailed_view', slug)
+
+def reply_section(request, pk, slug):
+    if request.user.is_authenticated:
+        reply = Comments.objects.get(id = pk)
+        
+        if request.method == 'POST':
+            form = CommentForm(request.POST)
+            if form.is_valid:
+                comment = request.POST['comment']
+                Reply.objects.create(user = request.user, comment = comment, comment_name = reply)
+
+                return redirect('blog_detailed_view', slug)
+
+
+

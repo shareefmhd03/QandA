@@ -1,61 +1,23 @@
-{% extends 'user/user_base.html' %}
+
+{% extends 'user/user-base.html' %}
 {% load static %}
 
 
-{% block contend %}
-
-
-	<div class="breadcrumbs">
-		<section class="container">
-			<div class="row">
-				<div class="col-md-12">
-					<!-- <h1>Blog</h1> -->
-				</div>
-				<div class="col-md-12">
-					<div class="crumbs">
-						<a href="#">Home</a>
-						<span class="crumbs-span">/</span>
-						<a href="{% url 'view_blog'  %}">Blog</a>
-						<span class="crumbs-span">/</span>
-						<span class="current">Add Blog</span>
-					</div>
-				</div>
-			</div><!-- End row -->
-		</section><!-- End container -->
-	</div><!-- End breadcrumbs -->
-	
-	<section class="container main-content">
-		<div class="row">
-			<div class="col-md-9">
-				
-				<div class="page-content ask-question">
-					<div class="boxedtitle page-title"><h2>Add Blog</h2></div>
-					
-					<!-- <p>Duis dapibus aliquam mi, eget euismod sem scelerisque ut. Vivamus at elit quis urna adipiscing iaculis. Curabitur vitae velit in neque dictum blandit. Proin in iaculis neque.</p> -->
-					
-					<div class="form-style form-style-3" id="question-submit">
-						
-						<form action="" method="POST" enctype="multipart/form-data">
-							{% csrf_token %}
-							
-							{{form.media}}
-							<br>
-							{{form.as_p}}
-							<p class="form-submit">
-								<input type="submit" id="publish-question" value="Submit Your Question" class="button color small submit">
-							</p>
-						</form>
-					</div>
-				</div><!-- End page-content -->
-			</div><!-- End main -->
-			{% include 'user/sidebarbase.html' %}
-		</div><!-- End row -->
-	</section><!-- End container -->
-	
-	
-
-
-
-
+{% block content %}
+{% include 'user/includes/header_base.html' %}
+<div class="full-section search-section">
+    <div class="search-area container">
+        <h3 class="search-title">Add your Blog here!!</h3>
+        <p class="search-tag-line"></p>
+        <form autocomplete="off" method="POST" enctype="multipart/form-data" class="search-form clearfix" id="search-form">
+                        {% csrf_token %}
+						{{form.media}}
+						{{form.as_p}}
+                
+                        
+                        <input type="submit" value="Submit" class="search-btn">
+        </form>
+    </div>
+</div>
 
 {% endblock %}

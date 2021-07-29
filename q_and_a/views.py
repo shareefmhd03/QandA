@@ -72,9 +72,7 @@ def edit_question(request, question):
 
         if request.method == 'POST':
             form = AskQusestionForm(request.POST, request.FILES, instance = quest)
-            print('post request')
             if form.is_valid():
-                print('valid')
                 title = request.POST['question_title']
                 questi = request.POST['question']
                 quest.title = title
@@ -141,7 +139,7 @@ def solved(request):
             pass
         
         return redirect('view_answer', answer_id)
-    # return JsonResponse({'error':'error'})
+
 
 
 

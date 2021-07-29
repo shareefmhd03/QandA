@@ -36,8 +36,6 @@ class Answer(models.Model):
     def __str__(self):
         return self.answer_title
 
-
-
 class PointsTable(models.Model):
     user = models.OneToOneField(Accounts, on_delete=models.CASCADE, blank = True, null=True)
     point = models.IntegerField(blank = True, null=True)
