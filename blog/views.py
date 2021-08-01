@@ -21,11 +21,13 @@ def view_blog(request):
 
 def add_blog(request):
     context = {}
+    print('-------------------///////--------------')
     try:
         if request.user.is_authenticated:
             if request.method == 'POST':
                 form = BlogForm(request.POST, request.FILES)
                 if form.is_valid():
+                    print('111111111111///////--------------')
                     titl = form.cleaned_data['title']
                     desc = form.cleaned_data['description']
                     image = form.cleaned_data['img']

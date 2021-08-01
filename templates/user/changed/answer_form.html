@@ -75,8 +75,22 @@
 	
 	
 
+{% extends 'user/user-base.html' %}
+{% load static %}
 
-
-
+{% block content %}
+{% include 'user/includes/header_base.html' %}
+<div class="full-section search-section">
+    <div class="search-area container">
+        <h3 class="search-title">Answer</h3>
+        <p class="search-tag-line"></p>
+        <form autocomplete="off" method="POST" enctype="multipart/form-data" class="search-form clearfix" id="search-form">
+                        {% csrf_token %}
+						{{form.media}}
+						{{form.as_p}}         
+                        <input type="submit" value="Submit" class="search-btn">
+        </form>
+    </div>
+</div>
 
 {% endblock %}

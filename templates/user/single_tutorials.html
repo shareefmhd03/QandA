@@ -1,0 +1,93 @@
+﻿{% extends 'user/user-base.html' %}
+{% load static %}
+
+
+{% block content %}
+{% include 'user/includes/header_base.html' %}
+
+  <!-- =-=-=-=-=-=-= Main Area =-=-=-=-=-=-= -->
+  <div class="main-content-area">
+
+    <!-- =-=-=-=-=-=-= Page Breadcrumb =-=-=-=-=-=-= -->
+    <section class="page-title">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6 col-sm-7 co-xs-12 text-left">
+            <h1>{{tutorial.title}}</h1>
+          </div>
+          <!-- end col -->
+          <div class="col-md-6 col-sm-5 co-xs-12 text-right">
+            <div class="bread">
+              <ol class="breadcrumb">
+                <li><a href="#">Home</a>
+                </li>
+                <li><a href="#">Pages</a>
+                </li>
+                <li class="active">{{tutorial.title}}</li>
+              </ol>
+            </div>
+            <!-- end bread -->
+          </div>
+          <!-- end col -->
+        </div>
+        <!-- end row -->
+      </div>
+      <!-- end container -->
+    </section>
+
+    <!-- =-=-=-=-=-=-= Page Breadcrumb End =-=-=-=-=-=-= -->
+
+    <!-- =-=-=-=-=-=-= Question Details =-=-=-=-=-=-= -->
+
+    <section class="section-padding-80 white question-details">
+      <div class="container">
+        <!-- Row -->
+        <div class="row">
+          <div class="col-md-8 col-lg-8 col-sm-12 col-xs-12">
+            <!-- Question Detail -->
+		
+            <!-- Question Listing -->
+            <div class="listing-grid ">
+              <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                  <h3><a href="#"> learn {{tutorial.title}}</a></h3>
+                  <div class="listing-meta"> <span><i class="fa fa-clock-o" aria-hidden="true"></i>8 mintes ago</span> <span><i class="fa fa fa-eye" aria-hidden="true"></i> 750 Views</span> </div>
+                </div>
+                <img src="{{tutorial.tut_image.url}}" alt="">
+                
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                  <!-- <strong>Html Structure</strong>
+                    <pre class="brush: php; syntaxhighlight"> -->
+                    <p>{{tutorial.description|safe}}</p>
+
+
+ 								<!-- </pre>
+                  <p> I have tried adding a margin to the left of the main content to push it over but it looks horrible when resized to smaller device. </p>
+                  <p>What is the correct way to achieve a fixed sidebar whilst still maintaining responsiveness? </p> -->
+                  <div class="tagcloud"> <a href="#">html</a> <a href="#">css</a> <a href="#">bootstrap</a> </div>
+                </div>
+              </div>
+            </div>
+            <!-- Question Listing End -->
+			
+
+            <div class="clearfix"></div>
+            <!-- Thread Reply -->
+
+          </div>
+
+          <!-- Right Sidebar -->
+          
+
+        </div>
+        <!-- Row End -->
+      </div>
+    </section>
+    <!-- =-=-=-=-=-=-= Question Details end =-=-=-=-=-=-= -->
+
+    
+
+  </div>
+  <!-- =-=-=-=-=-=-= Main Area End =-=-=-=-=-=-= -->
+
+  {% endblock %}

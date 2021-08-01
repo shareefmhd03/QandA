@@ -1,11 +1,9 @@
-from json.encoder import JSONEncoder
-from typing import Annotated
-
 from django.http.response import JsonResponse
 from q_and_a.models import Answer, Question, Tags
-from django.contrib.auth import forms
+
 from django.shortcuts import redirect, render
 from .forms import AnswerForm, AskQusestionForm
+from django.db.models import Q
 
 
 def index(request):
@@ -95,8 +93,6 @@ def answer(request, question):
             if form.is_valid():
                 title = form.cleaned_data['answer_title']
                 desc = form.cleaned_data['description']
-
-
                 ans = Answer(answer_title = title, user = request.user, description = desc, question = quest )
                 ans.save()
                 return redirect('view_answer', int(question))
@@ -110,13 +106,13 @@ def answer(request, question):
 
 def view_answer(request, pk):
     quest = Question.objects.filter(id = pk)
-    solved = Question.objects.filter(user = request.user, id= pk).exists()
+    author = Question.objects.filter(user = request.user, id= pk).exists()
     answer = Answer.objects.filter(question_id = pk)
     form = AnswerForm()
     context = {
         'question':quest,
         'answer':answer,
-        'solved':solved,
+        'author':author,
         'form':form,
     }
     return render(request, 'user/single_question.html', context)
@@ -126,20 +122,27 @@ def view_answer(request, pk):
 
 def solved(request):
     if request.method == 'POST':
-        print('hello')
-        answer_id = request.POST['data']
-        answer = Answer.objects.filter(id  = answer_id)
-        try:
-            if answer.is_solved == False:
-                answer.is_solved = True
-               
-            answer.save()
-            print(answer_id)
-        except:
-            pass
+        print('----------------------//------------------------')
+        ans_id = request.POST['data']
+        print(ans_id,'//////////////////////////')
+        ans = Answer.objects.get(id =ans_id)
+        print(ans.is_solution)
+        question = Question.objects.get(id  = ans.question_id)
+       
+        if question.solved == False:
+            question.solved = True
+            question.save()
+            print(question.solved,'question.solved')
+        # print(question.solved,'111111111')
+        elif ans.is_solution == False:
+                ans.is_solution = True
+                ans.save()
+        print(ans.is_solution,'oooooooooo')
+            
+            
+        # print(quest_id)
         
-        return redirect('view_answer', answer_id)
-
+        return redirect('view_answer', question.id)
 
 
 
@@ -148,5 +151,23 @@ def question_list(request):
 
     context={
         'question':question,
+    }
+    return render(request, 'user/questions_list.html', context)
+
+
+
+def search(request):
+    if 'keyword' in request.GET:
+        keyword = request.GET['keyword']
+
+        if keyword:
+            question = Question.objects.order_by('-created_at').filter(
+                Q(question__icontains=keyword) | Q(question_title__icontains=keyword))
+            # question_count = Question.count()
+        else:
+            return render(request, 'user/index.html')
+    context = {
+        'question': question,
+        # 'count': question_count,
     }
     return render(request, 'user/questions_list.html', context)

@@ -1,7 +1,6 @@
-from django.contrib.admin.sites import DefaultAdminSite, site
 from django.db import models
 from accounts.models import Accounts
-from q_and_a.models import Question,Answer
+from q_and_a.models import  Question,Answer
 
 # Create your models here.
 class Profile(models.Model):
@@ -9,10 +8,9 @@ class Profile(models.Model):
     profile_image = models.ImageField(upload_to ='profile',default = 'user.png')
     bio  = models.TextField(default='no bio..')
     following   = models.ManyToManyField(Accounts,related_name='following', blank=True)
-    questions = models.ForeignKey(Question, models.DO_NOTHING, blank=True, null=True)
-    answers =models.ForeignKey(Answer, models.DO_NOTHING, blank=True, null= True)
-    # favorites
-    # points
+    questions = models.ForeignKey(Question, on_delete = models.DO_NOTHING, blank=True, null=True)
+    answers =models.ForeignKey(Answer, on_delete= models.DO_NOTHING, blank=True, null= True)
+    # favorites = models.ManyToManyField(Question,blank=True, null= True)
     # social links
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

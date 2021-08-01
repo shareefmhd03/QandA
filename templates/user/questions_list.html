@@ -11,8 +11,8 @@
 		<div class="search-area container">
 			<h3 class="search-title">Have a Question?</h3>
 			<p class="search-tag-line">If you have any question you can ask below or enter what you are looking for!</p>
-			<form autocomplete="off" method="get" class="search-form clearfix" id="search-form">
-				<input type="text" title="* Please enter a search term!" placeholder="Type your search terms here" class="search-term" autocomplete="off">
+			<form autocomplete="off" method="GET" class="search-form clearfix" id="search-form" action="{% url 'search' %}" >
+				<input type="text" title="* Please enter a search term!" placeholder="Type your search terms here" name="keyword" class="search-term" autocomplete="off">
 				<input type="submit" value="Search" class="search-btn">
 			</form>
 		</div>
@@ -68,7 +68,7 @@
 											</div>
 											<div class="col-md-10 col-sm-10  col-xs-12">
 												<p>{{que.question|safe}}</p>
-												<div class="pull-right tagcloud"> <a href="#">Php</a>  <a href="#">recursive</a>  <a href="#">error</a> 
+												<div class="pull-right tagcloud"> <a href="#">{{que.tags.tag_name}}</a>  <a href="#">recursive</a>  <a href="#">error</a> 
 												</div>
 											</div>
 										</div>

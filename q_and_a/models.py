@@ -1,8 +1,8 @@
 
-
 from django.db import models
 from accounts.models import Accounts
 from froala_editor.fields import FroalaField
+
 
 class Tags(models.Model):
     tag_name = models.CharField(max_length=20)
@@ -15,6 +15,7 @@ class Question(models.Model):
     user = models.ForeignKey(Accounts, on_delete=models.DO_NOTHING)
     question = FroalaField()
     tags = models.ManyToManyField(Tags)
+    solved = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -29,7 +30,7 @@ class Answer(models.Model):
     question = models.ForeignKey(
         Question, on_delete=models.CASCADE, blank=True, null=True)
     tags = models.ManyToManyField(Tags)
-    is_solved =models.BooleanField(default=False)
+    is_solution =models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

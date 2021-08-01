@@ -77,8 +77,7 @@
 				<!-- Reply Grid -->
 				{% for ans in answer %}
               <div class="media-block card-box ribbon-content">
-                <div class="ribbon base"><span>Correct Answer</span>
-                </div>
+                
 
                 <div class="media-left">
                   <a data-toggle="tooltip" data-placement="bottom" data-original-title="Martina Jaz" href="#">
@@ -89,12 +88,23 @@
                 </div>
                 <div class="media-body">
                   <div class="mar-btm">
-                    <h4><a href="#" class="btn-link text-semibold media-heading box-inline">{{ans.user.first_name}}</a></h4>
+                    <h4><a href="#" class="btn-link text-semibold media-heading box-inline">{{ans.user}}</a></h4>
+                    <h4>{{ans.answer_title}}</h4>
                     <p class="text-muted text-sm"><i class="fa fa-mobile fa-lg"></i> - {{ans.created_at}}</p>
                   </div>
                   <p>{{ans.description|safe}}</p>
-                  
+                  {% if author %}
+                  {% if ans.is_solution == True %}
+                  <!-- <h4 style="color: green;">Best answer</h4> -->
+                  <div class="ribbon base"><span>Correct Answer</span>
+                  </div>
+                  {% else%} 
+                  <input type="checkbox" class="searchType" value="{{ans.id}}">            
+                  {% endif %}
+                  {%else%}
+                  {% endif%} 
                   <div class="pad-ver pull-right">
+                  
 
                     <a class="btn btn-sm btn-default btn-hover-success" data-toggle="tooltip" data-placement="bottom" data-original-title="Like This Answer" href="#"><i class="fa fa-thumbs-up"></i></a>
                     <a class="btn btn-sm btn-default btn-hover-danger" href="#" data-original-title="Spam" data-placement="bottom" data-toggle="tooltip"><i class="fa fa-thumbs-down"></i></a>
@@ -302,4 +312,28 @@
   </div>
   <!-- =-=-=-=-=-=-= Main Area End =-=-=-=-=-=-= -->
 
+  <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+
+
+  <script>
+	
+	  $('.searchType').click(function() {
+      console.log('hello')
+		  // const a = this.value
+      // console()
+		  data = {
+			  'data':this.value,
+			  'csrfmiddlewaretoken': '{{ csrf_token }}'
+		  }
+		  const url = "{% url 'solved' %}"
+				$.ajax({
+					type: "POST",
+					url: url,
+					data: data,
+					success: function(data) {
+            location.reload();
+					},
+				})
+		  });
+		</script>
   {% endblock %}

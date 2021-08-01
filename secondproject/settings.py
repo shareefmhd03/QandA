@@ -44,8 +44,13 @@ INSTALLED_APPS = [
     'q_and_a.apps.QAndAConfig',
     'blog',
     'froala_editor',
+    'storages',
+    'tutorials',
     
 ]
+    # 'ckeditor',
+    # 'ckeditor_uploader',
+# CKEDITOR_UPLOAD_PATH = '/uploads/'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -122,6 +127,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
+
 AUTH_USER_MODEL = 'accounts.Accounts'
 
 # Internationalization
@@ -153,6 +159,8 @@ MEDIA_ROOT = BASE_DIR/'media'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
+
+
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
