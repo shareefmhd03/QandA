@@ -13,16 +13,6 @@ def index(request):
     }
     return render(request, 'user/index.html', context)
 
-def index_call(request):
-    if request.is_ajax():
-        print('ajax')
-        question = Question.objects.all().last()
-        print(question)
-        return JsonResponse({
-            'msg':'success',
-        })
-    return redirect('index')
-
 def question_from_index(request):
     if request.method == 'POST':
         
@@ -60,14 +50,11 @@ def ask_question(request):
 
 
 
-
-def edit_question(request, question):
-    
+def edit_question(request, question):   
     quest = Question.objects.get(id = question)
     form = AskQusestionForm(instance=quest)
     if Question.objects.filter(user = request.user, id= question).exists():
         solved = Question.objects.filter(user = request.user, id= question).exists()
-
         if request.method == 'POST':
             form = AskQusestionForm(request.POST, request.FILES, instance = quest)
             if form.is_valid():
@@ -163,11 +150,48 @@ def search(request):
         if keyword:
             question = Question.objects.order_by('-created_at').filter(
                 Q(question__icontains=keyword) | Q(question_title__icontains=keyword))
-            # question_count = Question.count()
+
         else:
             return render(request, 'user/index.html')
     context = {
         'question': question,
-        # 'count': question_count,
+    
     }
     return render(request, 'user/questions_list.html', context)
+
+
+
+def search_question(request):
+    title = request.GET.get('title')
+    print(title)
+    question_list =[]
+    if title:
+        questions = Question.objects.filter(question_title__icontains = title)
+
+        for question in questions:
+            question_list.append(question.question_title)
+
+    return JsonResponse({'status':200, 'data': question_list})
+
+
+def search_filter(request):
+    
+    title = request.GET.get('search')
+    print(title)
+    if title:
+        
+        questions = Question.objects.filter(question_title__icontains = title)
+        data=questions.values()
+        print(data)
+        return JsonResponse(list(data),safe=False)
+        # return JsonResponse({'status':200, 'data': questions})
+    # question = Question.objects.all().order_by('-created_at')
+    # context = {
+    #     'question': question,
+    
+    # }
+    # return render(request, 'user/test.html',context)
+
+
+
+

@@ -5,12 +5,13 @@ from froala_editor.widgets import FroalaEditor
 class BlogForm(forms.ModelForm):
     class Meta:
         model  = Blog
-        fields = ['title','description','img']
+        fields = ['title', 'img','description']
 
 
     def __init__(self, *args, **kwargs):
         super(BlogForm, self).__init__(*args, **kwargs)
         self.fields['title'].widget.attrs['class'] = 'form-control'
+        self.fields['img'].widget.attrs['class'] = 'form-control'
         self.fields['title'].widget.attrs['placeholder'] = 'Blog Title..'
         self.fields['img'].help_text = None
 

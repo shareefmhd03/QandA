@@ -1,136 +1,251 @@
+{% extends 'user/user-base.html' %}
+{% load static %}
 
-	{% extends 'user/user_base.html' %}
-	{% load static %}
-	
-	
-	{% block contend %}
-	<div class="breadcrumbs">
-		<section class="container">
-			<div class="row">
-				<div class="col-md-12">
-					<h1>User Profile : </h1>
+
+{% block content %}
+{% include 'user/includes/header_base.html' %}
+<section id="user-profile" class="user-profile parallex">
+	<div class="container">
+	  <!-- Row -->
+	  <div class="row">
+
+		<div class="col-md-12 col-xs-12 col-sm-12">
+		  <div class="profile-sec ">
+			<div class="profile-head">
+			  <div class="col-md-6 col-xs-12 col-sm-6 no-padding">
+				<div class="profile-avatar">
+				  <span><img class="img-responsive img-circle" alt="" src="https://templates.scriptsbundle.com/knowledge/demo/images/authors/author-large.jpg"></span>
+				  <div class="profile-name">
+					<h3>{{profile.user}}</h3>
+					<i>Creative Graphic Designer</i>
+					<ul class="social-btns">
+					  <li><a href="#" title=""><i class="fa fa-facebook"></i></a>
+					  </li>
+					  <li><a href="#" title=""><i class="fa fa-google-plus"></i></a>
+					  </li>
+					  <li><a href="#" title=""><i class="fa fa-twitter"></i></a>
+					  </li>
+					</ul>
+				  </div>
 				</div>
-				<div class="col-md-12">
-					<div class="crumbs">
-						<a href="#">Home</a>
-						<span class="crumbs-span">/</span>
-						<a href="#">User</a>
-						<span class="crumbs-span">/</span>
-						<span class="current">User Profile : </span>
-					</div>
+			  </div>
+			  <div class="col-md-6 col-xs-12 col-sm-6 no-padding">
+				<ul class="profile-count">
+				  <li>171<i>Followers</i>
+				  </li>
+				  <li>13,725<i>Experience</i>
+				  </li>
+				  <li>120<i>Questions</i>
+				  </li>
+				</ul>
+				<ul class="profile-connect">
+				  <li><a title="" href="#">Follow</a>
+				  </li>
+				  <li><a title="" href="#">Hire Me</a>
+				  </li>
+				</ul>
+			  </div>
+			</div>
+		  </div>
+		  <!-- Profile Sec -->
+		</div>
+
+	  </div>
+	  <!-- Row End -->
+	</div>
+	<!-- end container -->
+  </section>
+
+  <!-- =-=-=-=-=-=-= User Profile end =-=-=-=-=-=-= -->
+  
+<!-- =-=-=-=-=-=-= User Form Settings =-=-=-=-=-=-= -->
+  <section class="section-padding-80" id="login">
+	<div class="container">
+	  <div class="row">
+		<div class="col-sm-6 col-md-4">
+
+		  <div class="box-panel">
+
+			<form method="POST" action="{% url 'update_profile_image' %}" enctype="multipart/form-data">
+				{% csrf_token%}
+			  <div class="form-group">
+				<label>Upload Image</label>
+				<div class="input-group">
+				  <span class="input-group-btn">
+			  <span class="btn btn-default btn-file">
+				  Browse… <input type="file" id="imgInp" name="image_input" >
+			  </span>
+				  </span>
+				  <input type="text" class="form-control" readonly>
 				</div>
-			</div><!-- End row -->
-		</section><!-- End container -->
-	</div><!-- End breadcrumbs -->
-	
-	<section class="container main-content">
-		<div class="row">
-			<div class="col-md-9">
+			
+				<img id="blah" src="#" alt="your image" />
+			  </div>
+			  
+
+			  <button class="btn btn-primary btn-lg">Change Image</button>
+
+			</form>
+
+		  </div>
+		</div>
+
+		<div class="col-md-8">
+
+		  <div class="box-panel">
+
+			<!-- form login -->
+			<form method="POST" action="">
+			  <div class="form-group">
+				<label>{{profile.user}}</label>
+				<input type="text" placeholder="John Doe" class="form-control">
+			  </div>
+			  <div class="form-group">
+				<label>Email</label>
+				<input type="email" placeholder="Your Email" class="form-control">
+			  </div>
+			  <div class="form-group">
+				<label>Password</label>
+				<input type="password" placeholder="Your Password" class="form-control">
+			  </div>
+			  <div class="form-group">
+				<label>Confirm Password</label>
+				<input type="password" placeholder="Your Password" class="form-control">
+			  </div>
+			  <div class="form-group">
 				<div class="row">
-					{% for prof in profile %}
-					<div class="user-profile">
-						<div class="col-md-12">
-							<div class="page-content">
-								<a href="{}"><h2>About {{prof.user}} </h2></a>
-								<div class="user-profile-img"><img width="60" height="60" src="https://2code.info/demo/html/ask-me/images/demo/admin.jpeg" alt="admin"></div>
-								<div class="ul_list ul_list-icon-ok about-user">
-									<ul>
-										<li><i class="icon-plus"></i>Registerd : <span>Jan 10, 2014</span></li>
-										<li><i class="icon-map-marker"></i>Country : <span>Egypt</span></li>
-										<li><i class="icon-globe"></i>Website : <a target="_blank" href="https://2code.info/">view</a></li>
-									</ul>
-								</div>
-								<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi adipiscing gravida odio, sit amet suscipit risus ultrices eu. Fusce viverra neque at purus laoreet consequat. Vivamus vulputate posuere nisl quis consequat. Donec congue commodo mi, sed commodo velit fringilla ac. Fusce placerat venenatis mi. Pellentesque habitant morbi tristique senectus et netus et malesuada .</p>
-								<div class="clearfix"></div>
-								<span class="user-follow-me">Follow Me</span>
-								<a href="#" original-title="Facebook" class="tooltip-n">
-									<span class="icon_i">
-										<span class="icon_square" icon_size="30" span_bg="#3b5997" span_hover="#2f3239">
-											<i class="social_icon-facebook"></i>
-										</span>
-									</span>
-								</a>
-								<a href="#" original-title="Twitter" class="tooltip-n">
-									<span class="icon_i">
-										<span class="icon_square" icon_size="30" span_bg="#00baf0" span_hover="#2f3239">
-											<i class="social_icon-twitter"></i>
-										</span>
-									</span>
-								</a>
-								<a href="#" original-title="Linkedin" class="tooltip-n">
-									<span class="icon_i">
-										<span class="icon_square" icon_size="30" span_bg="#006599" span_hover="#2f3239">
-											<i class="social_icon-linkedin"></i>
-										</span>
-									</span>
-								</a>
-								<a href="#" original-title="Google plus" class="tooltip-n">
-									<span class="icon_i">
-										<span class="icon_square" icon_size="30" span_bg="#c43c2c" span_hover="#2f3239">
-											<i class="social_icon-gplus"></i>
-										</span>
-									</span>
-								</a>
-								<a href="#" original-title="Email" class="tooltip-n">
-									<span class="icon_i">
-										<span class="icon_square" icon_size="30" span_bg="#000" span_hover="#2f3239">
-											<i class="social_icon-email"></i>
-										</span>
-									</span>
-								</a>
-							</div><!-- End page-content -->
-						</div><!-- End col-md-12 -->
-						<div class="col-md-12">
-							<div class="page-content page-content-user-profile">
-								<div class="user-profile-widget">
-									<h2>User Stats</h2>
-									<div class="ul_list ul_list-icon-ok">
-										<ul>
-											<li><i class="icon-question-sign"></i><a href="user_questions.html">Questions<span> ( <span>30</span> ) </span></a></li>
-											<li><i class="icon-comment"></i><a href="user_answers.html">Answers<span> ( <span>10</span> ) </span></a></li>
-											<li><i class="icon-star"></i><a href="user_favorite_questions.html">Favorite Questions<span> ( <span>3</span> ) </span></a></li>
-											<li><i class="icon-heart"></i><a href="user_points.html">Points<span> ( <span>20</span> ) </span></a></li>
-											<li><i class="icon-asterisk"></i>Best Answers<span> ( <span>2</span> ) </span></li>
-										</ul>
-									</div>
-								</div><!-- End user-profile-widget -->
-							</div><!-- End page-content -->
-						</div><!-- End col-md-12 -->
-					</div><!-- End user-profile -->
-					{% endfor %}
-				</div><!-- End row -->
-				<div class="clearfix"></div>
-				<div class="page-content">
-					<div class="user-stats">
-						<div class="user-stats-head">
-							<div class="block-stats-1 stats-head">#</div>
-							<div class="block-stats-2 stats-head">Today</div>
-							<div class="block-stats-3 stats-head">Month</div>
-							<div class="block-stats-4 stats-head">Total</div>
-						</div>
-						<div class="user-stats-item">
-							<div class="block-stats-1">Questions</div>
-							<div class="block-stats-2">5</div>
-							<div class="block-stats-3">20</div>
-							<div class="block-stats-4">100</div>
-						</div>
-						<div class="user-stats-item">
-							<div class="block-stats-1">Answers</div>
-							<div class="block-stats-2">30</div>
-							<div class="block-stats-3">150</div>
-							<div class="block-stats-4">1000</div>
-						</div>
-						<div class="user-stats-item user-stats-item-last">
-							<div class="block-stats-1">Visitors</div>
-							<div class="block-stats-2">100</div>
-							<div class="block-stats-3">3000</div>
-							<div class="block-stats-4">5000</div>
-						</div>
-					</div><!-- End user-stats -->
-				</div><!-- End page-content -->
-			</div><!-- End main -->
-			{% include 'user/sidebarbase.html' %}
-		</div><!-- End row -->
-	</section><!-- End container -->
-	
-	{% endblock %}
+				  <div class="col-xs-12">
+					<div class="checkbox flat-checkbox">
+					  <label>
+						<input type="checkbox">
+						<span class="fa fa-check"></span> Make My Profile Private?
+					  </label>
+					</div>
+				  </div>
+
+				</div>
+			  </div>
+
+			  <button class="btn btn-primary btn-lg">Update My Profile</button>
+
+			</form>
+			<!-- form login -->
+
+		  </div>
+		</div>
+
+		<div class="clearfix"></div>
+	  </div>
+	</div>
+	<!-- end container -->
+  </section>
+<!-- =-=-=-=-=-=-= User Form Settings End =-=-=-=-=-=-= -->
+
+  <!-- =-=-=-=-=-=-= Our Clients =-=-=-=-=-=-= -->
+  <section class="custom-padding white" id="clients">
+	<div class="container">
+
+	  <!-- Row -->
+	  <div class="row">
+
+		<!-- col-md-2 client-block -->
+		<div class="col-md-2 col-xs-6 col-sm-4 client-block">
+
+		  <!-- client-item client-item-style-2 -->
+		  <div class="client-item client-item-style-2">
+			<a title="Client Logo" href="#"> <img alt="Clients Logo" src="https://templates.scriptsbundle.com/knowledge/demo/images/clients/client_5.png"> </a>
+		  </div>
+		  <!-- /client-item client-item-style-2 -->
+
+		</div>
+		<!-- /col-md-2 client-block -->
+
+		<!-- col-md-2 client-block -->
+		<div class="col-md-2 col-xs-6 col-sm-4 client-block">
+
+		  <!-- client-item client-item-style-2 -->
+		  <div class="client-item client-item-style-2">
+			<a title="Client Logo" href="#"> <img alt="Clients Logo" src="https://templates.scriptsbundle.com/knowledge/demo/images/clients/client_6.png"> </a>
+		  </div>
+		  <!-- /client-item client-item-style-2 -->
+
+		</div>
+		<!-- /col-md-2 client-block -->
+
+		<!-- col-md-2 client-block -->
+		<div class="col-md-2 col-xs-6 col-sm-4 client-block">
+
+		  <!-- client-item client-item-style-2 -->
+		  <div class="client-item client-item-style-2">
+			<a title="Client Logo" href="#"> <img alt="Clients Logo" src="https://templates.scriptsbundle.com/knowledge/demo/images/clients/client_7.png"> </a>
+		  </div>
+		  <!-- /client-item client-item-style-2 -->
+
+		</div>
+		<!-- /col-md-2 client-block -->
+
+		<!-- col-md-2 client-block -->
+		<div class="col-md-2 col-xs-6 col-sm-4 client-block">
+
+		  <!-- client-item client-item-style-2 -->
+		  <div class="client-item client-item-style-2">
+			<a title="Client Logo" href="#"> <img alt="Clients Logo" src="https://templates.scriptsbundle.com/knowledge/demo/images/clients/client_8.png"> </a>
+		  </div>
+		  <!-- /client-item client-item-style-2 -->
+
+		</div>
+		<!-- /col-md-2 client-block -->
+
+		<!-- col-md-2 client-block -->
+		<div class="col-md-2 col-xs-6 col-sm-4 client-block">
+
+		  <!-- client-item client-item-style-2 -->
+		  <div class="client-item client-item-style-2">
+			<a title="Client Logo" href="#"> <img alt="Clients Logo" src="https://templates.scriptsbundle.com/knowledge/demo/images/clients/client_9.png"> </a>
+		  </div>
+		  <!-- /client-item client-item-style-2 -->
+
+		</div>
+		<!-- /col-md-2 client-block -->
+
+		<!-- col-md-2 client-block -->
+		<div class="col-md-2 col-xs-6 col-sm-4 client-block">
+
+		  <!-- client-item client-item-style-2 -->
+		  <div class="client-item client-item-style-2">
+			<a title="Client Logo" href="#"> <img alt="Clients Logo" src="https://templates.scriptsbundle.com/knowledge/demo/images/clients/client_10.png"> </a>
+		  </div>
+		  <!-- /client-item client-item-style-2 -->
+
+		</div>
+		<!-- /col-md-2 client-block -->
+
+	  </div>
+	  <!-- Row End -->
+
+	</div>
+	<!-- end container -->
+  </section>
+  <!-- =-=-=-=-=-=-= Our Clients -end =-=-=-=-=-=-= -->
+
+</div>
+<!-- =-=-=-=-=-=-= Main Area End =-=-=-=-=-=-= -->
+
+<script>
+function readURL(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            $('#blah').attr('src', e.target.result);
+        }
+
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+$("#imgInp").change(function(){
+    readURL(this);
+});
+</script>
+{% endblock %}

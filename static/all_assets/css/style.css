@@ -44,7 +44,8 @@ html, body {
 	width: 100%;
 }
 body {
-	font-family: 'Open Sans', sans-serif;
+
+	font-family: 'Titillium Web', sans-serif;	
 	color: #777;
 	font-size: 14px;
 	line-height: 1.8em;
@@ -282,7 +283,7 @@ video, object {
 
 h1, h2, h3, h4, h5, h6 {
 	position: relative;
-	font-family: 'Merriweather', serif;
+	font-family: 'Noto Serif', serif;
 	font-weight: normal;
 	margin: 0px;
 	background: none;
@@ -321,7 +322,7 @@ p {
 	-ms-transition: all .25s ease-in-out;
 	-o-transition: all .25s ease-in-out;
 	transition: all .25s ease-in-out;
-	font-family: 'Merriweather', serif;
+	font-family: 'Noto Serif', serif;
 }
 .extra {
 	padding: 20px 25px ;
@@ -787,7 +788,8 @@ form.search-form .input-common, form.search-form input.search-term, form.search-
 	border-radius: 0;
 	box-shadow: none;
 	display: inline-block;
-	font-family: "Open Sans", sans-serif;
+	
+	font-family: 'Titillium Web', sans-serif;	
 	vertical-align: bottom;
 }
 form.search-form input.search-term {
@@ -997,7 +999,7 @@ form.search-form input.search-btn:hover {
 	margin-bottom: 25px;
 }
 .get-arrow::before {
-	background-image: url("../images/arrow.png");
+	
 	background-repeat: no-repeat;
 	content: "";
 	display: block;
@@ -1332,7 +1334,7 @@ img.resize {
 .profile-count > li {
 	color: #ffffff;
 	float: right;
-	font-family: 'Merriweather', serif;
+	font-family: 'Noto Serif', serif;
 	font-size: 31px;
 	font-weight: 600;
 	list-style: outside none none;
@@ -1365,7 +1367,7 @@ img.resize {
 	background: rgba(0, 0, 0, 0.8) none repeat scroll 0 0;
 	border: 2px solid rgba(255, 255, 255, 0.5);
 	color: #fff;
-	font-family: 'Merriweather', serif;
+	font-family: 'Noto Serif', serif;
 	font-size: 14px;
 	padding: 11px 22px;
 }
@@ -2356,7 +2358,8 @@ img.full-bg {
 	padding: 5px;
 }
 .side-bar .widget ul li a {
-	font-family: "Open Sans", sans-serif;
+
+	font-family: 'Titillium Web', sans-serif;	
 	font-size: 14px;
 	font-weight: 500;
 	position: relative;
@@ -2420,7 +2423,8 @@ img.full-bg {
 	border: 1px solid #e2e2e2;
 	display: inline-block;
 	float: left;
-	font-family: "Open Sans", sans-serif;
+
+	font-family: 'Titillium Web', sans-serif;	
 	font-size: 13px;
 	font-weight: 500;
 	line-height: 38px;
@@ -2460,7 +2464,8 @@ img.full-bg {
 	border: 1px solid #e2e2e2;
 	display: inline-block;
 	float: left;
-	font-family: "Open Sans", sans-serif;
+
+	font-family: 'Titillium Web', sans-serif;	
 	font-size: 13px;
 	font-weight: 500;
 	line-height: 38px;
@@ -2736,7 +2741,7 @@ img.full-bg {
 	font-weight: 600;
 	letter-spacing: 2px;
      line-height: 30px;
-    font-family: 'Merriweather', serif;
+    font-family: 'Noto Serif', serif;
 	color: #fff ;
 }
 .social-bar ul li:first-child:nth-last-child(1), .social-bar ul li:first-child:nth-last-child(1) ~ li {
@@ -2969,7 +2974,8 @@ label {
 .footer-area {
 	background: #181718 url("../images/footer.png") repeat-x scroll center bottom;
 	color: #c9c9c9;
-	font-family: 'Open Sans', sans-serif;
+
+	font-family: 'Titillium Web', sans-serif;	
 	position: relative;
 }
 .footer-area::before {

@@ -7,14 +7,22 @@
 	{% block content %}
 	{% include 'user/includes/header_base.html' %}
 	<!-- =-=-=-=-=-=-= HOME =-=-=-=-=-=-= -->
+
+	
+
+
 	<div class="full-section search-section">
 		<div class="search-area container">
 			<h3 class="search-title">Have a Question?</h3>
 			<p class="search-tag-line">If you have any question you can ask below or enter what you are looking for!</p>
-			<form autocomplete="off" method="GET" class="search-form clearfix" id="search-form" action="{% url 'search' %}" >
-				<input type="text" title="* Please enter a search term!" placeholder="Type your search terms here" name="keyword" class="search-term" autocomplete="off">
-				<input type="submit" value="Search" class="search-btn">
-			</form>
+			
+			<form autocomplete="off" method="POST" class="search-form clearfix" id="search-form" action="{% url 'question_from_index' %}" >
+				{% csrf_token %}
+				 <input type="text" id="searchField" name="title" title="* Please enter a search term!" placeholder="Type your search terms here"  class="search-term" autocomplete="off">
+				 <input type="submit" value="ASK" class="search-btn">
+				 </form>
+				
+			
 		</div>
 	</div>
 	<!-- =-=-=-=-=-=-= HOME END =-=-=-=-=-=-= -->
@@ -43,7 +51,7 @@
 						</div>
 						<div class="panel-body">
 							<div class="tab-content">
-								<div id="tab1" class="tab-pane active">
+								<div id="tab1" class="tab-pane active app-table ">
 									<!-- Question Listing -->
 									{% for que in question %}
 									<div class="listing-grid">
@@ -77,6 +85,19 @@
 									<!-- Question Listing End -->
 									
 								</div>
+							
+
+								<div class="table-output">
+
+									<div id="tab1" class="tab-pane active list-body">
+										
+										
+										
+									</div>
+								   </div>
+
+
+
 								<div id="tab2" class="tab-pane">
 									<!-- Question Listing -->
 									<div class="listing-grid">
@@ -820,4 +841,84 @@
 			</div>
 		</div>
 	</section>
+
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+	<script>
+		const searchField=document.querySelector("#searchField")
+            const tableOutput=document.querySelector(".table-output")
+            const AppTable = document.querySelector(".app-table")
+            const listBody=document.querySelector(".list-body")
+
+
+			tableOutput.style.display='none'
+
+            searchField.addEventListener("keyup",(e)=>{
+                const searchvalue=e.target.value;
+                console.log(searchvalue+'11111111')
+                if(searchvalue.trim().length>0){
+                    listBody.innerHTML=""
+                    console.log(searchvalue+'22222222');
+                    $.ajax({
+                        url : "{% url 'search_filter' %}",
+                        type: "GET",
+                        data:{'search':searchvalue},
+                        
+                        success: function(body){
+
+                            console.log(body)
+                          
+        
+
+                            AppTable.style.display='none'
+                            tableOutput.style.display='block'
+                 
+                            if(body.length === 0){
+                                tableOutput.innerHTML=`<h1> No Result Found </h1>`
+                            }else{
+                            body.forEach((items)=>{
+                                    console.log(items.question_title);
+
+                                    listBody.innerHTML+=`
+                                    <div class="listing-grid">
+										<div class="row">
+											<div class="col-md-2 col-sm-2 col-xs-12 hidden-xs">
+												<a data-toggle="tooltip" data-placement="bottom" data-original-title="Martina Jaz" href="#">
+													<img alt="" class="img-responsive center-block" src="#">
+												</a>
+											</div>
+											<div class="col-md-7 col-sm-8  col-xs-12">
+												<h3><a  href="">${items.question_title}</a></h3>
+												<div class="listing-meta"> <span><i class="fa fa-clock-o" aria-hidden="true"></i>${items.created_at}</span>  <span><i class="fa fa fa-eye" aria-hidden="true"></i> 750 Views</span> 
+												</div>
+											</div>
+											<div class="col-md-3 col-sm-2 col-xs-12">
+												<ul class="question-statistic">
+													<li class="active"> <a data-toggle="tooltip" data-placement="bottom" data-original-title="Answers"><span>2</span></a> 
+													</li>
+													<li> <a data-toggle="tooltip" data-placement="bottom" data-original-title="Votes"><span>0</span></a> 
+													</li>
+												</ul>
+											</div>
+											<div class="col-md-10 col-sm-10  col-xs-12">
+												<p>${items.question}</p>
+												<div class="pull-right tagcloud"> <a href="#">{{que.tags.tag_name}}</a>  <a href="#">recursive</a>  <a href="#">error</a> 
+												</div>
+											</div>
+										</div>
+									</div>                                                              
+                                    `;
+
+                                })
+                            }                          
+                        }
+                    }); 
+                    
+                }else{
+                    tableOutput.style.display='none'
+                    AppTable.style.display='block'
+                }
+                })
+	</script>
+	
+	
 	{% endblock %}

@@ -9,6 +9,7 @@ from django.dispatch import receiver
 def create_points_table(sender, instance, created, **kwargs):
     if created:
         PointsTable.objects.create(user  = instance)
+        print('New points table created--------')
 
 
 # def update_points_table(sender, instance, created, **kwargs):

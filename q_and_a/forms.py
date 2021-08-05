@@ -3,7 +3,6 @@ from django import forms
 from froala_editor.widgets import FroalaEditor
 
 
-
 class AskQusestionForm(forms.ModelForm):
     class Meta:
         model = Question

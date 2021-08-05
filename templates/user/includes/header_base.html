@@ -1,6 +1,10 @@
 {% block header %}
 
 
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/@trevoreyre/autocomplete-js/dist/style.css"
+/>
 <div class="preloader"><span class="preloader-gif"></span>
 </div>
 <!-- =-=-=-=-=-=-= HEADER =-=-=-=-=-=-= -->
@@ -62,12 +66,14 @@
       <a href="" class="navbar-brand"><img class="img-responsive" alt="" src="https://templates.scriptsbundle.com/knowledge/demo/images/logo.png">
       </a>
       <!-- search form -->
-      <form role="search" class="navbar-form pull-left">
-        <div class="icon-addon addon-lg">
-          <input type="text" id="email" class="form-control" placeholder="Ask From Experts..">
-          <label title="email" rel="tooltip" class="glyphicon glyphicon-search" for="email"></label>
+ 
+
+        <div id="autocomplete" class="autocomplete navbar-form pull-left">
+          <input class="autocomplete-input" placeholder="Search here..."/>
+          <ul class="autocomplete-result-list"></ul>
         </div>
-      </form>
+
+  
       <!-- header end -->
       <!-- header end -->
     </div>
@@ -114,5 +120,26 @@
   </div>
 </div>
 <!-- HEADER Navigation End -->
+
+<script src="https://unpkg.com/@trevoreyre/autocomplete-js"></script>
+
+<script>
+  new Autocomplete ('#autocomplete', {
+    search : input =>{
+      const url = '/search_question/?title='+input
+      return new Promise(resolve =>{
+        fetch(url)
+        .then(response => response.json())
+        .then(data =>{
+          resolve(data.data)
+        })
+
+      })
+    },
+    onSubmit : result =>{
+      window.open('/search/?keyword=' + result )
+    }
+  })
+</script>
 
 {% endblock %}

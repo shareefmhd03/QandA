@@ -40,7 +40,7 @@
           <span class="icon-bar"></span>
         </button>
         <!-- logo -->
-        <a href="https://templates.scriptsbundle.com/knowledge/demo/index.html" class="navbar-brand"><img class="img-responsive" alt="" src="https://templates.scriptsbundle.com/knowledge/demo/images/logo.png">
+        <a href="{% url 'index' %}" class="navbar-brand"><img class="img-responsive" alt="" src="https://templates.scriptsbundle.com/knowledge/demo/images/logo.png">
         </a>
         <!-- header end -->
       </div>
@@ -48,15 +48,15 @@
       <div class="navbar-collapse collapse">
         <!-- right bar -->
         <ul class="nav navbar-nav navbar-right">
-          <li class="hidden-sm"><a href="https://templates.scriptsbundle.com/knowledge/demo/how-work.html">How  It Works</a>
+          <li class="hidden-sm"><a href="{% url 'index' %}">How  It Works</a>
           </li>
           <li><a href="https://templates.scriptsbundle.com/knowledge/demo/listing.html">Browse Questions</a>
           </li>
           <li class="dropdown"> <a class="dropdown-toggle " data-hover="dropdown" data-toggle="dropdown" data-animations="fadeInUp">Pages <b class="caret"></b></a>
             <ul class="dropdown-menu">
-              <li><a href="https://templates.scriptsbundle.com/knowledge/demo/index.html">Home </a>
+              <li><a href="{% url 'question_list' %}">Home </a>
               </li>
-              <li><a href="https://templates.scriptsbundle.com/knowledge/demo/index2.html">Home 2</a>
+              <!-- <li><a href="https://templates.scriptsbundle.com/knowledge/demo/index2.html">Home 2</a>
               </li>
               <li><a href="https://templates.scriptsbundle.com/knowledge/demo/question-detial.html">Question Detail</a>
               </li>
@@ -72,12 +72,12 @@
 							</li>
               <li><a href="https://templates.scriptsbundle.com/knowledge/demo/contact.html">Contact Us</a>
               </li>
-              <li><a href="https://templates.scriptsbundle.com/knowledge/demo/contact-2.html">Contact With Map</a>
+              <li><a href="https://templates.scriptsbundle.com/knowledge/demo/contact-2.html">Contact With Map</a> -->
               </li>
             </ul>
           </li>
           <li>
-            <div class="btn-nav"><a href="https://templates.scriptsbundle.com/knowledge/demo/post-question.html" class="btn btn-primary btn-small navbar-btn">Post Question</a>
+            <div class="btn-nav"><a href="{% url 'ask_question' %}" class="btn btn-primary btn-small navbar-btn">Post Question</a>
             </div>
           </li>
         </ul>
@@ -128,12 +128,11 @@
             <div class="box-panel">
 
               <!-- buttons top -->
-              <a href="#" class="btn btn-default facebook"><i class="fa fa-facebook icons"></i> Sign In with Facebook</a>
-              <a href="#" class="btn btn-default google"><i class="fa fa-google-plus icons"></i> Sign In with Google</a>
+              <!-- <a href="#" class="btn btn-default facebook"><i class="fa fa-facebook icons"></i> Sign In with Facebook</a>
+              <a href="#" class="btn btn-default google"><i class="fa fa-google-plus icons"></i> Sign In with Google</a> -->
               <!-- end buttons top -->
 
-              <p class="text-center margin-top-10"><span class="span-line">OR</span>
-              </p>
+              <p class="text-center margin-top-10" style="font-family: 'Noto Serif', serif; font-weight: 600;">Login</p>
 
               <!-- form login -->
               <form  action="{% url 'login_view' %}" method="POST">
