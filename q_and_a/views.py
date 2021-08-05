@@ -51,10 +51,10 @@ def ask_question(request):
 
 
 def edit_question(request, question):   
-    quest = Question.objects.get(id = question)
+    quest = Question.objects.get(slug = question)
     form = AskQusestionForm(instance=quest)
-    if Question.objects.filter(user = request.user, id= question).exists():
-        solved = Question.objects.filter(user = request.user, id= question).exists()
+    if Question.objects.filter(user = request.user, slug= question).exists():
+        solved = Question.objects.filter(user = request.user, slug= question).exists()
         if request.method == 'POST':
             form = AskQusestionForm(request.POST, request.FILES, instance = quest)
             if form.is_valid():

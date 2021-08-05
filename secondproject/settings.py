@@ -127,18 +127,6 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-# AWS_ACCESS_KEY_ID = 'AKIA3HUCH4MHDMEUHSJC'
-# AWS_SECRET_ACCESS_KEY = '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'
-# AWS_STORAGE_BUCKET_NAME = 'secondproject-django'
-# AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
-# AWS_S3_OBJECT_PARAMETERS = {
-#     'CacheControl': 'max-age=86400',
-# }
-# AWS_DEFAULT_ACL = 'public-read'
-# # # AWS_DEFAULT_ACL = None
-
-
-# DEFAULT_FILE_STORAGE = 'secondproject.storage_backends.MediaStorage'
 
 AUTH_USER_MODEL = 'accounts.Accounts'
 

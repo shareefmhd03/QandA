@@ -1,8 +1,5 @@
 from profiles.models import Profile
 from django.db import models
-from django.db.models.deletion import CASCADE
-from django.db.models.fields import DateTimeField
-from django.db.models.fields.files import ImageField
 from accounts.models import Accounts
 
 # Create your models here.
