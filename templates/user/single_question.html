@@ -50,7 +50,10 @@
             <div class="listing-grid ">
               <div class="row">
                 <div class="col-md-12 col-sm-12 col-xs-12">
-                  <h3><a href="#"> {{que.question_title}}</a></h3>
+                  <h3><a href="#"> {{que.question_title}}</a> </h3>
+                  {%if author%}
+                  <a href="{%url 'edit_question' que.slug %}"><i class="far fa-edit"></i>edit</a>
+                {%endif%}
                   <div class="listing-meta"> <span><i class="fa fa-clock-o" aria-hidden="true"></i>8 mintes ago</span> <span><i class="fa fa fa-eye" aria-hidden="true"></i> 750 Views</span> </div>
                 </div>
                 <div class="col-md-12 col-sm-12 col-xs-12">
@@ -141,9 +144,10 @@
             <div class="side-bar">
               <div class="widget">
                 <div class="widget-image widget-image-sm"> <img alt="image" src="https://templates.scriptsbundle.com/knowledge/demo/images/light-background.jpg">
-                  <div class="widget-image-content text-center"> <img class="img-thumbnail" alt="avatar" src="https://templates.scriptsbundle.com/knowledge/demo/images/authors/12.jpg">
-                    <h2 class="widget-heading text-light"><strong>John Doe</strong></h2>
-                    <h4 class="widget-heading text-light-op"><em>Graphic Designer</em></h4>
+                  <div class="widget-image-content text-center"> <img class="img-thumbnail" alt="avatar" src="{{profile.profile_image.url}}">
+                    <h2 class="widget-heading text-light"><strong>{{profile.user}}</strong></h2>
+                    <a href="{% url 'get_profile' profile.id %}"><h4 class="widget-heading text-light-op"><em>View Profile</em></h4></a>
+
                   </div>
                 </div>
                 <div class="widget-content widget-content-full border-bottom">
@@ -195,7 +199,7 @@
               <!-- widget -->
 
               <!-- widget -->
-              <div class="widget">
+              <!-- <div class="widget">
                 <div class="recent-comments">
                   <h2>Recent Comments</h2>
                   <hr class="widget-separator no-margin">
@@ -208,7 +212,7 @@
                     <li class="recentcomments"> <span class="comment-author-link">Coty Embry</span> on <a href="#">Use Digital Ocean to create node.js server or creating website on Wordpress?</a> </li>
                   </ul>
                 </div>
-              </div>
+              </div> -->
               <!-- widget end -->
 
             </div>

@@ -9,7 +9,7 @@ urlpatterns = [
     path('accounts/', include('accounts.urls')),
     path('', include('q_and_a.urls')),
     path('blog/', include('blog.urls')),
-    path('profiles/', include('profiles.urls')),
+    # path('profiles/', include('profiles.urls')),
     path('froala_editor/',include('froala_editor.urls')),
     path('community/', include('community.urls')),
     path('tutorials/', include('tutorials.urls')),

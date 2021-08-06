@@ -54,7 +54,7 @@ body {
 	-webkit-text-size-adjust: 100%;
 	-webkit-overflow-scrolling: touch;
 	-webkit-font-smoothing: antialiased;
-	background: #eee url("../images/darkgrain.png") repeat scroll 0 0;
+	/* background: #eee url("../images/darkgrain.png") repeat scroll 0 0; */
 }
 a {
 	color: #be161e;
@@ -411,7 +411,7 @@ p {
 	margin: 0 auto;
 	background-position: center center;
 	transform: translateY(-50%);
-	background: url('../images/preloader.gif') no-repeat;
+	/* background: url('../images/preloader.gif') no-repeat; */
 }
 /* =-=-=-=-=-=-= Page Heading Area & Breadcrumb  =-=-=-=-=-=-= */
 .main-heading {
@@ -1274,7 +1274,7 @@ img.resize {
 	margin-bottom: 4px;
 }
 #user-profile {
-	background-image: url("../images/profile-bg.jpg");
+	/* background-image: url("../images/profile-bg.jpg"); */
 	min-height: 226px;
 	overflow: hidden;
 	position: relative;
@@ -2972,7 +2972,7 @@ label {
 /* =-=-=-=-=-=-= Footer =-=-=-=-=-=-= */
 
 .footer-area {
-	background: #181718 url("../images/footer.png") repeat-x scroll center bottom;
+	/* background: #181718 url("../images/footer.png") repeat-x scroll center bottom; */
 	color: #c9c9c9;
 
 	font-family: 'Titillium Web', sans-serif;	

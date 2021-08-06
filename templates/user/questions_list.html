@@ -38,11 +38,11 @@
 							<div class="panel-heading">
 								<!-- Tabs -->
 								<ul class="nav panel-tabs">
-									<li> <a data-toggle="tab" href="#tab1"><i class="icofont icon-ribbon"></i><span class="hidden-xs">Recent Questions</span></a> 
+									<li class="active"> <a data-toggle="tab" href="#tab1"><i class="icofont icon-ribbon"></i><span class="hidden-xs"></span>Recent Questions</a> 
 									</li>
 									<li> <a data-toggle="tab" href="#tab2"><i class="icofont icon-layers"></i><span class="hidden-xs">Popular Responses</span></a> 
 									</li>
-									<li class="active"> <a data-toggle="tab" href="#tab3"><i class="icofont icon-global"></i><span class="hidden-xs">Recently Answered</span></a> 
+									<li > <a data-toggle="tab" href="#tab3"><i class="icofont icon-global"></i><span class="hidden-xs"></span>Recently Answered </a> 
 									</li>
 									<li> <a data-toggle="tab" href="#tab4"><i class="icofont icon-linegraph"></i><span class="hidden-xs">No answers</span></a> 
 									</li>
@@ -877,7 +877,7 @@
                             }else{
                             body.forEach((items)=>{
                                     console.log(items.question_title);
-
+								
                                     listBody.innerHTML+=`
                                     <div class="listing-grid">
 										<div class="row">
@@ -887,7 +887,7 @@
 												</a>
 											</div>
 											<div class="col-md-7 col-sm-8  col-xs-12">
-												<h3><a  href="">${items.question_title}</a></h3>
+												<h3><a  href="/view_answer/items.slug">${items.question_title}</a></h3>
 												<div class="listing-meta"> <span><i class="fa fa-clock-o" aria-hidden="true"></i>${items.created_at}</span>  <span><i class="fa fa fa-eye" aria-hidden="true"></i> 750 Views</span> 
 												</div>
 											</div>

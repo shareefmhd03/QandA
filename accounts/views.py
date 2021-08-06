@@ -12,16 +12,20 @@ def session_check(request):
     if request.session['loggedin'] == True:
         return True
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
-def login_view(request):
-    if request.method == 'POST':
-        usernam   = request.POST['username']
-        passwd  = request.POST['password1']
-        
-        user = authenticate(request, username = usernam, password=passwd)
 
-        login(request, user)
-        return redirect('index')
-    return render(request, 'user/login.html')
+def login_view(request):
+    try:
+        if request.method == 'POST':
+            usernam   = request.POST['username']
+            passwd  = request.POST['password1']
+            
+            user = authenticate(request, username = usernam, password=passwd)
+
+            login(request, user)
+            return redirect('index')
+        return render(request, 'user/login.html')
+    except:
+        return redirect('login_view')
 
 
 # @cache_control(no_cache=True, must_revalidate=True, no_store=True)

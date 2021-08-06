@@ -19,10 +19,10 @@ class AskQusestionForm(forms.ModelForm):
 class AnswerForm(forms.ModelForm):
     class Meta:
         model = Answer
-        fields = ['answer_title','description']
+        fields = ['description']
 
-    def __init__(self, *args, **kwargs):
-        super(AnswerForm, self).__init__(*args, **kwargs)
-        self.fields['answer_title'].widget.attrs['class'] = 'form-control'
+    # def __init__(self, *args, **kwargs):
+    #     super(AnswerForm, self).__init__(*args, **kwargs)
+    #     # self.fields['answer_title'].widget.attrs['class'] = 'form-control'
         
         

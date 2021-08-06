@@ -30,7 +30,6 @@ class Comments(models.Model):
     user = models.ForeignKey(Accounts, on_delete=models.CASCADE)
     comment = models.TextField(max_length=255)
     blog = models.ForeignKey(Blog, on_delete=models.CASCADE, blank=True, null=True)
-
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

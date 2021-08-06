@@ -1,9 +1,14 @@
 from django.http.response import JsonResponse
-from q_and_a.models import Answer, Question, Tags
+from q_and_a.models import Answer, PointsTable, Question, Tags
+from profiles.models import Profile
 
 from django.shortcuts import redirect, render
 from .forms import AnswerForm, AskQusestionForm
 from django.db.models import Q
+import datetime
+
+def get_time():
+    return datetime.datetime.now()
 
 
 def index(request):
@@ -15,28 +20,31 @@ def index(request):
 
 def question_from_index(request):
     if request.method == 'POST':
-        
         title = request.POST['title']
         quest = Question(question_title = title, user = request.user)
         quest.save()
-        # return JsonResponse({
-        #     'msg':'success',
-        # })
         return redirect('index')
 
 def ask_question(request):
     try:
+        
         if request.user.is_authenticated:
+
             if request.method == 'POST':
+
                 form = AskQusestionForm(request.POST, request.FILES)
                 if form.is_valid():
-
-                    title = form.cleaned_data['question_title']
+                    title    = form.cleaned_data['question_title']
                     question = form.cleaned_data['question']
-
+                    
                     quest = Question(question_title = title, user = request.user, question= question)
                     quest.save()
-                    return redirect('index')
+                    points = PointsTable.objects.get(user = request.user)
+
+                    points.point+=1
+
+                    points.save()
+                    return redirect('question_list')
 
             form = AskQusestionForm()
             context = {
@@ -78,11 +86,11 @@ def answer(request, question):
         if request.method =='POST':
             form = AnswerForm(request.POST, request.FILES)
             if form.is_valid():
-                title = form.cleaned_data['answer_title']
+                # title = form.cleaned_data['answer_title']
                 desc = form.cleaned_data['description']
-                ans = Answer(answer_title = title, user = request.user, description = desc, question = quest )
+                ans = Answer(user = request.user, description = desc, question = quest )
                 ans.save()
-                return redirect('view_answer', int(question))
+                return redirect('view_answer', quest.slug)
         form = AnswerForm()
         context ={
             'form':form,
@@ -92,44 +100,42 @@ def answer(request, question):
 
 
 def view_answer(request, pk):
-    quest = Question.objects.filter(id = pk)
-    author = Question.objects.filter(user = request.user, id= pk).exists()
-    answer = Answer.objects.filter(question_id = pk)
+    quest = Question.objects.filter(slug = pk)
+    questt = Question.objects.get(slug = pk)
+    author = Question.objects.filter(user = request.user, slug= pk).exists()
+    answer = Answer.objects.filter(question_id__slug = pk)
+    profile = Profile.objects.get(user = questt.user)
+    print(profile.user)
+    
     form = AnswerForm()
     context = {
         'question':quest,
         'answer':answer,
         'author':author,
         'form':form,
+        'profile':profile,
     }
     return render(request, 'user/single_question.html', context)
 
-# def related_questions(request):
-#     rl = Question.objects.filter(tag = tag)
+
 
 def solved(request):
     if request.method == 'POST':
-        print('----------------------//------------------------')
+        print('inside post')
+        
         ans_id = request.POST['data']
-        print(ans_id,'//////////////////////////')
+        
         ans = Answer.objects.get(id =ans_id)
-        print(ans.is_solution)
         question = Question.objects.get(id  = ans.question_id)
-       
         if question.solved == False:
             question.solved = True
             question.save()
-            print(question.solved,'question.solved')
-        # print(question.solved,'111111111')
+        
         elif ans.is_solution == False:
                 ans.is_solution = True
                 ans.save()
-        print(ans.is_solution,'oooooooooo')
-            
-            
-        # print(quest_id)
-        
-        return redirect('view_answer', question.id)
+        quest = Question.objects.get(id  = ans.question_id)
+        return redirect('view_answer',quest.slug)
 
 
 

@@ -1,4 +1,4 @@
-from profiles.models import Profile
+# from profiles.models import Profile
 from django.db import models
 from accounts.models import Accounts
 
@@ -9,27 +9,12 @@ from accounts.models import Accounts
 class Posts(models.Model):
     image = models.ImageField(blank = True, upload_to = 'posts_images')
     description = models.TextField()
-    author = models.ForeignKey(Profile,on_delete=models.CASCADE, null = True, blank=True)
-    upvote = models.ManyToManyField(Accounts, default=None, blank = True)
-    # downvote = models.ManyToManyField(Accounts, default=None)
-
+    # author = models.ForeignKey(Profile,on_delete=models.CASCADE, null = True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
 
     def __str__(self):
         return str(self.pk)
-
-    def upvotedd_users(self):
-        return self.upvote.all()
-
-    def downvoted_users(self):
-        return self.downvote.all()
-
-    def upvote_count(self):
-        return self.upvote.all().count()
-
-    def downvote_count(self):
-        return self.downvote.all().count()
 
     
