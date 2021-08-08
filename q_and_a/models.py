@@ -37,6 +37,8 @@ class Answer(models.Model):
     
     question = models.ForeignKey(
         Question, on_delete=models.CASCADE, blank=True, null=True)
+    upvote = models.ManyToManyField(Accounts, related_name='likes')
+    downvote = models.ManyToManyField(Accounts, related_name='dislikes')
     tags = models.ManyToManyField(Tags)
     is_solution =models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -54,16 +56,10 @@ class PointsTable(models.Model):
     def __str__(self):
         return self.user.username
 
-    def solved_ans_count(self):
-        return self.solved_questions.all().count()
-
-    def asked_questions_counter(self):
-        return self.asked_questions.all().count()
-
-        
     def upvote_count(self):
-        return self.upvote
+        return self.upvote.all().count()
+    def downvote_count(self):
+        return self.downvote.all().count()
     
-    def down_vote(self):
-        return self.downvote
+    
 

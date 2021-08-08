@@ -57,6 +57,11 @@
   </section>
 
   <!-- =-=-=-=-=-=-= User Profile end =-=-=-=-=-=-= -->
+
+  {% for question in questions %}
+
+  {{question.question_title}}
+  {% endfor %}
   
   {% if profile.user == request.user %}
 <!-- =-=-=-=-=-=-= User Form Settings =-=-=-=-=-=-= -->

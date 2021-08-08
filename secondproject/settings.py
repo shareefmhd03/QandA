@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'froala_editor',
     'storages',
     'tutorials',
+    'admin_app'
     
 ]
     # 'ckeditor',

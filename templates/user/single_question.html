@@ -5,6 +5,9 @@
 {% block content %}
 {% include 'user/includes/header_base.html' %}
 
+
+
+</style>
   <!-- =-=-=-=-=-=-= Main Area =-=-=-=-=-=-= -->
   <div class="main-content-area">
 
@@ -80,11 +83,19 @@
 				<!-- Reply Grid -->
 				{% for ans in answer %}
               <div class="media-block card-box ribbon-content">
+                <div class="pad-ver pull-left">
+                  <button value="{{ans.id}}" id="upvote" class="btn btn-sm btn-primary" ><i  class="fas fa-chevron-up"></i></button><br>
+                  <input type="hidden"  style="width: 3rem;">
+                  <br>
+                  <button value="{{ans.id}}" id="downvote" class="btn btn-sm btn-primary" ><i  class="fas fa-chevron-down"></i></button>
                 
+                </div>
+           
 
-                <div class="media-left">
+                <div class="media-left" style="padding-left: 10px;">
+                
                   <a data-toggle="tooltip" data-placement="bottom" data-original-title="Martina Jaz" href="#">
-                    <img class="img-sm" alt="Profile Picture" src="https://templates.scriptsbundle.com/knowledge/demo/images/authors/9.jpg">
+                    <img class="img-sm p-2" alt="Profile Picture" src="https://templates.scriptsbundle.com/knowledge/demo/images/authors/9.jpg">
 
                   </a>
 
@@ -106,13 +117,7 @@
                   {% endif %}
                   {%else%}
                   {% endif%} 
-                  <div class="pad-ver pull-right">
-                  
-
-                    <a class="btn btn-sm btn-default btn-hover-success" data-toggle="tooltip" data-placement="bottom" data-original-title="Like This Answer" href="#"><i class="fa fa-thumbs-up"></i></a>
-                    <a class="btn btn-sm btn-default btn-hover-danger" href="#" data-original-title="Spam" data-placement="bottom" data-toggle="tooltip"><i class="fa fa-thumbs-down"></i></a>
-
-                  </div>
+                 
 
                 </div>
               </div>
@@ -198,22 +203,7 @@
               </div>
               <!-- widget -->
 
-              <!-- widget -->
-              <!-- <div class="widget">
-                <div class="recent-comments">
-                  <h2>Recent Comments</h2>
-                  <hr class="widget-separator no-margin">
-                  <ul id="recentcomments">
-                    <li class="recentcomments"> <span class="comment-author-link">John Doe</span> on <a href="#">bootstrap vs foundation</a> </li>
-                    <li class="recentcomments"> <span class="comment-author-link">Emily Copper</span> on <a href="#">how to get data from URL in PHP</a> </li>
-                    <li class="recentcomments"> <span class="comment-author-link">Alex Martin</span> on <a href="#">My SQL PHP Multi Layer Drop Down List from Databse</a> </li>
-                    <li class="recentcomments"> <span class="comment-author-link">Tina Martin</span> on <a href="#">PHP Multi Layer Drop Down List from Databse</a> </li>
-                    <li class="recentcomments"> <span class="comment-author-link">Alex Henz</span> on <a href="#">Can't use custom width with Angular-Slick</a> </li>
-                    <li class="recentcomments"> <span class="comment-author-link">Coty Embry</span> on <a href="#">Use Digital Ocean to create node.js server or creating website on Wordpress?</a> </li>
-                  </ul>
-                </div>
-              </div> -->
-              <!-- widget end -->
+            
 
             </div>
             <!-- sidebar end -->
@@ -340,4 +330,46 @@
 				})
 		  });
 		</script>
+    <script>
+	
+      $('#upvote').click(function() {
+        console.log('hello')
+        // const a = this.value
+        console.log(this.value)
+        data = {
+          'data':this.value,
+          'csrfmiddlewaretoken': '{{ csrf_token }}'
+        }
+        const url = "{% url 'voting_up' %}"
+          $.ajax({
+            type: "POST",
+            url: url,
+            data: data,
+            success: function(data) {
+        //       location.reload();
+        alert('success')
+            },
+          })
+        });
+      $('#downvote').click(function() {
+        console.log('hello')
+        // const a = this.value
+        console.log(this.value)
+        data = {
+          'data':this.value,
+          'csrfmiddlewaretoken': '{{ csrf_token }}'
+        }
+        const url = "{% url 'voting_down' %}"
+          $.ajax({
+            type: "POST",
+            url: url,
+            data: data,
+            success: function(data) {
+        //       location.reload();
+        alert('success')
+            },
+          })
+        });
+      </script>
+
   {% endblock %}

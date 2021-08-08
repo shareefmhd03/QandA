@@ -6,15 +6,18 @@ from django.shortcuts import redirect, render
 from .forms import AnswerForm, AskQusestionForm
 from django.db.models import Q
 import datetime
+from accounts.models import Accounts
 
 def get_time():
     return datetime.datetime.now()
 
 
 def index(request):
+    profile = Profile.objects.all()
     question = Question.objects.all().order_by('-created_at')
     context = {
         'question':question,
+        'profile':profile,
     }
     return render(request, 'user/index.html', context)
 
@@ -199,5 +202,26 @@ def search_filter(request):
     # return render(request, 'user/test.html',context)
 
 
+def voting_up(request):
+    # points = PointsTable.objects.get
+    if request.user.is_authenticated:
+        if request.method =='POST':
+            ans_id = request.POST.get('data')
+            ans = Answer.objects.get(id = ans_id)
+            print(ans.upvote)
+            # print('hello')
+            ans.upvote.clear()
+        JsonResponse({'error':'error'})
+    return redirect('index')
 
 
+def voting_down(request):
+    # points = PointsTable.objects.get
+    if request.user.is_authenticated:
+        if request.method =='POST':
+            ans_id = request.POST.get('data')
+            ans = Answer.objects.get(id = ans_id)
+            ans.downvote.add(request.user)
+            # ans.downvote.clear()
+        JsonResponse({'error':'error'})
+    return redirect('index')

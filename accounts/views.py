@@ -8,50 +8,57 @@ from django.views.decorators.cache import cache_control
 
 # Create your views here.
 
-def session_check(request):
-    if request.session['loggedin'] == True:
-        return True
+# def session_check(request):
+#     if request.session['loggedin'] == True:
+#         return True
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 
 def login_view(request):
-    try:
-        if request.method == 'POST':
-            usernam   = request.POST['username']
-            passwd  = request.POST['password1']
-            
-            user = authenticate(request, username = usernam, password=passwd)
+    if request.user.is_authenticated:
+        return redirect('index')
+    else:
+        try:
+            if request.method == 'POST':
+                usernam   = request.POST['username']
+                passwd  = request.POST['password1']
+                
+                user = authenticate(request, username = usernam, password=passwd)
 
-            login(request, user)
-            return redirect('index')
-        return render(request, 'user/login.html')
-    except:
-        return redirect('login_view')
+                login(request, user)
+                return redirect('index')
+            return render(request, 'user/login.html')
+        except:
+            return redirect('login_view')
 
 
 # @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def register(request):
-    form = RegistrationForm(request.POST or None)
-    if request.method == 'POST':
+    if request.user.is_authenticated:
+        return redirect('index')
+    else:
 
-        if form.is_valid():
+        form = RegistrationForm(request.POST or None)
+        if request.method == 'POST':
 
-            firstname = form.cleaned_data['first_name']
-            lastname = form.cleaned_data['last_name']
-            email = form.cleaned_data['email']
-            phone = form.cleaned_data['phone']
-            password1 = form.cleaned_data['password1']
-            password2 = form.cleaned_data['password2']
-            username = email.split('@')[0]+''
-            user = Accounts.objects.create_user(
-                first_name = firstname, last_name = lastname, email = email, password=password1, phone = phone,username = username)
-            user.save()
-            # messages.success(request, 'Account created successfully')
-            return redirect('login_view')
-    # form = RegistrationForm()
-    context = {
-        'form': form,
-    }
-    return render(request, 'user/signup.html',context)
+            if form.is_valid():
+
+                firstname = form.cleaned_data['first_name']
+                lastname = form.cleaned_data['last_name']
+                email = form.cleaned_data['email']
+                phone = form.cleaned_data['phone']
+                password1 = form.cleaned_data['password1']
+                password2 = form.cleaned_data['password2']
+                username = email.split('@')[0]+''
+                user = Accounts.objects.create_user(
+                    first_name = firstname, last_name = lastname, email = email, password=password1, phone = phone,username = username)
+                user.save()
+                # messages.success(request, 'Account created successfully')
+                return redirect('login_view')
+        # form = RegistrationForm()
+        context = {
+            'form': form,
+        }
+        return render(request, 'user/signup.html',context)
 
 
 
@@ -60,14 +67,17 @@ def logout_view(request):
     logout(request)
     return redirect ('login_view')
 
-
-
-
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def admin_dashboard(request):
-    if request.session['loggedin']:
-        return render(request, 'admin/dashboard.html')
+    try:
+        if request.session['loggedin']:
+            return render(request, 'admin/dashboard.html')
+    except:
+        return render(request, 'admin/loginPage.html')
 
 
+
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def admin_login(request):
     username = 'admin'
     password = '123'

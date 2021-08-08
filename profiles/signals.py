@@ -1,8 +1,8 @@
 
 
-from q_and_a.models import PointsTable, Question
+# from q_and_a.models import PointsTable, Question
 from .models import Profile
-from django.db.models.signals import m2m_changed, post_save
+from django.db.models.signals import post_save
 from django.dispatch import receiver
 from accounts.models import Accounts
 

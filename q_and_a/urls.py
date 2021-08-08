@@ -13,5 +13,7 @@ urlpatterns = [
     path('search/', search, name = 'search'),
     path('search_question/', search_question, name = 'search'),
     path('search_filter/', search_filter, name = 'search_filter'),
+    path('voting_up/', voting_up, name = 'voting_up'),
+    path('voting_down/', voting_down, name = 'voting_down'),
 
 ]
