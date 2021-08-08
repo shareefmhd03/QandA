@@ -1,3 +1,4 @@
+from tutorials.models import Tutorial
 from accounts.models import Accounts
 from django.shortcuts import render,redirect
 # from accounts.views import session_check
@@ -7,12 +8,10 @@ from accounts.forms import RegistrationForm
 
 def user_mgmt(request):
     if request.session['loggedin']:
-        users = Accounts.objects.exclude(is_superuser =True)
+        users = Accounts.objects.exclude(is_superuser =True).order_by('id')
         context = {
             'users':users,
         }
-        for i in users:
-            print(i.is_active)
         return render(request, 'admin/usermgmt.html',context)
     return render(request, 'admin/loginPage.html')
 
@@ -22,6 +21,7 @@ def add_user(request):
         if request.method == "POST":
             form = RegistrationForm(request.POST)
             if form.is_valid():
+                print('valid')
                 firstname = form.cleaned_data['first_name']
                 lastname = form.cleaned_data['last_name']
                 email = form.cleaned_data['email']
@@ -37,15 +37,38 @@ def add_user(request):
         else:
             form = RegistrationForm()
             return render(request, 'admin/add_user.html')
-    else:
-        return render(request, 'admin/loginPage.html')
+   
+    return render(request, 'admin/loginPage.html')
         
 
 def user_unblock(request):
-    user_id = request.POST['data']
-    user = Accounts.objects.get(id = user_id)
-    if user.is_active == True:
-        user.is_active = False
-    else:
-        user.is_active = False
+    if request.method == "POST":
+        user_id = request.POST['data']
+        user = Accounts.objects.get(id = user_id)
+        if user.is_active == True:
+            user.is_active = False
+            user.save()
+            print(user.is_active)
 
+        elif user.is_active == False :
+            user.is_active = True
+            user.save()
+    return redirect('user_mgmt')
+
+
+
+def delete_user(request):
+    if request.method == "POST":
+        user_id = request.POST['data']
+        user = Accounts.objects.get(id = user_id)
+        user.delete()
+
+    return redirect('user_mgmt')
+
+
+def view_tutorials(request):
+    tutorials = Tutorial.objects.all()
+    context ={
+        'tutorials':tutorials,
+    }
+    return render(request, 'admin/tutorials.html')

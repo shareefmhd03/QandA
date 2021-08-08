@@ -9,7 +9,7 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Skydash Admin</title>
+  <title>Knowledge Admin</title>
   <!-- plugins:css -->
   <link rel="stylesheet" href="{% static 'admin/vendors/feather/feather.css' %}">
   <link rel="stylesheet" href="{% static 'admin/vendors/ti-icons/css/themify-icons.css' %}">
@@ -24,6 +24,7 @@
   <link rel="stylesheet" href="{% static 'admin/css/vertical-layout-light/style.css' %}">
   <!-- endinject -->
   <!-- <link rel="shortcut icon" href="{% static 'admin/images/favicon.png' " /> -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
   <div class="container-scroller">
@@ -327,7 +328,7 @@
             </a>
             <div class="collapse" id="form-elements">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"><a class="nav-link" href="pages/forms/basic_elements.html">Basic Elements</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'view_tutorials' %}">View Tutorials</a></li>
               </ul>
             </div>
           </li>
@@ -397,10 +398,12 @@
 <script src="{% static 'admin/js/template.js' %}"></script>
 <script src="{% static 'admin/js/settings.js' %}"></script>
 <script src="{% static 'admin/js/todolist.js' %}"></script>
+<script src="{% static 'admin/js/todolist.js' %}"></script>
 <!-- endinject -->
 <!-- Custom js for this page-->
-<script src="{% static 'admin/js/dashboard.js' %}"></script>
-<script src="{% static 'admin/js/Chart.roundedBarCharts.js' %}"></script>
+<script src="{% static 'admin/js/validation.js' %}"></script>
+<!-- <script src="{% static 'admin/js/Chart.roundedBarCharts.js' "></script> -->
+
 <!-- End custom js for this page-->
 </body>
 

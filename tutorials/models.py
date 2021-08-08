@@ -10,6 +10,8 @@ class Tutorial(models.Model):
     title  = models.CharField(max_length=50)
     
     # turorial  = RichTextUploadingField()
+    image= models.ImageField(null = True, blank = True)
+    desc = models.TextField(blank=True,null=True)
     description  = FroalaField()
     slug = models.SlugField()
     created_at = models.DateTimeField(auto_now_add=True)
