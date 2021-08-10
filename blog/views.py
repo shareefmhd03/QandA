@@ -41,27 +41,21 @@ def add_blog(request):
     return render(request, 'user/blog_form.html',context)
 
 def blog_detailed_view(request, slug):
-    context={}
-    dictt ={}
-    li = []
     form = CommentForm()
     single_blog = Blog.objects.get(slug = slug)
     comments = Comments.objects.filter(blog_id = single_blog)
     reply = Reply.objects.all()
-    
-    try:
-        author = Blog.objects.filter(user = request.user, slug = slug).exists()
-
-        context['author'] = author
-    except:
-        pass
+    # if Blog.objects.filter(user = request.user, slug = slug).exists():
+    #     author = True 
+    # else:
+    #     author = False
     context ={
         'form':form,
+        # 'author':author,
         'comments':comments,
         'reply':reply,
         'single_blog':single_blog
     }
-
     return render(request, 'user/single_post.html', context)
         
  
@@ -70,12 +64,13 @@ def edit_blog(request, slug):
     context = {}
     blog = Blog.objects.get(slug = slug)
     form = BlogForm(instance=blog)
-    solved = Blog.objects.filter(user = request.user, slug= slug).exists()
-    if solved:
+    blog_auther = Blog.objects.filter(user = request.user, slug= slug).exists()
+    context['blog_auther'] = blog_auther
+    if blog_auther:
 
         if request.user.is_authenticated:
             if request.method == 'POST':
-                form = Blog(request.POST, request.FILES, instance = blog)
+                form = BlogForm(request.POST, request.FILES, instance = blog)
                
                 if form.is_valid():
                     titl = form.cleaned_data['title']

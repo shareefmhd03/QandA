@@ -12,7 +12,10 @@ def user_profile(request):
         profile  = Profile.objects.get(user = request.user)
         question = Question.objects.filter(user = request.user)
         my_points = PointsTable.objects.get(user = request.user)
+        
         blog = Blog.objects.filter(user = request.user)
+        questions_count = Question.objects.filter(user = profile.user).count()
+
         
         # owner = Accounts.objects.filter(id = 17)
         # print(owner)
@@ -21,20 +24,37 @@ def user_profile(request):
         # 'my_points':my_points,
         'questions':question,
         'blogs':blog,
+        'questions_count':questions_count,
     }
     return render(request, 'user/user_profile.html', context)
 
 def get_profile(request, pk):
+    followed = False
     profile  = Profile.objects.get(id =pk)
-    blog = Blog.objects.filter(user = profile.user)
-    points = PointsTable.objects.get(user = profile.user)
+    blog = Blog.objects.filter(user = profile.user).order_by('created_at')
+    # points = PointsTable.objects.get(user = profile.user)
+    
     questions = Question.objects.filter(user = profile.user)
     questions_count = Question.objects.filter(user = profile.user).count()
+    if request.user in profile.following.all():
+        followed = True
+
+    if followed:
+        profile.following.remove(request.user)
+        profile.save()
+    else:
+        profile.following.add(request.user)
+        profile.save()
+    
+    # print(profile.following.use,'eeeee')
+    print(followed)
 
     context={
         'profile':profile,
         'blogs':blog,
         'questions':questions,
+        'questions_count':questions_count,
+        'followed':followed,
     }
     return render(request, 'user/user_profile.html', context)
 
@@ -50,4 +70,21 @@ def update_profile_image(request):
 
 
 def update_profile(request):
-    pass
+    if request.user.is_authenticated:
+        profile = Profile.objects.get(user = request.user)
+        if request.method =="POST":
+            bio = request.POST['bio']
+            designation = request.POST['designation']
+
+            profile.bio=bio
+            profile.designation= designation
+            profile.save()
+            return redirect('user_profile')
+
+def follow(request):
+    if request.method == 'POST':
+        val = request.POST['data']
+        profile = Profile.objects.get(id = val)
+        profile.following.add(profile.user)
+        profile.save()
+    return redirect('user_profile')

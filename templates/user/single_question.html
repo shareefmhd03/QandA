@@ -7,7 +7,7 @@
 
 
 
-</style>
+
   <!-- =-=-=-=-=-=-= Main Area =-=-=-=-=-=-= -->
   <div class="main-content-area">
 
@@ -52,7 +52,18 @@
             <!-- Question Listing -->
             <div class="listing-grid ">
               <div class="row">
+                
+               
+                
                 <div class="col-md-12 col-sm-12 col-xs-12">
+                  <div class="pad-ver pull-left" style="padding-right: 2rem;">
+                  
+                    <button onclick="up_vote('{{que.id}}')" id="upvoting" class="btn btn-sm btn-primary" ><i class="fas fa-chevron-up"></i></button> <br>
+                    
+                    <input id="counterq{{que.id}}" type="text" readonly value="{{que.vote_total}}"  style="width: 3rem; border: none;">
+                    <br>
+                    <button onclick="down_vote('{{que.id}}')" id="downvoting" class="btn btn-sm btn-primary" ><i class="fas fa-chevron-down"></i></button>
+                    </div>
                   <h3><a href="#"> {{que.question_title}}</a> </h3>
                   {%if author%}
                   <a href="{%url 'edit_question' que.slug %}"><i class="far fa-edit"></i>edit</a>
@@ -60,7 +71,13 @@
                   <div class="listing-meta"> <span><i class="fa fa-clock-o" aria-hidden="true"></i>8 mintes ago</span> <span><i class="fa fa fa-eye" aria-hidden="true"></i> 750 Views</span> </div>
                 </div>
                 <div class="col-md-12 col-sm-12 col-xs-12">
-					<p>{{que.question|safe}}</p>
+                  <style>
+                    .listing-grid img {
+                    width: 485px;
+                    height: 300px;
+                    }
+                    </style>
+					{{que.question|safe}}
                   <!-- <strong>Html Structure</strong>
                   <pre class="brush: php; syntaxhighlight"> -->
 
@@ -72,6 +89,7 @@
                 </div>
               </div>
             </div>
+
             <!-- Question Listing End -->
 			
 
@@ -81,17 +99,24 @@
 				<h2>Thread Reply </h2>
 				
 				<!-- Reply Grid -->
+        <style>
+          #counter{
+            border-width:0px;
+            border:none;
+            outline: none !important;
+            
+          }
+        </style>
 				{% for ans in answer %}
               <div class="media-block card-box ribbon-content">
                 <div class="pad-ver pull-left">
-                  <button value="{{ans.id}}" id="upvote" class="btn btn-sm btn-primary" ><i  class="fas fa-chevron-up"></i></button><br>
-                  <input type="hidden"  style="width: 3rem;">
+                  <button onclick="up_voting('{{ans.id}}')" id="upvote" class="btn btn-sm btn-primary" ><i  class="fas fa-chevron-up"></i></button><br>
+                  <input id="counterq{{ans.id}}" type="text" readonly value="{{ans.vote_total}}"  style="width: 3rem; border: none;">
                   <br>
-                  <button value="{{ans.id}}" id="downvote" class="btn btn-sm btn-primary" ><i  class="fas fa-chevron-down"></i></button>
-                
+                  <button onclick="down_voting('{{ans.id}}')" id="downvote" class="btn btn-sm btn-primary" ><i  class="fas fa-chevron-down"></i></button>
+                  
                 </div>
-           
-
+               
                 <div class="media-left" style="padding-left: 10px;">
                 
                   <a data-toggle="tooltip" data-placement="bottom" data-original-title="Martina Jaz" href="#">
@@ -123,7 +148,7 @@
               </div>
 			  {% endfor %}
 
-              <div class="clearfix"></div>
+   
 
               <form method="POST" action="{% url 'answer' que.id %}">
 				  {% csrf_token %}
@@ -169,140 +194,22 @@
                 </div>
                 <div class="widget-content border-bottom">
                   <h4>About</h4>
-                  <p>Proin ac nibh rutrum lectus rhoncus eleifend. Sed porttitor pretium venenatis. Suspendisse potenti. Aliquam quis ligula elit.</p>
-                  <p>Sed porttitor pretium venenatis. Suspendisse potenti. Aliquam quis ligula elit. Aliquam at orci ac neque semper dictum.</p>
+                  <p>{{profile.bio}}</p>
                 </div>
                 <div class="widget-content">
 
                   <div class="btn-group"> <a title="" data-toggle="tooltip" class="btn btn-default" href="javascript:void(0)" data-original-title="Facebook"><i class="fa fa-facebook fa-fw"></i></a> <a title="" data-toggle="tooltip" class="btn btn-default" href="javascript:void(0)" data-original-title="Twitter"><i class="fa fa-twitter fa-fw"></i></a> <a title="" data-toggle="tooltip" class="btn btn-default" href="javascript:void(0)" data-original-title="Google Plus"><i class="fa fa-google-plus fa-fw"></i></a> <a title="" data-toggle="tooltip" class="btn btn-default" href="javascript:void(0)" data-original-title="Pinterest"><i class="fa fa-pinterest fa-fw"></i></a> <a title="" data-toggle="tooltip" class="btn btn-default" href="javascript:void(0)" data-original-title="Dribbble"><i class="fa fa-dribbble fa-fw"></i></a> </div>
                 </div>
               </div>
-
-              <!-- widget -->
-              <div class="widget">
-                <div class="recent-comments">
-                  <h2>Hot Questions</h2>
-                  <hr class="widget-separator no-margin">
-                  <ul>
-                    <li><a href="#">Twitter Bootsrap 3.0 - tabs-left not working anymore?</a>
-                    </li>
-                    <li><a href="#">Changing the color on my tabbed left bootstrap3 tabs</a>
-                    </li>
-                    <li><a href="#">How to create tabs on the left in bootstrap.js v3.0.0? </a>
-                    </li>
-                    <li><a href="#">Bootstrap horizontal form with left floated side tabs</a>
-                    </li>
-                    <li><a href="#">A Repository class - would you use it to handle multi records? </a>
-                    </li>
-                    <li><a href="#">Realurl generating unwanted language codes inside url </a>
-                    </li>
-                    <li><a href="#">post data from html form to php script and return result to ajax/js/jquery </a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-              <!-- widget -->
-
-            
-
             </div>
-            <!-- sidebar end -->
-          </div>
-          <!-- Right Sidebar End -->
 
+          </div>
         </div>
-        <!-- Row End -->
+
       </div>
     </section>
-    <!-- =-=-=-=-=-=-= Question Details end =-=-=-=-=-=-= -->
 
-    <!-- =-=-=-=-=-=-= Our Clients =-=-=-=-=-=-= -->
-    <section class="custom-padding" id="clients">
-      <div class="container">
-
-        <!-- Row -->
-        <div class="row">
-
-          <!-- col-md-2 client-block -->
-          <div class="col-md-2 col-xs-6 col-sm-4 client-block">
-
-            <!-- client-item client-item-style-2 -->
-            <div class="client-item client-item-style-2">
-              <a title="Client Logo" href="#"> <img alt="Clients Logo" src="https://templates.scriptsbundle.com/knowledge/demo/images/clients/client_5.png"> </a>
-            </div>
-            <!-- /client-item client-item-style-2 -->
-
-          </div>
-          <!-- /col-md-2 client-block -->
-
-          <!-- col-md-2 client-block -->
-          <div class="col-md-2 col-xs-6 col-sm-4 client-block">
-
-            <!-- client-item client-item-style-2 -->
-            <div class="client-item client-item-style-2">
-              <a title="Client Logo" href="#"> <img alt="Clients Logo" src="https://templates.scriptsbundle.com/knowledge/demo/images/clients/client_6.png"> </a>
-            </div>
-            <!-- /client-item client-item-style-2 -->
-
-          </div>
-          <!-- /col-md-2 client-block -->
-
-          <!-- col-md-2 client-block -->
-          <div class="col-md-2 col-xs-6 col-sm-4 client-block">
-
-            <!-- client-item client-item-style-2 -->
-            <div class="client-item client-item-style-2">
-              <a title="Client Logo" href="#"> <img alt="Clients Logo" src="https://templates.scriptsbundle.com/knowledge/demo/images/clients/client_7.png"> </a>
-            </div>
-            <!-- /client-item client-item-style-2 -->
-
-          </div>
-          <!-- /col-md-2 client-block -->
-
-          <!-- col-md-2 client-block -->
-          <div class="col-md-2 col-xs-6 col-sm-4 client-block">
-
-            <!-- client-item client-item-style-2 -->
-            <div class="client-item client-item-style-2">
-              <a title="Client Logo" href="#"> <img alt="Clients Logo" src="https://templates.scriptsbundle.com/knowledge/demo/images/clients/client_8.png"> </a>
-            </div>
-            <!-- /client-item client-item-style-2 -->
-
-          </div>
-          <!-- /col-md-2 client-block -->
-
-          <!-- col-md-2 client-block -->
-          <div class="col-md-2 col-xs-6 col-sm-4 client-block">
-
-            <!-- client-item client-item-style-2 -->
-            <div class="client-item client-item-style-2">
-              <a title="Client Logo" href="#"> <img alt="Clients Logo" src="https://templates.scriptsbundle.com/knowledge/demo/images/clients/client_9.png"> </a>
-            </div>
-            <!-- /client-item client-item-style-2 -->
-
-          </div>
-          <!-- /col-md-2 client-block -->
-
-          <!-- col-md-2 client-block -->
-          <div class="col-md-2 col-xs-6 col-sm-4 client-block">
-
-            <!-- client-item client-item-style-2 -->
-            <div class="client-item client-item-style-2">
-              <a title="Client Logo" href="#"> <img alt="Clients Logo" src="https://templates.scriptsbundle.com/knowledge/demo/images/clients/client_10.png"> </a>
-            </div>
-            <!-- /client-item client-item-style-2 -->
-
-          </div>
-          <!-- /col-md-2 client-block -->
-
-        </div>
-        <!-- Row End -->
-
-      </div>
-      <!-- end container -->
-    </section>
-    <!-- =-=-=-=-=-=-= Our Clients -end =-=-=-=-=-=-= -->
-
+  
   </div>
   <!-- =-=-=-=-=-=-= Main Area End =-=-=-=-=-=-= -->
 
@@ -332,12 +239,45 @@
 		</script>
     <script>
 	
-      $('#upvote').click(function() {
-        console.log('hello')
-        // const a = this.value
-        console.log(this.value)
-        data = {
-          'data':this.value,
+      // $('#upvote').click(function() {
+      //   console.log()
+      //   // const a = this.value
+      //   console.log(this.value+'asdfasdfadsfasdf')
+      //   data = {
+      //     'data':this.value,
+      //     'csrfmiddlewaretoken': '{{ csrf_token }}'
+      //   }
+      //   const url = "{% url 'voting_up' %}"
+      //     $.ajax({
+      //       type: "POST",
+      //       url: url,
+      //       data: data,
+      //       success: function(data) {
+      //   // window.location.reload()
+      //       },
+      //     })
+      //   });
+      // $('#downvote').click(function() {
+      //   console.log('hello')
+      //   // const a = this.value
+      //   console.log(this.value)
+        
+      //   const url = "{% url 'voting_down' %}"
+      //     $.ajax({
+      //       type: "POST",
+      //       url: url,
+      //       data: data,
+      //       success: function(data) {
+      //   //       location.reload();
+      //   window.location.reload()
+      //       },
+      //     })
+      //   });
+
+
+        function up_voting(a){
+          data = {
+          'data':a,
           'csrfmiddlewaretoken': '{{ csrf_token }}'
         }
         const url = "{% url 'voting_up' %}"
@@ -346,17 +286,19 @@
             url: url,
             data: data,
             success: function(data) {
+              
         //       location.reload();
-        alert('success')
+        // window.location.reload()
+        console.log(a);
+        $("#counter"+a).val(data.total_vote);
+        console.log(data);
+        // document.getElementById('counter{{ans.id}}').stepUp();
             },
           })
-        });
-      $('#downvote').click(function() {
-        console.log('hello')
-        // const a = this.value
-        console.log(this.value)
-        data = {
-          'data':this.value,
+        }
+        function down_voting(a){
+          data = {
+          'data':a,
           'csrfmiddlewaretoken': '{{ csrf_token }}'
         }
         const url = "{% url 'voting_down' %}"
@@ -366,10 +308,44 @@
             data: data,
             success: function(data) {
         //       location.reload();
-        alert('success')
+        // window.location.reload()
+        $("#counter"+a).val(data.total_vote);
             },
           })
-        });
+        }
+        function up_vote(a){
+          console.log(a+'eeeee')
+          data = {
+          'data':a,
+          'csrfmiddlewaretoken': '{{ csrf_token }}'
+        }
+        const url = "{% url 'voting_up_question' %}"
+          $.ajax({
+            type: "POST",
+            url: url,
+            data: data,
+            success: function(data) {
+
+        $("#counterq"+a).val(data.total_vote);
+            },
+          })
+        }
+        function down_vote(a){
+          console.log(a)
+          data = {
+          'data':a,
+          'csrfmiddlewaretoken': '{{ csrf_token }}'
+        }
+        const url = "{% url 'voting_down_question' %}"
+          $.ajax({
+            type: "POST",
+            url: url,
+            data: data,
+            success: function(data) {
+        $("#counterq"+a).val(data.total_vote);
+            },
+          })
+        }
       </script>
 
   {% endblock %}

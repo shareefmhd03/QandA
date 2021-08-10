@@ -1,3 +1,4 @@
+from blog.models import Blog
 from django.http.response import JsonResponse
 from q_and_a.models import Answer, PointsTable, Question, Tags
 from profiles.models import Profile
@@ -15,9 +16,11 @@ def get_time():
 def index(request):
     profile = Profile.objects.all()
     question = Question.objects.all().order_by('-created_at')
+    blogs = Blog.objects.all()
     context = {
         'question':question,
         'profile':profile,
+        'blogs':blogs,
     }
     return render(request, 'user/index.html', context)
 
@@ -86,14 +89,27 @@ def edit_question(request, question):
 def answer(request, question):
     if request.user.is_authenticated:
         quest = Question.objects.get(id = int(question))
-        if request.method =='POST':
-            form = AnswerForm(request.POST, request.FILES)
-            if form.is_valid():
-                # title = form.cleaned_data['answer_title']
-                desc = form.cleaned_data['description']
-                ans = Answer(user = request.user, description = desc, question = quest )
-                ans.save()
-                return redirect('view_answer', quest.slug)
+        if Answer.objects.filter(question_id = quest.id,user = request.user).exists():
+            print('here top')
+            if request.method =='POST':
+                ans =  Answer.objects.get(question_id =quest.id ,user = request.user)
+                form = AnswerForm(request.POST, request.FILES, instance=ans)
+                if form.is_valid():
+                    # title = form.cleaned_data['answer_title']
+                    desc = form.cleaned_data['description']
+                    
+                    ans.save()
+                    return redirect('view_answer', quest.slug)
+        else:
+            print('here bottom')
+            if request.method =='POST':
+                form = AnswerForm(request.POST, request.FILES)
+                if form.is_valid():
+                    # title = form.cleaned_data['answer_title']
+                    desc = form.cleaned_data['description']
+                    ans = Answer(user = request.user, description = desc, question = quest )
+                    ans.save()
+                    return redirect('view_answer', quest.slug)
         form = AnswerForm()
         context ={
             'form':form,
@@ -103,15 +119,30 @@ def answer(request, question):
 
 
 def view_answer(request, pk):
+    
+    
+    # vote_average = 0
+    # upvote_count = 0
+    # downvote_count = 0
     quest = Question.objects.filter(slug = pk)
     questt = Question.objects.get(slug = pk)
     author = Question.objects.filter(user = request.user, slug= pk).exists()
-    answer = Answer.objects.filter(question_id__slug = pk)
+    answer = Answer.objects.filter(question_id__slug = pk).order_by('created_at')
     profile = Profile.objects.get(user = questt.user)
-    print(profile.user)
+    now = get_time()
+    print(now.minute, 'now ')
+    # for i in quest:
+    posted = questt.created_at
+    print(posted)
     
+    # for i  in answer:
+    #     print(i.upvote_count(),'ooooooooooooooooo')
+    #     upvote_count = i.upvote.count()
+    #     downvote_count = i.downvote.count()
+    # vote_average = upvote_count-downvote_count
     form = AnswerForm()
     context = {
+        # 'vote_average':vote_average,
         'question':quest,
         'answer':answer,
         'author':author,
@@ -127,6 +158,7 @@ def solved(request):
         print('inside post')
         
         ans_id = request.POST['data']
+        print(ans_id)
         
         ans = Answer.objects.get(id =ans_id)
         question = Question.objects.get(id  = ans.question_id)
@@ -175,8 +207,7 @@ def search_question(request):
     print(title)
     question_list =[]
     if title:
-        questions = Question.objects.filter(question_title__icontains = title)
-
+        questions = Question.objects.filter(question_title__icontains = title)[:2]
         for question in questions:
             question_list.append(question.question_title)
 
@@ -204,14 +235,20 @@ def search_filter(request):
 
 def voting_up(request):
     # points = PointsTable.objects.get
+
     if request.user.is_authenticated:
         if request.method =='POST':
             ans_id = request.POST.get('data')
+            print(ans_id,'yyyy')
             ans = Answer.objects.get(id = ans_id)
-            print(ans.upvote)
-            # print('hello')
-            ans.upvote.clear()
-        JsonResponse({'error':'error'})
+            a = ans.upvote_count()
+            b = ans.downvote_count()
+            ans.upvote.add(request.user)
+            ans.downvote.remove(request.user)
+            ans.save()
+            # total_vote = a-b
+
+        return JsonResponse({'total_vote':ans.vote_total(),'answer_id':ans_id})
     return redirect('index')
 
 
@@ -221,7 +258,46 @@ def voting_down(request):
         if request.method =='POST':
             ans_id = request.POST.get('data')
             ans = Answer.objects.get(id = ans_id)
+            ans.upvote.remove(request.user)
             ans.downvote.add(request.user)
+            a = ans.upvote_count()
+            b = ans.downvote_count()
+            ans.save()
+            total_vote = a-b
             # ans.downvote.clear()
-        JsonResponse({'error':'error'})
+            return JsonResponse({'total_vote':total_vote,'answer_id':ans_id})
+    return redirect('index')
+
+
+# def popular_questions(request):
+    
+
+#     return render(request, 'user/question_list.html')
+
+
+
+def voting_up_question(request):
+    # points = PointsTable.objects.get
+    print('hi')
+    if request.user.is_authenticated:
+        if request.method =='POST':
+            ques_id = request.POST.get('data')
+            ques = Question.objects.get(id = ques_id)
+            ques.upvote.add(request.user)
+            ques.downvote.remove(request.user)
+            ques.save()
+
+
+        return JsonResponse({'total_vote':ques.vote_total(),'answer_id':ques_id})
+    return redirect('index')
+
+def voting_down_question(request):
+    if request.user.is_authenticated:
+        if request.method =='POST':
+            ques_id = request.POST.get('data')
+            ques = Question.objects.get(id = ques_id)
+            ques.upvote.remove(request.user)
+            ques.downvote.add(request.user)
+            ques.save()
+            return JsonResponse({'total_vote':ques.vote_total(),'answer_id':ques_id})
     return redirect('index')

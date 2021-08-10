@@ -7,9 +7,10 @@ from django.dispatch import receiver
 # Create your models here.
 class Profile(models.Model):
     user = models.OneToOneField(Accounts, on_delete=models.CASCADE)
-    profile_image = models.ImageField(upload_to ='profile',default = 'user.png')
+    designation = models.CharField(max_length=50, blank=True,null=True)
+    profile_image = models.ImageField(upload_to ='profile', default = 'user.png')
     bio  = models.TextField(default='no bio..')
-    following   = models.ManyToManyField(Accounts,related_name='following', blank=True)
+    following  = models.ManyToManyField(Accounts,related_name='following', blank=True)
     questions = models.ForeignKey(Question, on_delete = models.DO_NOTHING, blank=True, null=True)
     answers =models.ForeignKey(Answer, on_delete= models.DO_NOTHING, blank=True, null= True)
 

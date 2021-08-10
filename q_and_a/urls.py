@@ -7,7 +7,6 @@ urlpatterns = [
     path('answer/<str:question>', answer, name = 'answer'),
     path('edit_question/<slug:question>', edit_question, name = 'edit_question'),
     path('question_from_index', question_from_index, name = 'question_from_index'),
-    # path('index_call', index_call, name = 'index_call'),
     path('solved/', solved, name = 'solved'),
     path('question_list/', question_list, name = 'question_list'),
     path('search/', search, name = 'search'),
@@ -15,5 +14,7 @@ urlpatterns = [
     path('search_filter/', search_filter, name = 'search_filter'),
     path('voting_up/', voting_up, name = 'voting_up'),
     path('voting_down/', voting_down, name = 'voting_down'),
+    path('voting_up_question/', voting_up_question, name = 'voting_up_question'),
+    path('voting_down_question/', voting_down_question, name = 'voting_down_question'),
 
 ]

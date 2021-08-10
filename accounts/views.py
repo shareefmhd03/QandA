@@ -1,10 +1,12 @@
 from django.contrib.auth import authenticate
+from django.http.response import JsonResponse
 from accounts.models import Accounts
 from django.shortcuts import redirect, render
 from .forms import RegistrationForm
 from django.contrib.auth import logout,login
 from django.contrib import messages
 from django.views.decorators.cache import cache_control
+from django.contrib import messages 
 
 # Create your views here.
 
@@ -26,6 +28,8 @@ def login_view(request):
 
                 login(request, user)
                 return redirect('index')
+    
+                
             return render(request, 'user/login.html')
         except:
             return redirect('login_view')
@@ -96,3 +100,24 @@ def admin_login(request):
 def admin_logout(request):
     del request.session['loggedin']
     return redirect('admin_login')
+
+
+def validate_username(request):
+    email = request.GET.get('username', None)
+    print(email)
+    data = {
+        'is_taken': Accounts.objects.filter(username=email).exists()
+    }
+    if data['is_taken']:
+        data['error_message'] = 'A user with this email already exists.'
+    return JsonResponse(data)
+def validate_email(request):
+
+    email = request.GET.get('email', None)
+    print(email)
+    data = {
+        'is_taken': Accounts.objects.filter(email=email).exists()
+    }
+    if data['is_taken']:
+        data['error_message'] = 'A user with this email already exists.'
+    return JsonResponse(data)

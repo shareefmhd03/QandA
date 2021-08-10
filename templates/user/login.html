@@ -52,30 +52,11 @@
           </li>
           <li><a href="https://templates.scriptsbundle.com/knowledge/demo/listing.html">Browse Questions</a>
           </li>
-          <li class="dropdown"> <a class="dropdown-toggle " data-hover="dropdown" data-toggle="dropdown" data-animations="fadeInUp">Pages <b class="caret"></b></a>
+          <!-- <li class="dropdown"> <a class="dropdown-toggle " data-hover="dropdown" data-toggle="dropdown" data-animations="fadeInUp">Pages <b class="caret"></b></a> -->
             <ul class="dropdown-menu">
               <li><a href="{% url 'question_list' %}">Home </a>
               </li>
-              <!-- <li><a href="https://templates.scriptsbundle.com/knowledge/demo/index2.html">Home 2</a>
-              </li>
-              <li><a href="https://templates.scriptsbundle.com/knowledge/demo/question-detial.html">Question Detail</a>
-              </li>
-              <li><a href="https://templates.scriptsbundle.com/knowledge/demo/blog.html">Blog</a>
-              </li>
-              <li><a href="https://templates.scriptsbundle.com/knowledge/demo/blog-1.html">Blog RightSide Bar</a>
-              </li>
-              <li><a href="https://templates.scriptsbundle.com/knowledge/demo/blog-2.html">Blog LeftSide Bar</a>
-              </li>
-              <li><a href="https://templates.scriptsbundle.com/knowledge/demo/blog-detial.html">Blog Single</a>
-              </li>
-              <li><a href="https://templates.scriptsbundle.com/knowledge/demo/404.html">Error Page</a>
-							</li>
-              <li><a href="https://templates.scriptsbundle.com/knowledge/demo/contact.html">Contact Us</a>
-              </li>
-              <li><a href="https://templates.scriptsbundle.com/knowledge/demo/contact-2.html">Contact With Map</a> -->
-              </li>
-            </ul>
-          </li>
+              
           <li>
             <div class="btn-nav"><a href="{% url 'ask_question' %}" class="btn btn-primary btn-small navbar-btn">Post Question</a>
             </div>
@@ -117,15 +98,14 @@
       <!-- end container -->
     </section>
 
-    <!-- =-=-=-=-=-=-= Page Breadcrumb End =-=-=-=-=-=-= -->
-
+     
     <!-- =-=-=-=-=-=-= Login Form =-=-=-=-=-=-= -->
     <section class="section-padding-80 white" id="login">
       <div class="container">
         <div class="row">
           <div class="col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
 
-            <div class="box-panel">
+            <div class="box-panel" style="box-shadow: rgb(218, 215, 215) 3px 3px 12px; border-radius: 10px;">
 
               <!-- buttons top -->
               <!-- <a href="#" class="btn btn-default facebook"><i class="fa fa-facebook icons"></i> Sign In with Facebook</a>
@@ -139,8 +119,10 @@
 				  {% csrf_token %}
                 <div class="form-group">
                   <label>Username</label>
-                  <input type="text" placeholder="Username" name="username" class="form-control">
+                  <input type="text" id="username" placeholder="Username" name="username" class="form-control">
+                  <span class='error-message' id='username-error' style="font-size:small"></span>
                 </div>
+                
                 <div class="form-group">
                   <label>Password</label>
                   <input type="password" name="password1" placeholder="Your Password" class="form-control">
@@ -178,93 +160,40 @@
     <!-- =-=-=-=-=-=-= Login Form   End =-=-=-=-=-=-= -->
 
     <!-- =-=-=-=-=-=-= Our Clients =-=-=-=-=-=-= -->
-    <section class="custom-padding" id="clients">
-      <div class="container">
-
-        <!-- Row -->
-        <div class="row">
-
-          <!-- col-md-2 client-block -->
-          <div class="col-md-2 col-xs-6 col-sm-4 client-block">
-
-            <!-- client-item client-item-style-2 -->
-            <div class="client-item client-item-style-2">
-              <a title="Client Logo" href="#"> <img alt="Clients Logo" src="https://templates.scriptsbundle.com/knowledge/demo/images/clients/client_5.png"> </a>
-            </div>
-            <!-- /client-item client-item-style-2 -->
-
-          </div>
-          <!-- /col-md-2 client-block -->
-
-          <!-- col-md-2 client-block -->
-          <div class="col-md-2 col-xs-6 col-sm-4 client-block">
-
-            <!-- client-item client-item-style-2 -->
-            <div class="client-item client-item-style-2">
-              <a title="Client Logo" href="#"> <img alt="Clients Logo" src="https://templates.scriptsbundle.com/knowledge/demo/images/clients/client_6.png"> </a>
-            </div>
-            <!-- /client-item client-item-style-2 -->
-
-          </div>
-          <!-- /col-md-2 client-block -->
-
-          <!-- col-md-2 client-block -->
-          <div class="col-md-2 col-xs-6 col-sm-4 client-block">
-
-            <!-- client-item client-item-style-2 -->
-            <div class="client-item client-item-style-2">
-              <a title="Client Logo" href="#"> <img alt="Clients Logo" src="https://templates.scriptsbundle.com/knowledge/demo/images/clients/client_7.png"> </a>
-            </div>
-            <!-- /client-item client-item-style-2 -->
-
-          </div>
-          <!-- /col-md-2 client-block -->
-
-          <!-- col-md-2 client-block -->
-          <div class="col-md-2 col-xs-6 col-sm-4 client-block">
-
-            <!-- client-item client-item-style-2 -->
-            <div class="client-item client-item-style-2">
-              <a title="Client Logo" href="#"> <img alt="Clients Logo" src="https://templates.scriptsbundle.com/knowledge/demo/images/clients/client_8.png"> </a>
-            </div>
-            <!-- /client-item client-item-style-2 -->
-
-          </div>
-          <!-- /col-md-2 client-block -->
-
-          <!-- col-md-2 client-block -->
-          <div class="col-md-2 col-xs-6 col-sm-4 client-block">
-
-            <!-- client-item client-item-style-2 -->
-            <div class="client-item client-item-style-2">
-              <a title="Client Logo" href="#"> <img alt="Clients Logo" src="https://templates.scriptsbundle.com/knowledge/demo/images/clients/client_9.png"> </a>
-            </div>
-            <!-- /client-item client-item-style-2 -->
-
-          </div>
-          <!-- /col-md-2 client-block -->
-
-          <!-- col-md-2 client-block -->
-          <div class="col-md-2 col-xs-6 col-sm-4 client-block">
-
-            <!-- client-item client-item-style-2 -->
-            <div class="client-item client-item-style-2">
-              <a title="Client Logo" href="#"> <img alt="Clients Logo" src="https://templates.scriptsbundle.com/knowledge/demo/images/clients/client_10.png"> </a>
-            </div>
-            <!-- /client-item client-item-style-2 -->
-
-          </div>
-          <!-- /col-md-2 client-block -->
-
-        </div>
-        <!-- Row End -->
-
-      </div>
-      <!-- end container -->
-    </section>
+    
     <!-- =-=-=-=-=-=-= Our Clients -end =-=-=-=-=-=-= -->
 
   </div>
   <!-- =-=-=-=-=-=-= Main Area End =-=-=-=-=-=-= -->
+  <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+  <script>
+function producePrompt(message, promptLocation, color) {
 
+document.getElementById(promptLocation).innerHTML = message;
+document.getElementById(promptLocation).style.color = color;
+}
+
+$(document).ready(function () {
+$("#username").change(function () {
+  var username = $(this).val();
+
+  $.ajax({
+    url: '/accounts/validate_username/',
+    data: {
+      'username': username
+    },
+    dataType: 'json',
+    success: function (data) {
+      if (data.is_taken) {
+        producePrompt('', 'username-error', 'green');
+      }
+      else {
+        producePrompt('Invalid user', 'username-error', 'red');
+      }
+    }
+  });
+
+});
+});
+  </script>
   {% endblock %}

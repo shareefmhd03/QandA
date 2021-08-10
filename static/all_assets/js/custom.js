@@ -6,7 +6,6 @@
     });
 
     /* ======= Jquery Syntax Highlighter ======= */
-    SyntaxHighlighter.all();
 
     /* ======= Bootstrap Tooltip ======= */
     $('[data-toggle="tooltip"]').tooltip();

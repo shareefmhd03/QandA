@@ -5,17 +5,15 @@
 
 {% block content %}
 {% include 'user/includes/header_base.html' %}
-<div class="full-section search-section">
-    <div class="search-area container">
-        <h3 class="search-title">Have a Question?</h3>
-        <p class="search-tag-line"></p>
-        <form autocomplete="off" method="POST" enctype="multipart/form-data" class="search-form clearfix" id="search-form">
-                        {% csrf_token %}
-						{{form.media}}
-						{{form.as_p}}
-                        <input type="submit" value="Ask" class="search-btn">
-        </form>
-    </div>
+
+    <h3 class="search-title " style="color: black;">Have a Question?</h3>
+<div class="container " style="padding: 3rem; border: solid grey 1px; margin-bottom: 1rem; max-width: 60rem; border-radius: 10px;">
+    <form autocomplete="off" method="POST" enctype="multipart/form-data" class="search-form clearfix" id="search-form">
+        {% csrf_token %}
+        {{form.media}}
+        {{form.as_p}}
+        <input type="submit" value="Ask" style="border-radius: 10px;" class="btn btn-md btn-primary" >
+    </form>
 </div>
 
 {% endblock %}

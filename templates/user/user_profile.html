@@ -4,6 +4,166 @@
 
 {% block content %}
 {% include 'user/includes/header_base.html' %}
+
+<style>
+html {
+    font-family: Lato, 'Helvetica Neue', Arial, Helvetica, sans-serif;
+    font-size: 14px;
+}
+
+h5 {
+    font-size: 1.28571429em;
+    font-weight: 700;
+    line-height: 1.2857em;
+    margin: 0;
+}
+
+.card {
+    font-size: 1em;
+    overflow: hidden;
+    padding: 0;
+    border: none;
+    border-radius: .28571429rem;
+    box-shadow: 0 1px 3px 0 #d4d4d5, 0 0 0 1px #d4d4d5;
+}
+
+.card-block {
+    font-size: 1em;
+    position: relative;
+    margin: 0;
+    padding: 1em;
+    border: none;
+    border-top: 1px solid rgba(34, 36, 38, .1);
+    box-shadow: none;
+}
+
+.card-img-top {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.card-title {
+    font-size: 1.28571429em;
+    font-weight: 700;
+    line-height: 1.2857em;
+}
+
+.card-text {
+    clear: both;
+    margin-top: .5em;
+    color: rgba(0, 0, 0, .68);
+}
+
+.card-footer {
+    font-size: 1em;
+    position: static;
+    top: 0;
+    left: 0;
+    max-width: 100%;
+    padding: .75em 1em;
+    color: rgba(0, 0, 0, .4);
+    border-top: 1px solid rgba(0, 0, 0, .05) !important;
+    background: #fff;
+}
+
+.card-inverse .btn {
+    border: 1px solid rgba(0, 0, 0, .05);
+}
+
+.profile {
+    position: absolute;
+    top: -12px;
+    display: inline-block;
+    overflow: hidden;
+    box-sizing: border-box;
+    width: 25px;
+    height: 25px;
+    margin: 0;
+    border: 1px solid #fff;
+    border-radius: 50%;
+}
+
+.profile-avatar {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+
+.profile-inline {
+    position: relative;
+    top: 0;
+    display: inline-block;
+}
+
+.profile-inline ~ .card-title {
+    display: inline-block;
+    margin-left: 4px;
+    vertical-align: top;
+}
+
+.text-bold {
+    font-weight: 700;
+}
+
+.meta {
+    font-size: 1em;
+    color: rgba(0, 0, 0, .4);
+}
+
+.meta a {
+    text-decoration: none;
+    color: rgba(0, 0, 0, .4);
+}
+
+.meta a:hover {
+    color: rgba(0, 0, 0, .87);
+}
+
+.notice {
+    padding: 15px;
+    background-color: #fafafa;
+    border-left: 6px solid #7f7f84;
+    margin-bottom: 10px;
+    -webkit-box-shadow: 0 5px 8px -6px rgba(0,0,0,.2);
+       -moz-box-shadow: 0 5px 8px -6px rgba(0,0,0,.2);
+            box-shadow: 0 5px 8px -6px rgba(0,0,0,.2);
+}
+.notice-sm {
+    padding: 10px;
+    font-size: 80%;
+}
+.notice-lg {
+    padding: 35px;
+    font-size: large;
+}
+.notice-success {
+    border-color: #80D651;
+}
+.notice-success>strong {
+    color: #80D651;
+}
+.notice-info {
+    border-color: #45ABCD;
+}
+.notice-info>strong {
+    color: #45ABCD;
+}
+.notice-warning {
+    border-color: #FEAF20;
+}
+.notice-warning>strong {
+    color: #FEAF20;
+}
+.notice-danger {
+    border-color: #d73814;
+}
+.notice-danger>strong {
+    color: #d73814;
+}
+  </style>
+
 <section id="user-profile" class="user-profile parallex">
 	<div class="container">
 	  <!-- Row -->
@@ -17,7 +177,7 @@
 				  <span><img class="img-responsive img-circle" alt="" src="{{profile.profile_image.url}}"></span>
 				  <div class="profile-name">
 					<h3>{{profile.user}}</h3>
-					<i>Creative Graphic Designer</i>
+					<i>{{profile.designation}}</i>
 					<ul class="social-btns">
 					  <li><a href="#" title=""><i class="fa fa-facebook"></i></a>
 					  </li>
@@ -33,16 +193,20 @@
 				<ul class="profile-count">
 				  <li>171<i>Followers</i>
 				  </li>
-				  <li>13,725<i>Experience</i>
+				  <li>13,725<i>Points</i>
 				  </li>
-				  <li>120<i>Questions</i>
+				  <li>{{questions_count}}<i>Questions</i>
 				  </li>
 				</ul>
 				<ul class="profile-connect">
-				  <li><a title="" href="#">Follow</a>
-				  </li>
-				  <li><a title="" href="#">Hire Me</a>
-				  </li>
+					{%if followed %}
+					<li><button value="{{profile.id}}" id="follow" class="btn btn-md text-white" style="background-color: black;"  title="">follow</button>
+					</li>
+					{%else%}
+					<li><button value="{{profile.id}}" id="follow" class="btn btn-md text-white" style="background-color: black;"  title="">Unfollow</button>
+					</li>
+				  {% endif %}
+				
 				</ul>
 			  </div>
 			</div>
@@ -58,38 +222,33 @@
 
   <!-- =-=-=-=-=-=-= User Profile end =-=-=-=-=-=-= -->
 
-  {% for question in questions %}
-
-  {{question.question_title}}
-  {% endfor %}
-  
   {% if profile.user == request.user %}
 <!-- =-=-=-=-=-=-= User Form Settings =-=-=-=-=-=-= -->
-  <section class="section-padding-80" id="login">
+  <section class="section-padding-70" id="login">
 	<div class="container">
 	  <div class="row">
 		<div class="col-sm-6 col-md-4">
 
-		  <div class="box-panel">
+		  <div class="box-panel" style="box-shadow: gray 2px 2px 6px; border-radius: 8px;">
 
-			<form method="POST" enctype="multipart/form-data">
+			<form method="POST" enctype="multipart/form-data" action="{% url 'update_profile_image' %}">
 				{% csrf_token%}
 			  <div class="form-group">
-				<label>Upload Image</label>
+				<label>Update  Image</label>
 				<div class="input-group">
 				  <span class="input-group-btn">
-			  <span class="btn btn-default btn-file">
-				  Browse… <input type="file" id="imgInp" name="image_input">
-			  </span>
-				  </span>
-				  <input type="text" class="form-control" readonly>
-				</div>
-				<img id="image" src="{{profile.profile_image.url}}" alt="" />
-				<!-- <img id="blah" src="#" alt="your image" /> -->
+				</span>
+				<!-- <input type="text" class="form-control" readonly> -->
+			</div>
+			<img id="image" src="{{profile.profile_image.url}}" alt="" />
+			<span class="btn btn-default btn-file">
+				Browse… <input type="file" id="imgInp" name="image_input">
+			</span>
+			<!-- <img id="blah" src="#" alt="your image" /> -->
 			  </div>
 			  
 
-			  <input type="submit" class="btn btn-primary btn-lg" value="Change">
+			  <input type="submit" class="btn btn-primary btn-sm" id="id_ajax_upload_form" value="Change">
 
 			</form>
 
@@ -98,33 +257,34 @@
 
 		<div class="col-md-8">
 
-		  <div class="box-panel">
+		  <div class="box-panel" style="box-shadow: gray 2px 2px 6px; border-radius: 8px;">
 
 			<!-- form login -->
-			<form method="POST" action="">
+			<form method="POST" action="{% url 'update_profile' %}">
+					{% csrf_token %}
 			  <div class="form-group">
-				<label>{{profile.user}}</label>
-				<input type="text" placeholder="John Doe" class="form-control">
+				<label>Designation</label>
+				<input type="text" name="designation" value="{{profile.designation}}" class="form-control">
 			  </div>
 			  <div class="form-group">
-				<label>Email</label>
-				<input type="email" placeholder="Your Email" class="form-control">
+				<label>Change Bio</label>
+				<input type="text" name="bio"  value="{{profile.bio}}" class="form-control ">
 			  </div>
 			  <div class="form-group">
 				<div class="row">
 				  <div class="col-xs-12">
 					<div class="checkbox flat-checkbox">
-					  <label>
+					  <!-- <label>
 						<input type="checkbox">
 						<span class="fa fa-check"></span> Make My Profile Private?
-					  </label>
+					  </label> -->
 					</div>
 				  </div>
 
 				</div>
 			  </div>
 
-			  <button class="btn btn-primary btn-lg">Update My Profile</button>
+			  <input type="submit" class="btn btn-primary btn-sm" value="Update">
 
 			</form>
 			<!-- form login -->
@@ -139,61 +299,87 @@
   </section>
 <!-- =-=-=-=-=-=-= User Form Settings End =-=-=-=-=-=-= -->
 {% endif %}
+<hr>
+<section class="section-padding-80">
 
-  <!-- =-=-=-=-=-=-= Our Clients =-=-=-=-=-=-= -->
-  <section class="custom-padding white" id="clients">
+	<div class="container">
+		<div class="row">
+			<div class="box-panel" style="box-shadow: rgb(145, 142, 142) 2px 2px 5px;">
+
+			<h3><strong>Asked Questions</strong> </h3>
+				
+			
+			<br>
+			
+				
+				{% for question in questions %}
+					<div class="notice notice-sm">
+						<strong>{{question.question_title}}</strong> 
+					</div>
+					{% endfor %}
+		
+		</div>
+		</div>
+	</div>
+	
+</section>
+
+
+  <section class=" white" id="clients">
 	  <div class="container">
-		<h3>Blogs</h3>
+		<h2 class="text-dark">Blogs</h2>
 
 	  <!-- Row -->
 	  <div class="row">
 
 		
-
-		<!-- col-md-2 client-block -->
-		{% for blog in blogs %}
-		<div class="col-md-2 col-xs-6 col-sm-4 client-block">
-
-		  <!-- client-item client-item-style-2 -->
-		  <div class="client-item client-item-style-2">
-			<a title="Client Logo" href="{% url 'blog_detailed_view' blog.slug %}"> <img alt="Clients Logo" src="{{blog.img.url}}"> </a>
-			<span>{{blog.title}}</span>
-		  </div>
-		  <!-- /client-item client-item-style-2 -->
-
+<hr>
+		<div class="row">
+			{% for blog in blogs %}
+			<div class="row mb-5">
+				<div class="col-sm-6 col-md-4 col-lg-3 mt-4">
+					<div class="card card-inverse card-primary card-body" style="max-height: 10rem; box-shadow: gray 4px 4px 6px;">
+			
+							<img class="card-img-top" src="{{blog.img.url}}">
+							<div class="centered">Centered</div>
+					</div>
+					<p class="text-center">{{blog.title}}</p>
+				</div>
+		  {% endfor %}
 		</div>
-		{% endfor %}
-		<!-- /col-md-2 client-block -->
-
-		
-
+		<hr>
 	  </div>
-	  <!-- Row End -->
+
 
 	</div>
-	<!-- end container -->
+
   </section>
-  <!-- =-=-=-=-=-=-= Our Clients -end =-=-=-=-=-=-= -->
+
 
 </div>
-<!-- =-=-=-=-=-=-= Main Area End =-=-=-=-=-=-= -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js" integrity="sha512-n/4gHW3atM3QqRcbCn6ewmpxcLAHGaDjpEBu4xZd47N0W2oQ+6q7oc3PXstrJYXcbNU1OHdQ1T7pAP+gi5Yu8g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+
 <script>
-$('#id_ajax_upload_form').submit(function(e){
-        e.preventDefault();
-        $form = $(this)
-        var formData = new FormData(this);
-        $.ajax({
-            url: '/profiles/update_profile_image/',
-            type: 'POST',
-            data: formData,
-            success: function (response) {
-				alert(success)
-			}
-	
-		}
-	
-	)}
-)
+	$('#follow').click(function() {
+        
+        data = {
+          'data':this.value,
+          'csrfmiddlewaretoken': '{{ csrf_token }}'
+        }
+        const url = "{% url 'follow' %}"
+          $.ajax({
+            type: "POST",
+            url: url,
+            data: data,
+            success: function(data) {
+        
+        window.location.reload()
+		
+            },
+          })
+        });
 </script>
 {% endblock %}

@@ -4,6 +4,13 @@
 
     {% include 'user/includes/header_base.html'%}
 
+    <style>
+                    .listing-grid img {
+                    width: 485px;
+                    height: 300px;
+                    }
+                    </style>
+
     <!-- =-=-=-=-=-=-= HOME =-=-=-=-=-=-= -->
     <div id="home" class="full-section parallax-home">
       <div class="slider-caption">
@@ -67,26 +74,22 @@
                 <div class="listing-area">
                   {% for ql in  question  %}
                   <!-- Question Listing -->
-                  <div class="listing-grid ">
+                  <div class="listing-grid " style="border: 1px solid silver; padding: 2rem;">
                     <div class="row">
-                      <div class="col-md-2 col-sm-2 col-xs-12 hidden-xs">
-                        <a data-toggle="tooltip" data-placement="bottom" data-original-title="Martina Jaz" href="#"><img alt="" class="correct img-responsive center-block" src="https://templates.scriptsbundle.com/knowledge/demo/images/authors/1.jpg">
-                        </a>
-                        <span class="tick"><i class="fa fa-check" aria-hidden="true"></i></span>
-                      </div>
-                      <div class="col-md-7 col-sm-8  col-xs-12">
-
-                        <h3><a  href="{% url 'view_answer' ql.slug %}"> 	
-                          {{ql.question_title}}</a></h3>
+                     
+                      <div class="  col-xs-12">
+                        <h2>Q.</h2>
                         <div class="listing-meta">
+                          <h3><a  href="{% url 'view_answer' ql.slug %}"> 	
+                            {{ql.question_title}}</a></h3>
                           <span><i class="fa fa-clock-o" aria-hidden="true"></i>{{ql.created_at}}</span>
                           <span><i class="fa fa fa-eye" aria-hidden="true"></i> 750 Views</span>
-  
                         </div>
+                        <hr>
   
                       </div>
                       <div class="col-md-3 col-sm-2 col-xs-12">
-                        <ul class="question-statistic">
+                        <!-- <ul class="question-statistic">
   
                           <li class="active">
                             <a data-toggle="tooltip" data-placement="bottom" data-original-title="Answers"><span>2</span></a>
@@ -94,7 +97,7 @@
                           <li>
                             <a data-toggle="tooltip" data-placement="bottom" data-original-title="Votes"><span>0</span></a>
                           </li>
-                        </ul>
+                        </ul> -->
                       </div>
   
                       <div class="col-md-10 col-sm-10  col-xs-12">
@@ -152,105 +155,7 @@
                     {% endfor %}
                     <!-- .media-group-item -->
   
-                    <div class="media-group-item">
-                      <div class="media">
-                        <div class="media-left">
-                          <div class="avatar avatar-md avatar-circle"> <img alt="" class="" src="https://templates.scriptsbundle.com/knowledge/demo/images/authors/2.jpg"> </div>
-                        </div>
-                        <div class="media-body">
-                          <h5 class="media-heading"><a href="https://templates.scriptsbundle.com/knowledge/demo/profile.html">Adam Khaury</a></h5>
-                          <small class="media-meta">Web Designer</small>
-                          <div class="points"><span>Points : </span>7910</div>
-                        </div>
-                      </div>
-                    </div>
-                    <!-- .media-group-item -->
-  
-                    <div class="media-group-item">
-                      <div class="media">
-                        <div class="media-left">
-                          <div class="avatar avatar-md avatar-circle"> <img alt="" class="" src="https://templates.scriptsbundle.com/knowledge/demo/images/authors/3.jpg"> </div>
-                        </div>
-                        <div class="media-body">
-                          <h5 class="media-heading"><a href="https://templates.scriptsbundle.com/knowledge/demo/profile.html">John Doe</a></h5>
-                          <small class="media-meta">Web Developer</small>
-                          <div class="points"><span>Points : </span>7458</div>
-                        </div>
-                      </div>
-                    </div>
-                    <!-- .media-group-item -->
-  
-                    <div class="media-group-item">
-                      <div class="media">
-                        <div class="media-left">
-                          <div class="avatar avatar-md avatar-circle"> <img alt="" class="" src="https://templates.scriptsbundle.com/knowledge/demo/images/authors/4.jpg"> </div>
-                        </div>
-                        <div class="media-body">
-                          <h5 class="media-heading"><a href="https://templates.scriptsbundle.com/knowledge/demo/profile.html">Sara Smith</a></h5>
-                          <small class="media-meta">UI/UX Designer</small>
-                          <div class="points"><span>Points : </span>6458</div>
-                        </div>
-                      </div>
-                    </div>
-                    <!-- .media-group-item -->
-  
-                    <div class="media-group-item">
-                      <div class="media">
-                        <div class="media-left">
-                          <div class="avatar avatar-md avatar-circle"> <img alt="" class="" src="https://templates.scriptsbundle.com/knowledge/demo/images/authors/5.jpg"> </div>
-                        </div>
-                        <div class="media-body">
-                          <h5 class="media-heading"><a href="https://templates.scriptsbundle.com/knowledge/demo/profile.html">Dani Smith</a></h5>
-                          <small class="media-meta">Teacher Assistant</small>
-                          <div class="points"><span>Points : </span>6115</div>
-                        </div>
-                      </div>
-                    </div>
-                    <!-- .media-group-item -->
-  
-                    <div class="media-group-item">
-                      <div class="media">
-                        <div class="media-left">
-                          <div class="avatar avatar-md avatar-circle"> <img alt="" class="" src="https://templates.scriptsbundle.com/knowledge/demo/images/authors/6.jpg"> </div>
-                        </div>
-                        <div class="media-body">
-                          <h5 class="media-heading"><a href="https://templates.scriptsbundle.com/knowledge/demo/profile.html">Sally Sally</a></h5>
-                          <small class="media-meta">Teacher Assistant</small>
-                          <div class="points"><span>Points : </span>5558</div>
-                        </div>
-                      </div>
-                    </div>
-                    <!-- .media-group-item -->
-                    <div class="media-group-item">
-                      <div class="media">
-                        <div class="media-left">
-                          <div class="avatar avatar-md avatar-circle"> <img alt="" class="" src="https://templates.scriptsbundle.com/knowledge/demo/images/authors/7.jpg"> </div>
-                        </div>
-                        <div class="media-body">
-                          <h5 class="media-heading"><a href="https://templates.scriptsbundle.com/knowledge/demo/profile.html">Sally Sally</a></h5>
-                          <small class="media-meta">Teacher Assistant</small>
-                          <div class="points"><span>Points : </span>5558</div>
-                        </div>
-                      </div>
-                    </div>
-                    <!-- .media-group-item -->
-                    <div class="media-group-item">
-                      <div class="media">
-                        <div class="media-left">
-                          <div class="avatar avatar-md avatar-circle"> <img alt="" class="" src="https://templates.scriptsbundle.com/knowledge/demo/images/authors/8.jpg"> </div>
-                        </div>
-                        <div class="media-body">
-                          <h5 class="media-heading"><a href="https://templates.scriptsbundle.com/knowledge/demo/profile.html">Sally Sally</a></h5>
-                          <small class="media-meta">Teacher Assistant</small>
-                          <div class="points"><span>Points : </span>5558</div>
-                        </div>
-                      </div>
-                    </div>
-                    <!-- .media-group-item -->
-                  </div>
-                </div>
-                <!-- widget end -->
-  
+                    
              
   
               </div>
@@ -263,138 +168,6 @@
         <!-- end container -->
       </section>
       <!-- =-=-=-=-=-=-= Latest Questions  End =-=-=-=-=-=-= -->
-  
-      <!-- =-=-=-=-=-=-= Testimonials =-=-=-=-=-=-= -->
- <section data-stellar-background-ratio="0.1" class="testimonial-bg parallex">
-        <div class="container">
-  
-  
-          <div class="row">
-  
-            
-            <div class="col-md-4">
-              <div class="success-stories">
-                <div class="main-heading text-center">
-                  <h2>Blogs</h2>
-                  <hr class="main">
-                  <p>Cras varius purus in tempus porttitor ut dapibus efficitur sagittis cras vitae lacus metus nunc vulputate facilisis nisi
-                    <br> eu lobortis erat consequat ut. Aliquam et justo ante. Nam a cursus velit</p>
-                </div>
-              </div>
-            </div>
-
-   
-            <div class="col-md-8 ">
-
-              <div class="row">
-  
-                <!-- col-md-2 client-block -->
-                
-                <!-- /col-md-2 client-block -->
-      
-                <!-- col-md-2 client-block -->
-                <div class="col-md-2 col-xs-6 col-sm-4 client-block">
-      
-                  <!-- client-item client-item-style-2 -->
-                  <div class="client-item client-item-style-2">
-                    <a title="Client Logo" href="#"> <img alt="Clients Logo" src="https://templates.scriptsbundle.com/knowledge/demo/images/clients/client_6.png"> </a>
-                  </div>
-                  <!-- /client-item client-item-style-2 -->
-      
-                </div></div>
-              
-            </div>
-    
-  
-    
-  
-            <div class="clearfix"></div>
-          </div>
-  
-
-        </div>
-  
-      </section>
-
-  
-      <!-- =-=-=-=-=-=-= Our Clients =-=-=-=-=-=-= -->
-      <section class="custom-padding" id="clients">
-        <div class="container">
-  
-          <!-- Row -->
-          <div class="row">
-  
-            <!-- col-md-2 client-block -->
-            
-            <!-- /col-md-2 client-block -->
-  
-            <!-- col-md-2 client-block -->
-            <div class="col-md-2 col-xs-6 col-sm-4 client-block">
-  
-              <!-- client-item client-item-style-2 -->
-              <div class="client-item client-item-style-2">
-                <a title="Client Logo" href="#"> <img alt="Clients Logo" src="https://templates.scriptsbundle.com/knowledge/demo/images/clients/client_6.png"> </a>
-              </div>
-              <!-- /client-item client-item-style-2 -->
-  
-            </div>
-            <!-- /col-md-2 client-block -->
-  
-            <!-- col-md-2 client-block -->
-            <div class="col-md-2 col-xs-6 col-sm-4 client-block">
-  
-              <!-- client-item client-item-style-2 -->
-              <div class="client-item client-item-style-2">
-                <a title="Client Logo" href="#"> <img alt="Clients Logo" src="https://templates.scriptsbundle.com/knowledge/demo/images/clients/client_7.png"> </a>
-              </div>
-              <!-- /client-item client-item-style-2 -->
-  
-            </div>
-            <!-- /col-md-2 client-block -->
-  
-            <!-- col-md-2 client-block -->
-            <div class="col-md-2 col-xs-6 col-sm-4 client-block">
-  
-              <!-- client-item client-item-style-2 -->
-              <div class="client-item client-item-style-2">
-                <a title="Client Logo" href="#"> <img alt="Clients Logo" src="https://templates.scriptsbundle.com/knowledge/demo/images/clients/client_8.png"> </a>
-              </div>
-              <!-- /client-item client-item-style-2 -->
-  
-            </div>
-            <!-- /col-md-2 client-block -->
-  
-            <!-- col-md-2 client-block -->
-            <div class="col-md-2 col-xs-6 col-sm-4 client-block">
-  
-              <!-- client-item client-item-style-2 -->
-              <div class="client-item client-item-style-2">
-                <a title="Client Logo" href="#"> <img alt="Clients Logo" src="https://templates.scriptsbundle.com/knowledge/demo/images/clients/client_9.png"> </a>
-              </div>
-              <!-- /client-item client-item-style-2 -->
-  
-            </div>
-            <!-- /col-md-2 client-block -->
-  
-            <!-- col-md-2 client-block -->
-            <div class="col-md-2 col-xs-6 col-sm-4 client-block">
-  
-              <!-- client-item client-item-style-2 -->
-              <div class="client-item client-item-style-2">
-                <a title="Client Logo" href="#"> <img alt="Clients Logo" src="https://templates.scriptsbundle.com/knowledge/demo/images/clients/client_10.png"> </a>
-              </div>
-              <!-- /client-item client-item-style-2 -->
-  
-            </div>
-            <!-- /col-md-2 client-block -->
-  
-          </div>
-          <!-- Row End -->
-  
-        </div>
-        <!-- end container -->
-      </section>
-      <!-- =-=-=-=-=-=-= Our Clients -end =-=-=-=-=-=-= -->
     </div>
     <!-- =-=-=-=-=-=-= Main Area End =-=-=-=-=-=-= -->
 

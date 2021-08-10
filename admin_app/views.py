@@ -1,3 +1,4 @@
+from tutorials.forms import TutorialForm
 from tutorials.models import Tutorial
 from accounts.models import Accounts
 from django.shortcuts import render,redirect
@@ -71,4 +72,18 @@ def view_tutorials(request):
     context ={
         'tutorials':tutorials,
     }
-    return render(request, 'admin/tutorials.html')
+    return render(request, 'admin/tutorials.html',context)
+
+def add_tutorials(request):
+    print('here')
+    if request.method == 'POST':
+        form = TutorialForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('view_tutorials')
+
+    form = TutorialForm()
+    context={
+        'form':form,
+    }
+    return render(request, 'admin/add_tutorials.html',context)
