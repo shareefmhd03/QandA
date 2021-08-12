@@ -1,5 +1,5 @@
-from tutorials.forms import TutorialForm
-from tutorials.models import Tutorial
+from tutorials.forms import McQForm, TutorialForm
+from tutorials.models import McqQuestions, Topics, Tutorial
 from accounts.models import Accounts
 from django.shortcuts import render,redirect
 # from accounts.views import session_check
@@ -10,9 +10,12 @@ from accounts.forms import RegistrationForm
 def user_mgmt(request):
     if request.session['loggedin']:
         users = Accounts.objects.exclude(is_superuser =True).order_by('id')
+        
         context = {
             'users':users,
+            
         }
+   
         return render(request, 'admin/usermgmt.html',context)
     return render(request, 'admin/loginPage.html')
 
@@ -87,3 +90,41 @@ def add_tutorials(request):
         'form':form,
     }
     return render(request, 'admin/add_tutorials.html',context)
+
+def view_tutorial(request,id):
+    tutorials = Tutorial.objects.get(id = id)
+    context ={
+        'tutorials':tutorials,
+    }
+    return render(request, 'admin/view_tutorial.html',context)
+
+
+
+def add_mcq(request):
+    if request.method == 'POST':
+        form = McQForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('view_tutorials')
+
+    form = McQForm()
+    context={
+        'form':form,
+    }
+    return render(request, 'admin/addmcq.html',context)
+
+def mcqquestions(request,id):
+    mcq = McqQuestions.objects.filter(topic_id =id)
+    
+    context={
+        'mcqs':mcq,
+    }
+    return render(request, 'admin/mcqquestions.html',context)
+
+
+def all_topics(request):
+    topics = Topics.objects.all()
+    context ={
+        'topics':topics
+    }
+    return render(request, 'admin/all_topics.html',context)

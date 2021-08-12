@@ -68,7 +68,9 @@
                   {%if author%}
                   <a href="{%url 'edit_question' que.slug %}"><i class="far fa-edit"></i>edit</a>
                 {%endif%}
-                  <div class="listing-meta"> <span><i class="fa fa-clock-o" aria-hidden="true"></i>8 mintes ago</span> <span><i class="fa fa fa-eye" aria-hidden="true"></i> 750 Views</span> </div>
+                  <div class="listing-meta"> <span><i class="fa fa-clock-o" aria-hidden="true"></i>{{que.created_at}}</span> 
+                  <!-- <span><i class="fa fa fa-eye" aria-hidden="true"></i> 750 Views</span>  -->
+                    </div> 
                 </div>
                 <div class="col-md-12 col-sm-12 col-xs-12">
                   <style>
@@ -117,14 +119,7 @@
                   
                 </div>
                
-                <div class="media-left" style="padding-left: 10px;">
                 
-                  <a data-toggle="tooltip" data-placement="bottom" data-original-title="Martina Jaz" href="#">
-                    <img class="img-sm p-2" alt="Profile Picture" src="https://templates.scriptsbundle.com/knowledge/demo/images/authors/9.jpg">
-
-                  </a>
-
-                </div>
                 <div class="media-body">
                   <div class="mar-btm">
                     <h4><a href="#" class="btn-link text-semibold media-heading box-inline">{{ans.user}}</a></h4>
@@ -180,26 +175,12 @@
 
                   </div>
                 </div>
-                <div class="widget-content widget-content-full border-bottom">
-                  <div class="row text-center">
-                    <div class="col-xs-6 push-inner-top-bottom border-right">
-                      <h3 class="widget-heading"><i class=" icon-trophy push"></i> <br>
-                                            <small><strong>34,157</strong> Experience</small></h3>
-                    </div>
-                    <div class="col-xs-6 push-inner-top-bottom">
-                      <h3 class="widget-heading"><i class=" icon-profile-male themed-color-social push"></i> <br>
-                                            <small><strong>58.6k</strong> Followers</small></h3>
-                    </div>
-                  </div>
-                </div>
+                
                 <div class="widget-content border-bottom">
                   <h4>About</h4>
                   <p>{{profile.bio}}</p>
                 </div>
-                <div class="widget-content">
-
-                  <div class="btn-group"> <a title="" data-toggle="tooltip" class="btn btn-default" href="javascript:void(0)" data-original-title="Facebook"><i class="fa fa-facebook fa-fw"></i></a> <a title="" data-toggle="tooltip" class="btn btn-default" href="javascript:void(0)" data-original-title="Twitter"><i class="fa fa-twitter fa-fw"></i></a> <a title="" data-toggle="tooltip" class="btn btn-default" href="javascript:void(0)" data-original-title="Google Plus"><i class="fa fa-google-plus fa-fw"></i></a> <a title="" data-toggle="tooltip" class="btn btn-default" href="javascript:void(0)" data-original-title="Pinterest"><i class="fa fa-pinterest fa-fw"></i></a> <a title="" data-toggle="tooltip" class="btn btn-default" href="javascript:void(0)" data-original-title="Dribbble"><i class="fa fa-dribbble fa-fw"></i></a> </div>
-                </div>
+            
               </div>
             </div>
 

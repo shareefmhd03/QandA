@@ -1,0 +1,24 @@
+{%  extends 'admin/admin_base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container ">
+<div class="row ">
+<div class="col-md-6 mx-auto mt-5" style="border: 1px solid black; padding: 3rem; border-radius: 5px;">
+    <h3 class="text-center">Add MCQ Questions</h3>
+    
+    <form action="" method="POST">
+        {% csrf_token %}
+        
+        {{form.as_p}}
+        <div class="text-center">
+
+            <input type="submit" class="btn btn-outline-twitter btn-md" style="border: 1px solid;">
+        </div>
+        </form>
+</div>
+    
+</div>
+
+</div>
+{% endblock %}

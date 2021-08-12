@@ -43,36 +43,31 @@
       <div class="container">
         <!-- Row -->
         <div class="row">
-          <div class="col-md-8 col-lg-8 col-sm-12 col-xs-12">
+          <div class="col-md-8 col-lg-8 col-sm-12 col-xs-12 ">
             <!-- Question Detail -->
 		
             <!-- Question Listing -->
-            <div class="listing-grid ">
+            <div class="listing-grid">
               <div class="row">
                 <div class="col-md-12 col-sm-12 col-xs-12">
-                  <h3><a href="#"> learn {{tutorial.title}}</a></h3>
-                  <div class="listing-meta"> <span><i class="fa fa-clock-o" aria-hidden="true"></i>8 mintes ago</span> <span><i class="fa fa fa-eye" aria-hidden="true"></i> 750 Views</span> </div>
+                  <a href="{% url 'take_test' tutorial.topics_id %}"  class="btn btn-outline-dark " style="float : right; background-color: rgb(105, 170, 105); color: white; font-weight: bolder; border-radius: 5px;">Take test</a>
+                  <h2><a href="#"> Learn {{tutorial.title}}</a></h2>
+                  <!-- <div class="listing-meta"> <span><i class="fa fa-clock-o" aria-hidden="true"></i>8 mintes ago</span> <span><i class="fa fa fa-eye" aria-hidden="true"></i> 750 Views</span> </div> -->
                 </div>
-                <img src="{{tutorial.tut_image.url}}" alt="">
+                <img src="{{tutorial.Image.url}}" alt="" style="width: auto;">
                 
                 <div class="col-md-12 col-sm-12 col-xs-12">
-                  <!-- <strong>Html Structure</strong>
-                    <pre class="brush: php; syntaxhighlight"> -->
-                    <p>{{tutorial.description|safe}}</p>
+                 
 
-
- 								<!-- </pre>
-                  <p> I have tried adding a margin to the left of the main content to push it over but it looks horrible when resized to smaller device. </p>
-                  <p>What is the correct way to achieve a fixed sidebar whilst still maintaining responsiveness? </p> -->
-                  <div class="tagcloud"> <a href="#">html</a> <a href="#">css</a> <a href="#">bootstrap</a> </div>
+                        <p>{{tutorial.tutorials|safe}}</p>
+ 								
+                  <!-- <div class="tagcloud"> <a href="#">html</a> <a href="#">css</a> <a href="#">bootstrap</a> </div> -->
                 </div>
               </div>
             </div>
-            <!-- Question Listing End -->
 			
 
             <div class="clearfix"></div>
-            <!-- Thread Reply -->
 
           </div>
 

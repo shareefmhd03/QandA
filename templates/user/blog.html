@@ -97,7 +97,7 @@
               <!-- Blog Grid -->
 
               <!-- Blog Grid -->
-			  {% for blog in all_blogs  %}
+			  {% for blog in paged_blogs  %}
             <div class="card mb-4 " style="padding: 2rem; border: 1px solid rgb(219, 216, 216); margin-bottom: 10px; border-radius: 10px; box-shadow:3px 3px 15px rgb(204, 200, 200);">
               <a href="#!"><img class="card-img-top" src="{{blog.img.url}}" alt="..."></a>
               <div class="card-body ">
@@ -137,23 +137,24 @@
             <div class="clearfix"></div>
             Pagination End -->
 
-
+<br><br>
+<br>
             <nav class="mt-4" aria-label="Page navigation sample">
-              {% if product.has_other_pages %}
+              {% if paged_blogs.has_other_pages %}
                <ul class="pagination">
-                {% if product.has_previous %}
-                 <li class="page-item"><a class="page-link" href="?page={{ product.previous_page_number }}">Previous</a></li>
+                {% if paged_blogs.has_previous %}
+                 <li class="page-item"><a class="page-link" href="?page={{ paged_blogs.previous_page_number }}">Previous</a></li>
                  {% else %}
-                 <li class="page-item disabled"><a class="page-link" href="">Previous</a></li>
+                 <li class="page-item disabled"><a class="page-link">Previous</a></li>
                  {% endif%}
             
-                    <li class="page-item page-link ">Page {{ product.number }}</li>
+                    <li class="page-item page-link ">Page {{ paged_blogs.number }}</li>
            
-                 {% if product.has_next %}
+                 {% if paged_blogs.has_next %}
           
-                 <li class="page-item"><a class="page-link" href="?page={{ product.next_page_number }}">Next</a></li>
+                 <li class="page-item"><a class="page-link" href="?page={{ paged_blogs.next_page_number }}">Next</a></li>
                  {% else %}
-                 <li class="page-item disabled"><a class="page-link" href="">Next</a></li>
+                 <li class="page-item disabled"><a class="page-link" >Next</a></li>
                  {% endif %}
          
                </ul>
@@ -169,41 +170,23 @@
             <div class="side-bar">
 
               <!-- widget -->
+              
               <div class="widget">
                 <div class="latest-news">
-                  <h2>Latest News</h2>
+                  <h2>Latest Blogs</h2>
                   <hr class="widget-separator no-margin">
-
+                  
+                  {% for blog in all_blogs  %}
                   <div class="news-post">
                     <div class="post">
-                      <figure class="post-thumb"><img alt="" src="https://templates.scriptsbundle.com/knowledge/demo/images/blog/small-1.png">
+                      <figure class="post-thumb"><img alt="" src="{{blog.img.url}}">
                       </figure>
-                      <h4><a href="#">Differentiate Yourself And Attract More Attention </a></h4>
-                      <div class="post-info">1 hour ago</div>
-                    </div>
-
-                    <div class="post">
-                      <figure class="post-thumb"><img alt="" src="https://templates.scriptsbundle.com/knowledge/demo/images/blog/small-2.png">
-                      </figure>
-                      <h4><a href="#">Differentiate Yourself And Attract More Attention </a></h4>
-                      <div class="post-info">1 hour ago</div>
-                    </div>
-
-                    <div class="post">
-                      <figure class="post-thumb"><img alt="" src="https://templates.scriptsbundle.com/knowledge/demo/images/blog/small-3.png">
-                      </figure>
-                      <h4><a href="#">Differentiate Yourself And Attract More Attention </a></h4>
-                      <div class="post-info">1 hour ago</div>
-                    </div>
-
-                    <div class="post">
-                      <figure class="post-thumb"><img alt="" src="https://templates.scriptsbundle.com/knowledge/demo/images/blog/small-4.png">
-                      </figure>
-                      <h4><a href="#">Differentiate Yourself And Attract More Attention </a></h4>
+                      <h4><a href="{% url 'blog_detailed_view' blog.slug %}">{{blog.title}} </a></h4>
                       <div class="post-info">1 hour ago</div>
                     </div>
 
                   </div>
+                  {% endfor %}
 
                 </div>
               </div>
@@ -218,31 +201,12 @@
                   <h2>Gallery</h2>
                   <hr class="widget-separator no-margin">
                   <div class="gallery-image">
-                    <a href="#"><img alt="" src="https://templates.scriptsbundle.com/knowledge/demo/images/blog/small-5.png">
+                    {% for blog in all_blogs  %}
+                    <a href="#"><img alt="" src="{{blog.img.url}}">
                     </a>
-                    <a href="#"><img alt="" src="https://templates.scriptsbundle.com/knowledge/demo/images/blog/small-6.png">
-                    </a>
-                    <a href="#"><img alt="" src="https://templates.scriptsbundle.com/knowledge/demo/images/blog/small-7.png">
-                    </a>
-                    <a href="#"><img alt="" src="https://templates.scriptsbundle.com/knowledge/demo/images/blog/small-8.png">
-                    </a>
-                    <a href="#"><img alt="" src="https://templates.scriptsbundle.com/knowledge/demo/images/blog/small-9.png">
-                    </a>
-                    <a href="#"><img alt="" src="https://templates.scriptsbundle.com/knowledge/demo/images/blog/small-10.png">
-                    </a>
-                    <a href="#"><img alt="" src="https://templates.scriptsbundle.com/knowledge/demo/images/blog/small-1.png">
-                    </a>
-                    <a href="#"><img alt="" src="https://templates.scriptsbundle.com/knowledge/demo/images/blog/small-2.png">
-                    </a>
-                    <a href="#"><img alt="" src="https://templates.scriptsbundle.com/knowledge/demo/images/blog/small-3.png">
-                    </a>
-                    <a href="#"><img alt="" src="https://templates.scriptsbundle.com/knowledge/demo/images/blog/small-4.png">
-                    </a>
-                    <a href="#"><img alt="" src="https://templates.scriptsbundle.com/knowledge/demo/images/blog/small-11.png">
-                    </a>
-                    <a href="#"><img alt="" src="https://templates.scriptsbundle.com/knowledge/demo/images/blog/small-12.png">
-                    </a>
+                    {% endfor %}
                   </div>
+
                 </div>
               </div>
               <!-- widget end -->

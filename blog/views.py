@@ -1,15 +1,24 @@
 from blog.forms import BlogForm, CommentForm
 from blog.models import Blog, Comments, Reply
 from django.shortcuts import redirect, render
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 def view_blog(request):
-    all_blogs = Blog.objects.all()
+    all_blogs = Blog.objects.all()[:4]
+    paginator = Paginator(all_blogs, 2)
+    page = request.GET.get('page')
+    paged_blogs = paginator.get_page(page)
+    blog_count = all_blogs.count()
     
     context={
         'all_blogs':all_blogs,
+        'paged_blogs':paged_blogs,
+        'blog_count':blog_count,
+
     }
     try:
         blog_exist = Blog.objects.filter(user = request.user).exists()
+
         blog = Blog.objects.filter(user = request.user)
         context['blog']=  blog
         context['blog_exist'] = blog_exist

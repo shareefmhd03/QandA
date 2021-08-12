@@ -191,22 +191,26 @@ h5 {
 			  </div>
 			  <div class="col-md-6 col-xs-12 col-sm-6 no-padding">
 				<ul class="profile-count">
-				  <li>171<i>Followers</i>
+				  <li>{{followers}}<i>Followers</i>
 				  </li>
-				  <li>13,725<i>Points</i>
+				  <li>{{my_points.point}}<i>Points</i>
 				  </li>
 				  <li>{{questions_count}}<i>Questions</i>
 				  </li>
 				</ul>
+				{% if not profile.user == request.user %}
 				<ul class="profile-connect">
+					<form action="{% url 'get_profile' profile.id %}" method="POST">
+						{% csrf_token %}
 					{%if followed %}
-					<li><button value="{{profile.id}}" id="follow" class="btn btn-md text-white" style="background-color: black;"  title="">follow</button>
-					</li>
-					{%else%}
 					<li><button value="{{profile.id}}" id="follow" class="btn btn-md text-white" style="background-color: black;"  title="">Unfollow</button>
 					</li>
+					{%else%}
+					<li><button value="{{profile.id}}" id="follow" class="btn btn-md text-white" style="background-color: black;"  title="">follow</button>
+					</li>
+					</form>
 				  {% endif %}
-				
+				{% endif %}
 				</ul>
 			  </div>
 			</div>

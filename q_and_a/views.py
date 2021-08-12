@@ -1,3 +1,4 @@
+from django.db.models.aggregates import Count
 from blog.models import Blog
 from django.http.response import JsonResponse
 from q_and_a.models import Answer, PointsTable, Question, Tags
@@ -9,6 +10,7 @@ from django.db.models import Q
 import datetime
 from accounts.models import Accounts
 
+
 def get_time():
     return datetime.datetime.now()
 
@@ -16,9 +18,15 @@ def get_time():
 def index(request):
     profile = Profile.objects.all()
     question = Question.objects.all().order_by('-created_at')
+    
+    
+    
+    # popular_questions = Question.objects.filter
+    
     blogs = Blog.objects.all()
     context = {
         'question':question,
+        
         'profile':profile,
         'blogs':blogs,
     }
@@ -120,10 +128,6 @@ def answer(request, question):
 
 def view_answer(request, pk):
     
-    
-    # vote_average = 0
-    # upvote_count = 0
-    # downvote_count = 0
     quest = Question.objects.filter(slug = pk)
     questt = Question.objects.get(slug = pk)
     author = Question.objects.filter(user = request.user, slug= pk).exists()
@@ -133,7 +137,7 @@ def view_answer(request, pk):
     print(now.minute, 'now ')
     # for i in quest:
     posted = questt.created_at
-    print(posted)
+    # print(posted)
     
     # for i  in answer:
     #     print(i.upvote_count(),'ooooooooooooooooo')
@@ -161,9 +165,12 @@ def solved(request):
         print(ans_id)
         
         ans = Answer.objects.get(id =ans_id)
+        points = PointsTable.objects.get(user = ans.user)
         question = Question.objects.get(id  = ans.question_id)
         if question.solved == False:
             question.solved = True
+            points.point+=5
+            points.save()
             question.save()
         
         elif ans.is_solution == False:
@@ -176,9 +183,15 @@ def solved(request):
 
 def question_list(request):
     question = Question.objects.all().order_by('-created_at')
+    popular_questions = Question.objects.annotate(q_count=Count('upvote'))
+    recently_answered = Question.objects.filter(solved=True).order_by('updated_at')
+    not_answered = Question.objects.filter(solved=False).order_by('updated_at')
 
     context={
         'question':question,
+        'popular_questions':popular_questions,
+        'recently_answered':recently_answered,
+        'not_answered':not_answered,
     }
     return render(request, 'user/questions_list.html', context)
 

@@ -1,0 +1,29 @@
+{%  extends 'admin/admin_base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <div> 
+                
+                <h3>{{tutorials.title}}</h3>
+            </div>
+            <div class="col-xs-3">
+
+                <img src="{{tutorials.Image.url}}" alt="" style="height: 500px;">
+            </div>
+            
+            {{tutorials.Tutorial|safe}}
+
+        </div>
+
+    </div>
+
+   
+    
+</div>
+
+
+
+{% endblock %}

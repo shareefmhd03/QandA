@@ -12,6 +12,7 @@ def user_profile(request):
         profile  = Profile.objects.get(user = request.user)
         question = Question.objects.filter(user = request.user)
         my_points = PointsTable.objects.get(user = request.user)
+        followers = profile.following.all().count()
         
         blog = Blog.objects.filter(user = request.user)
         questions_count = Question.objects.filter(user = profile.user).count()
@@ -21,7 +22,8 @@ def user_profile(request):
         # print(owner)
     context ={
         'profile':profile,
-        # 'my_points':my_points,
+        'my_points':my_points,
+        'followers':followers,
         'questions':question,
         'blogs':blog,
         'questions_count':questions_count,
@@ -32,31 +34,40 @@ def get_profile(request, pk):
     followed = False
     profile  = Profile.objects.get(id =pk)
     blog = Blog.objects.filter(user = profile.user).order_by('created_at')
-    # points = PointsTable.objects.get(user = profile.user)
+    points = PointsTable.objects.get(user = profile.user)
+    followers = profile.following.all().count()
     
     questions = Question.objects.filter(user = profile.user)
     questions_count = Question.objects.filter(user = profile.user).count()
-    if request.user in profile.following.all():
-        followed = True
+    if request.method =='POST':
+        print('inside_post')
+        if request.user in profile.following.all():
+            followed = True
 
-    if followed:
-        profile.following.remove(request.user)
-        profile.save()
-    else:
-        profile.following.add(request.user)
-        profile.save()
+        if followed:
+            profile.following.remove(request.user)
+            profile.save()
+        else:
+            profile.following.add(request.user)
+            profile.save()
     
     # print(profile.following.use,'eeeee')
     print(followed)
 
     context={
         'profile':profile,
+        'followers':followers,
         'blogs':blog,
         'questions':questions,
         'questions_count':questions_count,
         'followed':followed,
+        'my_points':points,
+        
+
     }
     return render(request, 'user/user_profile.html', context)
+
+
 
 def update_profile_image(request):
     profile  = Profile.objects.get(user = request.user)
