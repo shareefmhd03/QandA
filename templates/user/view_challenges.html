@@ -1,0 +1,88 @@
+{% extends 'user/user-base.html' %}
+{% load static %}
+
+{% block content %}
+
+{% include 'user/includes/header_base.html' %}
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@800&display=swap" rel="stylesheet">
+<style>
+
+.row{
+    margin-left: 20rem;
+    
+}
+    span{
+    font-size:15px;
+    color: white;
+}
+
+.box{
+    padding:60px 0px;
+    
+}
+
+.box-part{
+    background:rgb(0, 0, 0);
+    border-radius:0;
+    padding:60px 10px;
+    margin:30px 0px;
+}
+.text{
+    margin:20px 0px;
+}
+
+.fa{
+     color:#4183D7;
+}
+.wrapper {
+    position: relative
+}
+
+
+</style>
+
+
+    <div class="row">
+        <div class="col-lg-12" style="color: black; font-weight: bolder;">
+            <h3>All Challenges</h3>
+        </div>
+   
+        <div class="col-md-4">
+               
+            <div class="box-part text-center"  style="border: none ; border-radius: 10px; margin: 2rem; box-shadow: 5px 5px 12px rgb(199, 199, 199);">
+                
+                <i class="fa fa-instagram fa-3x" aria-hidden="true"></i>
+                
+                <div class="title">
+                    <h2 style="color: #ffffff; font-weight: bolder; font-family: 'Manrope', sans-serif;">Instagram</h2>
+                </div>
+                
+                <div class="text">
+                    <span>Lorem ipsum dolor sit amet, id quo eruditi eloquentiam. Assum decore te sed. Elitr scripta ocurreret qui ad.</span>
+                </div>
+                
+                <a href="#" style="color: white;">Learn More</a>
+                
+             </div>
+        </div>
+        
+    </div>
+
+    <form action="{% url 'runcode' %}" method="post">
+        {% csrf_token %}
+    <div class="form-group" style="margin-left:50px;margin-right:50px;">
+      <label for="codearea">Code Area</label>
+      <textarea type="text" class="form-control" id="codearea" name="codearea" rows="10" onkeydown="if(event.keyCode===9){var v=this.value,s=this.selectionStart,e=this.selectionEnd;this.value=v.substring(0, s)+'\t'+v.substring(e);this.selectionStart=this.selectionEnd=s+1;return false;}">{{ code }}</textarea>
+    </div>
+    
+    <div class="form-group" style="margin-left:50px;margin-right:50px;">
+      <label for="output">Output</label>
+      <textarea type="text" class="form-control" id="output" name="output" rows="4" disabled> {{ output }} </textarea>
+    </div>
+    
+    <button type="submit" class="btn btn-primary" style="margin-left:50px;">Run</button>
+    </form>
+
+
+
+{% endblock %}

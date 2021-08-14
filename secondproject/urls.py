@@ -6,7 +6,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('secure_admin/', admin.site.urls),
-    path('accounts/', include('accounts.urls')),
+    path('account/', include('accounts.urls')),
     path('', include('q_and_a.urls')),
     path('blog/', include('blog.urls')),
     path('profiles/', include('profiles.urls')),
@@ -14,7 +14,9 @@ urlpatterns = [
     path('community/', include('community.urls')),
     path('tutorials/', include('tutorials.urls')),
     path('administrator/', include('admin_app.urls')),
-    # re_path(r'^ckeditor/', include('ckeditor_uploader.urls')),
+    path('accounts/', include('allauth.urls')),
+    path('challenges/', include('challenges.urls')),
+    
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 urlpatterns +=static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

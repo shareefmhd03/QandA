@@ -48,7 +48,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
     'accounts',
     'posts',
     'profiles',
@@ -57,12 +60,14 @@ INSTALLED_APPS = [
     'froala_editor',
     'storages',
     'tutorials',
-    'admin_app'
+    'admin_app',
+    'allauth.socialaccount.providers.google',
+    'challenges',
     
 ]
-    # 'ckeditor',
-    # 'ckeditor_uploader',
-# CKEDITOR_UPLOAD_PATH = '/uploads/'
+
+
+SITE_ID = 1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -75,7 +80,14 @@ MIDDLEWARE = [
     
 ]
 
+AUTHENTICATION_BACKENDS = [
+   
+    'django.contrib.auth.backends.ModelBackend',
 
+  
+    'allauth.account.auth_backends.AuthenticationBackend',
+
+]
 
 
 ROOT_URLCONF = 'secondproject.urls'
@@ -179,3 +191,4 @@ MEDIA_ROOT = BASE_DIR/'media'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+LOGIN_REDIRECT_URL = '/'

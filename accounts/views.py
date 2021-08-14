@@ -20,7 +20,6 @@ def login_view(request):
     if request.user.is_authenticated:
         return redirect('index')
     else:
-        try:
             if request.method == 'POST':
                 usernam   = request.POST['username']
                 passwd  = request.POST['password1']
@@ -32,8 +31,6 @@ def login_view(request):
     
                 
             return render(request, 'user/login.html')
-        except:
-            return redirect('login_view')
 
 
 # @cache_control(no_cache=True, must_revalidate=True, no_store=True)

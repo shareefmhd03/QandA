@@ -33,7 +33,9 @@ def single_tutorial(request, slug):
 
 def take_test(request,id):
     test = McqQuestions.objects.filter(topic_id = id)
+    turorial = Tutorial.objects.get(id = id)
     context = {
         'test':test,
+        'turorial':turorial,
     }
     return render(request, 'user/mcq.html',context)

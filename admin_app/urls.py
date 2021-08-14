@@ -12,4 +12,5 @@ urlpatterns = [
     path('mcqquestions/<int:id>',views.mcqquestions, name='mcqquestions'),
     path('all_topics/',views.all_topics, name='all_topics'),
     path('view_tutorial/<int:id>',views.view_tutorial, name='view_tutorial'),
+    path('edit_tutorials/<int:id>',views.edit_tutorials, name='edit_tutorials'),
 ]

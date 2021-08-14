@@ -4,23 +4,22 @@
 {% block content %}
 <div class="container">
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-lg-8">
+            <a href="{%url 'edit_tutorials' tutorials.id%}" class="btn btn-md"><i class="fas fa-edit">Edit</i></a>
             <div> 
                 
                 <h3>{{tutorials.title}}</h3>
             </div>
             <div class="col-xs-3">
 
-                <img src="{{tutorials.Image.url}}" alt="" style="height: 500px;">
+                <img src="{{tutorials.Image.url}}" alt="" style="height: 200px;">
             </div>
             
-            {{tutorials.Tutorial|safe}}
+            {{tutorials.tutorials|safe}}
 
         </div>
 
     </div>
-
-   
     
 </div>
 

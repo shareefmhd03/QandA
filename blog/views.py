@@ -54,6 +54,7 @@ def blog_detailed_view(request, slug):
     single_blog = Blog.objects.get(slug = slug)
     comments = Comments.objects.filter(blog_id = single_blog)
     reply = Reply.objects.all()
+    print(reply)
     # if Blog.objects.filter(user = request.user, slug = slug).exists():
     #     author = True 
     # else:
