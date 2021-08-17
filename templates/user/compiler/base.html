@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>{% block title %}Challenges{% endblock %}</title>
+    {% load static %}
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet">
+    <link href="{% static 'compiler/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'compiler/css/theme.css' %}" rel="stylesheet" type="text/css"/>
+    <link rel="icon" type="image/png" href="{% static 'compiler/image/icon.jpg' %}" />
+    <script src="{% static 'compiler/js/jquery.min.js'%}"></script>
+    <script src="{% static 'compiler/js/bootstrap.min.js' %}"></script>
+    <script src="https://use.fontawesome.com/418d7094c4.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+</head>
+<body>
+   
+{% include 'user/includes/header_base.html' %}
+
+    <!-- displaying messages -->
+    {% if messages %}
+    <div class="messages">
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+    </div>    
+    {% endif %}
+
+    
+
+
+        {% block content %}
+
+        {% endblock %}
+
+</body>
+</html>

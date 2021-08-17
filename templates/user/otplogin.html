@@ -1,0 +1,39 @@
+
+{% extends 'user/user-base.html' %}
+
+{% load static %}
+
+{% block content %}
+{% include 'user/includes/header_base.html' %}
+
+
+<section class="section-padding-80 white" id="login">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
+        <h3>Verify Your Phone</h3>
+          <div class="box-panel" style="box-shadow: rgb(218, 215, 215) 3px 3px 12px; border-radius: 10px;">
+            <form  action="{% url 'otp_login' %}" method="POST">
+                {% csrf_token %}
+                <h6 class="card-title mb-4">Enter Phone number</h6>
+                <div class="form-group">
+                   <input type="number" class="form-control" id="phone"  placeholder="Phone Number" name = 'phone' >
+                </div> 
+                
+                <div class="form-group">
+                    <button type="submit"  class="btn btn-dark btn-block"> Get OTP  </button>
+                </div>   
+            </form>
+            <!-- form login -->
+
+          </div>
+        </div>
+
+        <div class="clearfix"></div>
+      </div>
+    </div>
+ 
+  </section>
+
+
+{% endblock %}

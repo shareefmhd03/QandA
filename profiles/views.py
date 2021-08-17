@@ -1,6 +1,6 @@
 from django.db.models import Count,Sum
 from q_and_a.models import PointsTable
-from profiles.models import Profile
+from profiles.models import Profile, User_profile
 from q_and_a.models import Question, Answer
 from blog.models import Blog
 from django.shortcuts import redirect, render
@@ -99,3 +99,9 @@ def follow(request):
         profile.following.add(profile.user)
         profile.save()
     return redirect('user_profile')
+
+
+def leaderboard(request):
+    p = User_profile.objects.order_by("-n_subm")
+    users = {"user":p}
+    return render(request,"user/leaderboard.html",users)

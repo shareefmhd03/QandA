@@ -3,5 +3,6 @@ from . views import *
 
 urlpatterns =[
     path('',view_challenges,name='view_challenges'),
-    path('runcode/',runcode, name="runcode"),
+    path('compiler/', code_editor, name = "compiler"),
+    path('result/', result, name = "result"),
 ]

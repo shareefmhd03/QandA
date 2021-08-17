@@ -8,6 +8,9 @@ from django.contrib.auth import logout,login
 from django.contrib import messages
 from django.views.decorators.cache import cache_control
 from django.contrib import messages 
+import random
+from twilio.rest import Client
+from decouple import config
 
 # Create your views here.
 
@@ -24,7 +27,12 @@ def login_view(request):
                 usernam   = request.POST['username']
                 passwd  = request.POST['password1']
                 
+
                 user = authenticate(request, username = usernam, password=passwd)
+                use = Accounts.objects.get(username = usernam)
+                print(use)
+                if use.is_active == False:
+                    return redirect('otp_login')
 
                 login(request, user)
                 return redirect('index')
@@ -52,10 +60,10 @@ def register(request):
                 password2 = form.cleaned_data['password2']
                 username = email.split('@')[0]+''
                 user = Accounts.objects.create_user(
-                    first_name = firstname, last_name = lastname, email = email, password=password1, phone = phone,username = username)
+                    first_name = firstname, last_name = lastname, email = email, password=password1, phone = phone,username = username, is_active = False)
                 user.save()
                 # messages.success(request, 'Account created successfully')
-                return redirect('login_view')
+                return redirect('otp_login')
         # form = RegistrationForm()
         context = {
             'form': form,
@@ -121,3 +129,54 @@ def validate_email(request):
     if data['is_taken']:
         data['error_message'] = 'A user with this email already exists.'
     return JsonResponse(data)
+
+
+def otp_login(request):
+    if request.method == 'POST':
+        phone = request.POST['phone']
+        if Accounts.objects.filter(phone=phone).exists():
+            otp = random.randint(100000, 999999)
+            strotp = str(otp)
+            account_sid = config('account_sid')
+            auth_token = config('auth_token')
+      
+            client = Client(account_sid, auth_token)
+
+            message = client.messages \
+                .create(
+                    body="Your login OTP is"+strotp,
+                    from_='+13012816882',
+                    to='+91'+phone
+                )
+            request.session['otp'] = otp
+            request.session['phone'] = phone
+            messages.success(request, "OTP Sended Successfully")
+            return redirect('verify_otp')
+        messages.error(request, "Enter valid phone number")
+        return redirect('otp_login')
+    return render(request, 'user/otplogin.html')
+
+def verify_otp(request):
+    if request.method == 'POST':
+        enter_otp = request.POST['otp']
+        otp = int(enter_otp)
+        if request.session.has_key('otp'):
+            sended_otp = request.session['otp']
+
+            if sended_otp == otp:
+                print("in if")
+                phone = request.session['phone']
+                
+                use = Accounts.objects.get(phone=phone)
+                use.is_active = True
+                del request.session['otp']
+                del request.session['phone']
+                use.save()
+                login(request, use)
+                return redirect('index')
+            else:
+                messages.error(request, "entered OTP is wrong")
+                return redirect('otp_login')
+        else:
+            return redirect('otp_login')
+    return render(request, 'user/verifyotp.html')

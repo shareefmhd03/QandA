@@ -7,4 +7,5 @@ urlpatterns = [
     path('update_profile_image/',update_profile_image, name= 'update_profile_image'),
     path('update_profile/',update_profile, name= 'update_profile'),
     path('follow/',follow, name= 'follow'),
+    path('leaderboard/', leaderboard, name='leaderboard'),
 ]

@@ -1,0 +1,10 @@
+{% extends 'user/compiler/base.html' %}
+
+{% block content %}
+    <style>
+        *{
+            transition-duration: 0s !important;
+        }
+    </style>
+{% include 'user/compiler/code_editor_content.html' %}
+{% endblock %}
