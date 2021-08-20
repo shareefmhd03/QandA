@@ -13,7 +13,7 @@
 }
     span{
     font-size:15px;
-    color: white;
+    color: rgb(0, 0, 0);
 }
 
 .box{
@@ -22,13 +22,14 @@
 }
 
 .box-part{
-    background:rgb(0, 0, 0);
+    background:rgb(255, 255, 255);
     border-radius:0;
     padding:60px 10px;
     margin:30px 0px;
 }
 .text{
     margin:20px 0px;
+    color: black;
 }
 
 .fa{
@@ -46,7 +47,8 @@
         <div class="col-lg-12" style="color: black; font-weight: bolder;">
             <h3>All Challenges</h3>
         </div>
-   
+   {% for topic in topics %}
+   <a href="{% url 'challenge_quest' topic.id %}">
         <div class="col-md-4">
                
             <div class="box-part text-center"  style="border: none ; border-radius: 10px; margin: 2rem; box-shadow: 5px 5px 12px rgb(199, 199, 199);">
@@ -54,22 +56,20 @@
                 <i class="fa fa-instagram fa-3x" aria-hidden="true"></i>
                 
                 <div class="title">
-                    <h2 style="color: #ffffff; font-weight: bolder; font-family: 'Manrope', sans-serif;">Instagram</h2>
+                    <h2 style="color: #000000; font-weight: bolder; font-family: 'Manrope', sans-serif;">{{topic.title}}</h2>
                 </div>
                 
                 <div class="text">
-                    <span>Lorem ipsum dolor sit amet, id quo eruditi eloquentiam. Assum decore te sed. Elitr scripta ocurreret qui ad.</span>
+                    <span>{{topic.description}}</span>
                 </div>
                 
-                <a href="#" style="color: white;">Learn More</a>
+                <!-- <a href="#" style="color: white;">Learn More</a> -->
                 
              </div>
         </div>
+    </a>
+    {% endfor %}
         
     </div>
-
-
-
-
 
 {% endblock %}

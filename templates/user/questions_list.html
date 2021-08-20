@@ -197,10 +197,10 @@
 
 	searchField.addEventListener("keyup", (e) => {
 		const searchvalue = e.target.value;
-		console.log(searchvalue + '11111111')
+
 		if (searchvalue.trim().length > 0) {
 			listBody.innerHTML = ""
-			console.log(searchvalue + '22222222');
+	
 			$.ajax({
 				url: "{% url 'search_filter' %}",
 				type: "GET",
@@ -208,14 +208,11 @@
 
 				success: function (body) {
 
-					console.log(body)
-
-
-
 					AppTable.style.display = 'none'
 					tableOutput.style.display = 'block'
-
-					if (body.length === 0) {
+					console.log(body.length,'44444')
+					if (body.length < 1) {
+						console.log(body.length,'444eeeee44')
 						tableOutput.innerHTML = `<h1> No Result Found </h1>`
 					} else {
 						body.forEach((items) => {
@@ -224,11 +221,7 @@
 							listBody.innerHTML += `
                                     <div class="listing-grid">
 										<div class="row">
-											<div class="col-md-2 col-sm-2 col-xs-12 hidden-xs">
-												<a data-toggle="tooltip" data-placement="bottom" data-original-title="Martina Jaz" href="#">
-													<img alt="" class="img-responsive center-block" src="#">
-												</a>
-											</div>
+											
 											<div class="col-md-7 col-sm-8  col-xs-12">
 												<h3><a  href="/view_answer/items.slug">${items.question_title}</a></h3>
 												<div class="listing-meta"> <span><i class="fa fa-clock-o" aria-hidden="true"></i>${items.created_at}</span>  <span><i class="fa fa fa-eye" aria-hidden="true"></i> 750 Views</span> 

@@ -1,6 +1,6 @@
 from django.db.models import Count,Sum
 from q_and_a.models import PointsTable
-from profiles.models import Profile, User_profile
+from profiles.models import Profile
 from q_and_a.models import Question, Answer
 from blog.models import Blog
 from django.shortcuts import redirect, render

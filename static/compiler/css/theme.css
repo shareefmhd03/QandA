@@ -1,8 +1,8 @@
 body {
     font-family: 'Quicksand', sans-serif !important;
-    padding-top: 70px;
+
     padding-bottom: 30px;
-    background-image: url("../image/bck.jpg");
+
     background-attachment:fixed;
     background-repeat: no-repeat;
     background-size: cover;
@@ -15,7 +15,7 @@ body {
     background-color: #E8EAF6;
 }
 body * {
-    font-family: 'Quicksand', sans-serif;
+    font-family: 'Noto Serif', serif;
 }
 #q_id{
     text-decoration-color:#00c853;
@@ -44,7 +44,7 @@ body * {
     margin-top: 13px;
     margin-bottom: 10px;
     color: #eee;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Noto Serif', serif;
     font-weight: 300;
 }
 .innermost {

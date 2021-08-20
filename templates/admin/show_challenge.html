@@ -1,0 +1,27 @@
+{%  extends 'admin/admin_base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8">
+            <a href="{% url 'edit_challenge' challenge.id %}" class="btn btn-md"><i class="fas fa-edit">Edit</i></a>
+            <div> 
+                <h3>{{challenge.title}}</h3>
+            </div>
+            
+            {{challenge.challenge_question|safe}} <br>
+            {{challenge.sample_input}} <br><br>
+            {{challenge.sample_output}} <br><br>
+            {{challenge.test_case1}} <br><br>
+            {{challenge.test_case1_sol}}
+
+        </div>
+
+    </div>
+    
+</div>
+
+
+
+{% endblock %}

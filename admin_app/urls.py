@@ -13,4 +13,9 @@ urlpatterns = [
     path('all_topics/',views.all_topics, name='all_topics'),
     path('view_tutorial/<int:id>',views.view_tutorial, name='view_tutorial'),
     path('edit_tutorials/<int:id>',views.edit_tutorials, name='edit_tutorials'),
+    path('view_challenges_admin/',views.view_challenges_admin, name='view_challenges_admin'),
+    path('add_challenges/',views.add_challenges, name='add_challenges'),
+    path('add_challenge_topic/',views.add_challenge_topic, name='add_challenge_topic'),
+    path('show_challenge/<int:id>',views.show_challenge, name='show_challenge'),
+    path('edit_challenge/<int:id>',views.edit_challenge, name='edit_challenge'),
 ]

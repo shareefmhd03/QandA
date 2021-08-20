@@ -1,0 +1,39 @@
+{% extends 'user/user-base.html' %}
+{% load static %}
+
+
+{% block content %}
+{% include 'user/includes/header_base.html' %}
+<div class="container">
+    {% for quest in question %}
+    <div class="row">
+        <div class="col-md-8 ">
+
+            <div class="card" style="box-shadow: 5px 5px 5px 5px rgb(197, 195, 195); padding: 1rem;margin: 2rem;">
+                <div class="card-header">
+                  Featured
+                </div>
+                <div class="card-body">
+                  <h2 class="card-title">{{quest.title}}</h2>
+                  <p class="card-text">{{quest.desc}}</p>
+                  {% if quest.solved %}
+                  <div style="position: relative;">
+                    <a href="{% url 'compiler' quest.id  %}" class="btn btn-success">Solved <i class="far fa-check-circle"></i></a>
+
+                    </div>
+                    {% else %}
+                    <div style="position: relative;">
+                    
+                      <a href="{% url 'compiler' quest.id  %}" class="btn btn-success">Solve Challenge</a>
+                      </div>
+                    {% endif %}
+                    
+                </div>
+              </div>
+           
+    </div>
+</div>
+{% endfor %}
+</div>
+
+{% endblock %}

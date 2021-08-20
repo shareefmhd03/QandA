@@ -1,3 +1,5 @@
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
 <div class="container">
 <form id = "data">
 {% csrf_token %}
@@ -78,6 +80,7 @@
     $('select').select2();
 
     $("#language").change(function () {
+console.log('hiiiii------')
         var l =($("select option:selected").text());
         if (l=="python" || l=="python3")
             {editor.getSession().setMode("ace/mode/python");}
@@ -106,7 +109,7 @@
         $.ajax(
             {
                 type: "POST",
-                url : "{% url 'result' %}",
+                url : "{% url 'result' question.id %}",
                 data: {
 
                     script: editor.getValue(),

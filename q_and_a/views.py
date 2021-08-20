@@ -217,7 +217,7 @@ def search(request):
 
 def search_question(request):
     title = request.GET.get('title')
-    print(title)
+
     question_list =[]
     if title:
         questions = Question.objects.filter(question_title__icontains = title)[:2]
@@ -230,12 +230,11 @@ def search_question(request):
 def search_filter(request):
     
     title = request.GET.get('search')
-    print(title)
+
     if title:
-        
         questions = Question.objects.filter(question_title__icontains = title)
         data=questions.values()
-        print(data)
+
         return JsonResponse(list(data),safe=False)
         # return JsonResponse({'status':200, 'data': questions})
     # question = Question.objects.all().order_by('-created_at')
@@ -252,21 +251,21 @@ def voting_up(request):
     if request.user.is_authenticated:
         if request.method =='POST':
             ans_id = request.POST.get('data')
-            print(ans_id,'yyyy')
+
             ans = Answer.objects.get(id = ans_id)
             a = ans.upvote_count()
             b = ans.downvote_count()
             ans.upvote.add(request.user)
             ans.downvote.remove(request.user)
             ans.save()
-            # total_vote = a-b
+
 
         return JsonResponse({'total_vote':ans.vote_total(),'answer_id':ans_id})
     return redirect('index')
 
 
 def voting_down(request):
-    # points = PointsTable.objects.get
+
     if request.user.is_authenticated:
         if request.method =='POST':
             ans_id = request.POST.get('data')
@@ -282,16 +281,9 @@ def voting_down(request):
     return redirect('index')
 
 
-# def popular_questions(request):
-    
-
-#     return render(request, 'user/question_list.html')
-
-
-
 def voting_up_question(request):
     # points = PointsTable.objects.get
-    print('hi')
+
     if request.user.is_authenticated:
         if request.method =='POST':
             ques_id = request.POST.get('data')

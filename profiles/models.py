@@ -18,6 +18,11 @@ class Profile(models.Model):
     # solved_questions = models.ManyToManyField(Answer, blank = True, related_name='solved_question')
     # favorites = models.ManyToManyField(Question,blank=True, null= True)
     # social links
+    first_name = models.CharField(max_length=200, blank=True)
+    user = models.OneToOneField(Accounts,on_delete=models.CASCADE,blank=True)
+    n_subm = models.IntegerField(default=0)
+    n_s_sub = models.IntegerField(default=0)
+    lang = models.CharField(max_length=400,blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -33,12 +38,12 @@ class Profile(models.Model):
 
 
 
-class User_profile(models.Model):
-  first_name = models.CharField(max_length=200, blank=True)
-  user = models.OneToOneField(Accounts,on_delete=models.CASCADE,blank=True)
-  n_subm = models.IntegerField(default=0)
-  n_s_sub = models.IntegerField(default=0)
-  lang = models.CharField(max_length=400,blank=True)
+# class User_profile(models.Model):
+#   first_name = models.CharField(max_length=200, blank=True)
+#   user = models.OneToOneField(Accounts,on_delete=models.CASCADE,blank=True)
+#   n_subm = models.IntegerField(default=0)
+#   n_s_sub = models.IntegerField(default=0)
+#   lang = models.CharField(max_length=400,blank=True)
 
-  def __str__(self):
-    return self.first_name
+#   def __str__(self):
+#     return self.first_name
