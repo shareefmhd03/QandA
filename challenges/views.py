@@ -1,5 +1,5 @@
 from django.shortcuts import redirect, render
-from .models import ChallengeQuestion, ChallengeTopic
+from .models import ChallengeQuestion, ChallengeTopic, SolvedQuestion
 
 from django.shortcuts import render,HttpResponse
 from django.conf import settings
@@ -68,7 +68,17 @@ def result(request,pk):
                     'language':lang,
                     'versionIndex':LANG_CODE[lang],
                 }
-                
+            solved  = SolvedQuestion.objects.filter(user_id = request.user.id).exists()
+            if solved:
+                    user = SolvedQuestion.objects.filter(user_id = request.user.id)
+                    print('insde try')
+            else:
+                    print('inside except')
+
+                    user = SolvedQuestion.objects.create(user_id = request.user.id)
+
+            # print(user.user)
+            
             try:
                 headers = {'Content-type': 'application/json'}
                 r = requests.post(url = API_ENDPOINT, data = json.dumps(data), headers = headers)
@@ -79,18 +89,17 @@ def result(request,pk):
                 print(status)
                 #output = Robject(r.json())
                 output = json_data['output']
+                print('here----')
+                
+            
                 
                 if output:
                     output = output.replace("\n","")
+                print(output)
                     
                 if test.test_case1_sol == output:
                     test.solved = True
                     # test.user.add(request.user)
-
-                if test.test_case2:
-                    if test.test_case2_sol== output and test.test_case1_sol == output:
-                        test.solved = True
-                        # test.user.add(request.user)
                 test.save()                        
             except Exception as e:
                 print(e)

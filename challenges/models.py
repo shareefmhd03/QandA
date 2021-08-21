@@ -42,4 +42,4 @@ class SolvedQuestion(models.Model):
     challenges= models.ManyToManyField(ChallengeQuestion, related_name="solved_challenges")
 
     def __str__(self):
-        return self.user
+        return self.user.first_name

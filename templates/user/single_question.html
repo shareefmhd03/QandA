@@ -110,14 +110,17 @@
           }
         </style>
 				{% for ans in answer %}
+        {% if user == ans.user %}
+        {% else %}
               <div class="media-block card-box ribbon-content">
                 <div class="pad-ver pull-left">
                   <button onclick="up_voting('{{ans.id}}')" id="upvote" class="btn btn-sm btn-primary" ><i  class="fas fa-chevron-up"></i></button><br>
-                  <input id="counterq{{ans.id}}" type="text" readonly value="{{ans.vote_total}}"  style="width: 3rem; border: none;">
+                  <input id="counter{{ans.id}}" type="text" readonly value="{{ans.vote_total}}"  style="width: 3rem; border: none;">
                   <br>
                   <button onclick="down_voting('{{ans.id}}')" id="downvote" class="btn btn-sm btn-primary" ><i  class="fas fa-chevron-down"></i></button>
                   
                 </div>
+                {% endif %}
                
                 
                 <div class="media-body">
@@ -267,13 +270,8 @@
             url: url,
             data: data,
             success: function(data) {
-              
-        //       location.reload();
-        // window.location.reload()
-        console.log(a);
+                  console.log(data.total_vote+'tttttttttt')
         $("#counter"+a).val(data.total_vote);
-        console.log(data);
-        // document.getElementById('counter{{ans.id}}').stepUp();
             },
           })
         }
@@ -288,8 +286,7 @@
             url: url,
             data: data,
             success: function(data) {
-        //       location.reload();
-        // window.location.reload()
+              console.log(data.total_vote+'tttttttttt444')
         $("#counter"+a).val(data.total_vote);
             },
           })
@@ -312,7 +309,7 @@
           })
         }
         function down_vote(a){
-          console.log(a)
+          console.log(a+'avlaue')
           data = {
           'data':a,
           'csrfmiddlewaretoken': '{{ csrf_token }}'
@@ -323,6 +320,7 @@
             url: url,
             data: data,
             success: function(data) {
+              console.log(data.total_vote+'1111111111111111')
         $("#counterq"+a).val(data.total_vote);
             },
           })

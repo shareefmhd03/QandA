@@ -1,5 +1,3 @@
-
-from django.shortcuts import render
 from q_and_a.slug_helper import slug_generator
 from django.db import models
 from django.db.models.fields import SlugField
@@ -17,7 +15,7 @@ class Question(models.Model):
     question_title = models.CharField(max_length=200)
     slug = SlugField(max_length=250)
     user = models.ForeignKey(Accounts,on_delete=models.CASCADE)
-    
+
     question = FroalaField()
     tags = models.ManyToManyField(Tags)
     solved = models.BooleanField(default=False)
@@ -32,12 +30,10 @@ class Question(models.Model):
     def save(self, *args, **kwargs):
         self.slug = slug_generator(self.question_title)
         super(Question , self).save(*args, **kwargs)
-        
     def upvote_count(self):
         return self.upvote.all().count()
     def downvote_count(self):
         return self.downvote.all().count()
-
     def vote_total(self):
         return self.upvote_count()-self.downvote_count()
 

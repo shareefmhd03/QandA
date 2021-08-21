@@ -253,8 +253,8 @@ def voting_up(request):
             ans_id = request.POST.get('data')
 
             ans = Answer.objects.get(id = ans_id)
-            a = ans.upvote_count()
-            b = ans.downvote_count()
+            # a = ans.upvote_count()
+            # b = ans.downvote_count()
             ans.upvote.add(request.user)
             ans.downvote.remove(request.user)
             ans.save()
@@ -265,7 +265,6 @@ def voting_up(request):
 
 
 def voting_down(request):
-
     if request.user.is_authenticated:
         if request.method =='POST':
             ans_id = request.POST.get('data')
