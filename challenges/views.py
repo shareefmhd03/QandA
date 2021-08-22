@@ -1,5 +1,5 @@
 from django.shortcuts import redirect, render
-from .models import ChallengeQuestion, ChallengeTopic, SolvedQuestion
+from .models import ChallengeQuestion, ChallengeTopic, SolvedQuestions, SolvedQuestions
 
 from django.shortcuts import render,HttpResponse
 from django.conf import settings
@@ -10,6 +10,8 @@ import requests
 from django.contrib.auth.decorators import login_required
 from profiles.models import Profile
 
+def leaderboard(request):
+    return render(request, 'user/leaderboard.html')
 
 def view_challenges(request):
     if request.user.is_authenticated:
@@ -30,13 +32,16 @@ LANG_CODE = { 'c': 1, 'java': 3, 'cpp14': 3, 'python3': 3,'go': 3,
             'sql': 3,'csharp': 3,'dart': 3,'nodejs': 3,'kotlin': 2,'brainfuck': 0,}
 
 
-# @login_required(login_url='/accounts/login/')
+
 def code_editor(request,topic):
-    quest = ChallengeQuestion.objects.get(id = topic)
-    context = {
-        'question' : quest,
-    }
-    return render(request,'user/compiler/code_editor.html',context)
+    if request.user.is_authenticated:
+        quest = ChallengeQuestion.objects.get(id = topic)
+        context = {
+            'question' : quest,
+        }
+        return render(request,'user/compiler/code_editor.html',context)
+    else:
+        return redirect('login_view')
 
 def challenge_quest(request,topic):
     quest = ChallengeQuestion.objects.filter(topic_id = topic)
@@ -53,9 +58,9 @@ def result(request,pk):
             source = request.POST.get("script")
             lang = request.POST.get("lang")
             stdin = request.POST.get("stdin")
-            # print(stdin)
             u_id = request.user.id
             test = ChallengeQuestion.objects.get(id = pk)
+
             usr = Profile.objects.get(user_id=u_id)
             usr.n_subm += 1
             if check_lang(usr,lang):
@@ -68,42 +73,29 @@ def result(request,pk):
                     'language':lang,
                     'versionIndex':LANG_CODE[lang],
                 }
-            solved  = SolvedQuestion.objects.filter(user_id = request.user.id).exists()
+            solved  = SolvedQuestions.objects.filter(user_id = request.user.id).exists()
             if solved:
-                    user = SolvedQuestion.objects.filter(user_id = request.user.id)
-                    print('insde try')
+                    user = SolvedQuestions.objects.get(user_id = request.user.id)
             else:
-                    print('inside except')
+                    user = SolvedQuestions.objects.create(user_id = request.user.id)
 
-                    user = SolvedQuestion.objects.create(user_id = request.user.id)
-
-            # print(user.user)
-            
             try:
                 headers = {'Content-type': 'application/json'}
                 r = requests.post(url = API_ENDPOINT, data = json.dumps(data), headers = headers)
                 
                 json_data = r.json()
-                print(json_data)
                 status = r.status_code
-                print(status)
-                #output = Robject(r.json())
                 output = json_data['output']
-                print('here----')
-                
-            
-                
+
                 if output:
                     output = output.replace("\n","")
-                print(output)
                     
                 if test.test_case1_sol == output:
-                    test.solved = True
-                    # test.user.add(request.user)
-                test.save()                        
+                    user.challenges.add(test)
+                    user.save()                      
             except Exception as e:
                 print(e)
-                output = settings.ERROR_MESSAGE
+                output = e
                             
             return HttpResponse(json.dumps({'output': json_data['output']}), content_type="application/json")
         else:

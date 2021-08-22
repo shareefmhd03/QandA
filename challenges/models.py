@@ -32,14 +32,27 @@ class ChallengeQuestion(models.Model):
     sample_output = models.CharField(max_length=45000,default='', blank=True, null=True)
     test_case1 = models.CharField(max_length=1000, blank=True, null=True)
     test_case1_sol = models.CharField(max_length=1010, blank=True, null=True)
-
     def __str__(self):
         return self.title
 
 
-class SolvedQuestion(models.Model):
+# class SolvedQuestion(models.Model):
+#     user = models.ForeignKey(Accounts, on_delete=models.CASCADE)
+#     challenges= models.ManyToManyField(ChallengeQuestion, related_name="solved_challenge")
+
+#     def __str__(self):
+#         return self.user.first_name
+
+#     def solved_challenge_count(self):
+#         return self.challenges.all().count()
+
+class SolvedQuestions(models.Model):
     user = models.ForeignKey(Accounts, on_delete=models.CASCADE)
+    topic =  models.ForeignKey(ChallengeTopic, on_delete=models.DO_NOTHING)
     challenges= models.ManyToManyField(ChallengeQuestion, related_name="solved_challenges")
 
     def __str__(self):
         return self.user.first_name
+
+    def solved_challenge_count(self):
+        return self.challenges.all().count()
