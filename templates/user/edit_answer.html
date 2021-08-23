@@ -1,0 +1,11 @@
+<form method="POST" action="{% url 'edit_answer' answer.id %}">
+    {% csrf_token %}
+  <div class="form-group">
+    <label>Post Your Answer</label>
+    {{form.media}}
+    {{form.as_p}}
+  </div>
+
+  <button class="btn btn-primary btn-lg btn-block">Post Your Answer</button>
+
+</form>

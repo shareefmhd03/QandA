@@ -11,7 +11,11 @@ from django.contrib.auth.decorators import login_required
 from profiles.models import Profile
 
 def leaderboard(request):
-    return render(request, 'user/leaderboard.html')
+    rankings = SolvedQuestions.objects.all()
+    context ={
+        'rankings':rankings,
+    }
+    return render(request, 'user/leaderboard.html',context)
 
 def view_challenges(request):
     if request.user.is_authenticated:
@@ -77,7 +81,7 @@ def result(request,pk):
             if solved:
                     user = SolvedQuestions.objects.get(user_id = request.user.id)
             else:
-                    user = SolvedQuestions.objects.create(user_id = request.user.id)
+                    user = SolvedQuestions.objects.create(user_id = request.user.id,topic_id = test.topic.id)
 
             try:
                 headers = {'Content-type': 'application/json'}

@@ -13,7 +13,7 @@
   font-family:Helvetica, Arial, sans-serif;
 }
 body {
-  background:#232323;
+  background:#3d3c3c;
 }
 input[type=text], textarea, input[type=email], input[type=password], input[type=tel], input[type=url], input[type=search], input[type=date] {
     padding: 10px;
@@ -120,32 +120,40 @@ input[type=text], textarea, input[type=email], input[type=password], input[type=
 /* /end Leaderboard Results */
 </style>
 
+<div  class="container" >
 <div class="container-wrap">
 	<section id="leaderboard">
 		<nav class="ladder-nav">
 			<div class="ladder-title">
-			<h1>Standings</h1>
+			<h1>Leaderboard</h1>
 			</div>
-			<div class="ladder-search">
+			<!-- <div class="ladder-search">
 				<input type="text" id="search-leaderboard" class="live-search-box" placeholder="Search Team, Player..." />
-			</div>
+			</div> -->
 		</nav>
 		<table id="rankings" class="leaderboard-results" width="100%">
 			<thead>
 				<tr>
-					<th>Rank</th>
-					<th>Team</th>
-					<th>Country</th>
-					<th>P1</th>
-					<th>P2</th>
-          <th>Games Played</th>
-					<th>PTS</th>
+					<th>Username</th>
+					<th>Topic</th>
+					<th>Points</th>
 				</tr>
 			</thead>
+            {% for ranking in rankings%}
 			<tbody>
-				<!-- Load SCRIMcom Leaderboard Ranings -->
+				<td>
+                    {{ranking.user}}
+                </td>
+				<td>
+                    {{ranking.topic}}
+                </td>
+				<td>
+                    {{ranking.solved_challenge_count}}
+                </td>
 			</tbody>
+            {% endfor %}
 		</table>
 	</section>
-
+</div>
+</div>
 {% endblock %}

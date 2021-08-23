@@ -91,6 +91,32 @@ def edit_question(request, question):
             'solved':solved,
             }
     return render(request, 'user/ask_question.html',context)
+
+def edit_answer(request, pk):   
+    ans = Answer.objects.get(id = pk)
+    form = AnswerForm(instance=ans)
+    question = Question.objects.get(id = ans.question_id)
+    if Answer.objects.filter(id = pk, user = request.user).exists():
+        owner = Answer.objects.filter(id = pk, user = request.user).exists()
+    else:
+        owner = False
+    
+    
+    if request.method == 'POST':
+        form = AnswerForm(request.POST, request.FILES, instance = ans)
+        if form.is_valid():
+            title = request.POST['description']
+            # questi = request.POST['question']
+            ans.description = title
+            # ans.question = questi
+            ans.save()
+            return redirect('view_answer', question.slug )
+    context = {
+            'form':form,
+            'answer':ans,
+            'owner':owner,
+            }
+    return render(request, 'user/edit_answer.html',context)
     
 
 
@@ -98,7 +124,9 @@ def answer(request, question):
     if request.user.is_authenticated:
         quest = Question.objects.get(id = int(question))
         if Answer.objects.filter(question_id = quest.id,user = request.user).exists():
+            owner = Answer.objects.filter(question_id = quest.id,user = request.user).exists()
             print('here top')
+            print(owner)
             if request.method =='POST':
                 ans =  Answer.objects.get(question_id =quest.id ,user = request.user)
                 form = AnswerForm(request.POST, request.FILES, instance=ans)
@@ -109,7 +137,7 @@ def answer(request, question):
                     ans.save()
                     return redirect('view_answer', quest.slug)
         else:
-            print('here bottom')
+
             if request.method =='POST':
                 form = AnswerForm(request.POST, request.FILES)
                 if form.is_valid():
@@ -118,20 +146,33 @@ def answer(request, question):
                     ans = Answer(user = request.user, description = desc, question = quest )
                     ans.save()
                     return redirect('view_answer', quest.slug)
-        form = AnswerForm()
-        context ={
-            'form':form,
+            form = AnswerForm()
+            context ={
+
+            'owner':owner,
         }
-    return render(request, 'user/login.html')
+    return render(request, 'user/login.html',context)
 
-
+def delete_answer(request, pk):
+    ans =  Answer.objects.get(id =pk)
+    ans.delete()
+    quest =  Question.objects.get(id = ans.question_id)
+    
+    return redirect ('view_answer', quest.slug)
 
 def view_answer(request, pk):
-    
+    context ={}
     quest = Question.objects.filter(slug = pk)
     questt = Question.objects.get(slug = pk)
-    author = Question.objects.filter(user = request.user, slug= pk).exists()
+    try:
+        if Question.objects.filter(user = request.user, slug= pk).exists():
+            author = Question.objects.filter(user = request.user, slug= pk).exists()
+            context['author'] = author
+    except:
+        pass
     answer = Answer.objects.filter(question_id__slug = pk).order_by('created_at')
+    owner = Answer.objects.filter(question_id__slug = pk,user = request.user).exists()
+   
     profile = Profile.objects.get(user = questt.user)
     now = get_time()
     print(now.minute, 'now ')
@@ -149,9 +190,10 @@ def view_answer(request, pk):
         # 'vote_average':vote_average,
         'question':quest,
         'answer':answer,
-        'author':author,
+
         'form':form,
         'profile':profile,
+        'owner':owner,
     }
     return render(request, 'user/single_question.html', context)
 

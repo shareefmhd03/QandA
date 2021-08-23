@@ -41,7 +41,6 @@ class Answer(models.Model):
     # answer_title = models.CharField(max_length=200)
     user = models.ForeignKey(Accounts, on_delete=models.DO_NOTHING)
     description = FroalaField(theme='dark')
-    
     question = models.ForeignKey(
         Question, on_delete=models.CASCADE, blank=True, null=True)
     upvote = models.ManyToManyField(Accounts, related_name='likes')
