@@ -16,7 +16,7 @@ def get_time():
 
 
 def index(request):
-    profile = Profile.objects.all()
+    profile = Profile.objects.all().order_by()[:5]
     question = Question.objects.all().order_by('-created_at')
     
     
@@ -160,10 +160,13 @@ def delete_answer(request, pk):
     
     return redirect ('view_answer', quest.slug)
 
+
 def view_answer(request, pk):
     context ={}
+    view = 0
     quest = Question.objects.filter(slug = pk)
     questt = Question.objects.get(slug = pk)
+    
     try:
         if Question.objects.filter(user = request.user, slug= pk).exists():
             author = Question.objects.filter(user = request.user, slug= pk).exists()
@@ -179,7 +182,14 @@ def view_answer(request, pk):
     # for i in quest:
     posted = questt.created_at
     # print(posted)
-    
+    # views = view_count(request,pk)
+    # print(views,'dddddddddddd')
+    if request.user.is_authenticated:
+        questt.view_count.add(request.user)
+        # questt.save()
+
+    # questt.save()
+    # print(questt.view_count,'AFTER')
     # for i  in answer:
     #     print(i.upvote_count(),'ooooooooooooooooo')
     #     upvote_count = i.upvote.count()
@@ -332,7 +342,6 @@ def voting_up_question(request):
             ques.upvote.add(request.user)
             ques.downvote.remove(request.user)
             ques.save()
-
 
         return JsonResponse({'total_vote':ques.vote_total(),'answer_id':ques_id})
     return redirect('index')

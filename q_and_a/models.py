@@ -15,7 +15,7 @@ class Question(models.Model):
     question_title = models.CharField(max_length=200)
     slug = SlugField(max_length=250)
     user = models.ForeignKey(Accounts,on_delete=models.CASCADE)
-
+    view_count = models.ManyToManyField(Accounts,related_name='views')
     question = FroalaField()
     tags = models.ManyToManyField(Tags)
     solved = models.BooleanField(default=False)
@@ -32,6 +32,10 @@ class Question(models.Model):
         super(Question , self).save(*args, **kwargs)
     def upvote_count(self):
         return self.upvote.all().count()
+
+    def view(self):
+        return self.view_count.all().count()
+        
     def downvote_count(self):
         return self.downvote.all().count()
     def vote_total(self):

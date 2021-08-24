@@ -56,3 +56,16 @@ class SolvedQuestions(models.Model):
 
     def solved_challenge_count(self):
         return self.challenges.all().count()
+
+class Solved(models.Model):
+    user = models.ForeignKey(Accounts, on_delete=models.CASCADE)
+    questions = models.ForeignKey(ChallengeQuestion, on_delete=models.CASCADE)
+    sol = models.BooleanField(default=False)
+    points = models.IntegerField(default=0)
+
+
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    def __str__(self):
+        return self.user.first_name

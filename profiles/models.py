@@ -29,7 +29,8 @@ class Profile(models.Model):
     def __str__(self):
         return str(self.user)
 
-
+    def following_count(self):
+        return self.following.all().count()
 
 # @receiver(post_save, sender =Question)
 # def asked_question_handler(sender, instance, created, *args, **kwargs):

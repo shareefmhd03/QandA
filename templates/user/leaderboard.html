@@ -135,7 +135,7 @@ input[type=text], textarea, input[type=email], input[type=password], input[type=
 			<thead>
 				<tr>
 					<th>Username</th>
-					<th>Topic</th>
+					<!-- <th>Topic</th> -->
 					<th>Points</th>
 				</tr>
 			</thead>
@@ -144,11 +144,9 @@ input[type=text], textarea, input[type=email], input[type=password], input[type=
 				<td>
                     {{ranking.user}}
                 </td>
+			
 				<td>
-                    {{ranking.topic}}
-                </td>
-				<td>
-                    {{ranking.solved_challenge_count}}
+                    {{ranking.points}}
                 </td>
 			</tbody>
             {% endfor %}

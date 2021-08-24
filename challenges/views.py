@@ -1,5 +1,5 @@
 from django.shortcuts import redirect, render
-from .models import ChallengeQuestion, ChallengeTopic, SolvedQuestions, SolvedQuestions
+from .models import ChallengeQuestion, ChallengeTopic, Solved, SolvedQuestions, SolvedQuestions
 
 from django.shortcuts import render,HttpResponse
 from django.conf import settings
@@ -11,7 +11,7 @@ from django.contrib.auth.decorators import login_required
 from profiles.models import Profile
 
 def leaderboard(request):
-    rankings = SolvedQuestions.objects.all()
+    rankings = Solved.objects.all().order_by('-points')
     context ={
         'rankings':rankings,
     }
@@ -19,7 +19,9 @@ def leaderboard(request):
 
 def view_challenges(request):
     if request.user.is_authenticated:
+
         topics = ChallengeTopic.objects.all()
+
         context = {
         'topics':topics, 
         }
@@ -38,8 +40,11 @@ LANG_CODE = { 'c': 1, 'java': 3, 'cpp14': 3, 'python3': 3,'go': 3,
 
 
 def code_editor(request,topic):
+    print(topic)
     if request.user.is_authenticated:
+       
         quest = ChallengeQuestion.objects.get(id = topic)
+        # solvedquestion = Solved.objects.filter(user = request.user, sol = True)
         context = {
             'question' : quest,
         }
@@ -48,9 +53,18 @@ def code_editor(request,topic):
         return redirect('login_view')
 
 def challenge_quest(request,topic):
-    quest = ChallengeQuestion.objects.filter(topic_id = topic)
+    # solved = False
+    # context = {}
+    # li = []
+
+    # quest = ChallengeQuestion.objects.filter(topic_id = topic)
+    # quest = ChallengeQuestion.objects.filter(topic_id = topic)
+    solved = Solved.objects.filter(questions__topic_id = topic).order_by('updated_at')
+
+            
     context = {
-        'question' : quest,
+        # 'question' : quest,/
+        'solved' : solved,
     }
     return render(request, 'user/challenge_quest.html',context)
 
@@ -95,8 +109,17 @@ def result(request,pk):
                     output = output.replace("\n","")
                     
                 if test.test_case1_sol == output:
-                    user.challenges.add(test)
-                    user.save()                      
+                    user.challenges.add(test)  
+
+                    if test in user.challenges.all():
+                        solu = Solved.objects.filter(user = request.user, questions = test).exists()
+                        if solu:
+                            solu.sol = True
+                            solu.points + 5
+                            solu.save()          
+                        else:
+                            solv  = Solved.objects.create(user = request.user, questions = test, sol = True)
+                            solv.save()
             except Exception as e:
                 print(e)
                 output = e
