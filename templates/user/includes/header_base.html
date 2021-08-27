@@ -1,3 +1,4 @@
+
 {% block header %}
 {% load static %}
 
@@ -23,7 +24,8 @@
           {% if user.is_authenticated %}
           <li class="dropdown">
             <a class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown" data-animations="fadeInUp">
-              <img class="img-circle resize" alt="" src="">
+              {% block prof_image %}
+              {% endblock %}
               <span class="hidden-xs small-padding">
                 <span>{{user}}</span>
                 <i class="fa fa-caret-down"></i>

@@ -2,7 +2,122 @@
 {% load static %}
     {% block content %}
 
-    {% include 'user/includes/header_base.html'%}
+    <link rel="stylesheet" href="https://unpkg.com/@trevoreyre/autocomplete-js/dist/style.css" />
+    <div class="preloader"><span class="preloader-gif"></span>
+    </div>
+    <!-- =-=-=-=-=-=-= HEADER =-=-=-=-=-=-= -->
+    <div class="top-bar">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-4 col-md-4 col-sm-6 col-xs-4">
+            <ul class="top-nav nav-left">
+              <li><a href="{% url 'index' %}">Home</a>
+              </li>
+              <li class="hidden-xs"><a href="{% url 'view_blog' %}">Blog</a>
+              </li>
+              <!-- <li  class="hidden-xs"><a href="#">Contact Us</a> -->
+              </li>
+            </ul>
+          </div>
+          <div class="col-lg-8 col-md-8 col-sm-6 col-xs-8">
+            <ul class="top-nav nav-right">
+              {% if user.is_authenticated %}
+              <li class="dropdown">
+                <a class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown" data-animations="fadeInUp">
+              {% block prof_image %}
+                <img class="img-circle resize" alt="" src="{{prof.profile_image.url}}">
+                {% endblock prof_image %}
+                  <span class="hidden-xs small-padding">
+                    <span>{{user}}</span>
+                    <i class="fa fa-caret-down"></i>
+                  </span>
+                </a>
+                <ul class="dropdown-menu ">
+                  <li><a href=""><i class=" icon-bargraph"></i> Dashboard</a></li>
+                  <li><a href="{% url 'user_profile' %}"><i class=" icon-gears"></i> Profile Setting</a></li>
+                  <li><a href=""><i class="icon-heart"></i> Questions</a></li>
+                  <li><a href="{% url 'logout' %}"><i class="icon-lock"></i> Logout</a></li>
+                </ul>
+              </li>
+              {% else %}
+              <li><a href="{% url 'login_view' %}"><i class="fa fa-lock" aria-hidden="true"></i>Login</a>
+              </li>
+              <li><a href="{% url 'register' %}"><i class="fa fa-user-plus" aria-hidden="true"></i>Signup</a>
+              </li>
+    
+              {% endif %}
+    
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- =-=-=-=-=-=-= HEADER Navigation =-=-=-=-=-=-= -->
+    <div class="navbar navbar-default">
+      <div class="container">
+        <!-- header -->
+        <div class="navbar-header">
+          <button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <!-- logo -->
+          <a href="" class="navbar-brand"><img class="img-responsive" alt=""
+              src="{% static 'all_assets/images/logo.png' %}">
+          </a>
+          <!-- search form -->
+    
+    
+          <div id="autocomplete" class="autocomplete navbar-form pull-left">
+            <input class="autocomplete-input" placeholder="Search here..." />
+            <ul class="autocomplete-result-list"></ul>
+          </div>
+    
+    
+          <!-- header end -->
+          <!-- header end -->
+        </div>
+        <!-- navigation menu -->
+        <div class="navbar-collapse collapse">
+          <!-- right bar -->
+          <ul class="nav navbar-nav navbar-right">
+            <li class="hidden-sm"><a href="{% url 'view_challenges' %}">Challenges</a>
+            </li>
+            <li class="hidden-sm"><a href="{% url 'tutorials' %}">Tutorials</a>
+            </li>
+            <li><a href="{% url 'question_list' %}">Browse Questions</a>
+    
+            <li>
+              <div class="btn-nav"><a href="{% url 'ask_question' %}" class="btn btn-primary btn-small navbar-btn">Post
+                  Question</a>
+              </div>
+            </li>
+          </ul>
+        </div>
+    
+      </div>
+    </div>
+    
+    <script src="https://unpkg.com/@trevoreyre/autocomplete-js"></script>
+    
+    <script>
+      new Autocomplete('#autocomplete', {
+        search: input => {
+          const url = '/search_question/?title=' + input
+          return new Promise(resolve => {
+            fetch(url)
+              .then(response => response.json())
+              .then(data => {
+                resolve(data.data)
+              })
+          })
+        },
+        onSubmit: result => {
+          window.location.href = ('/search/?keyword=' + result)
+        }
+      })
+    </script>
 
     <style>
                     .listing-grid img {
@@ -135,24 +250,23 @@
               <div class="side-bar">
   
                 <!-- widget -->
-                <div class="widget">
+                <!-- <div class="widget">
                   <h2>Top Authors</h2>
                   <hr class="widget-separator no-margin">
                   <div class="media-group">
-                    {% for prof in profile %}
+                    {% for prof in profile 
                     <div class="media-group-item">
                       <div class="media">
                         <div class="media-left">
-                          <div class="avatar avatar-md avatar-circle"> <img alt="" class="" src="{{prof.profile_image.url}}"> </div>
+                          <div class="avatar avatar-md avatar-circle"> <img alt="" class="" src="{{prof.profile_image.url"> </div>
                         </div>
                         <div class="media-body">
-                          <h5 class="media-heading"><a href="">{{prof.user}}</a></h5>
-                          <!-- <small class="media-meta">Software Engineer</small>
-                          <div class="points"><span>Points : </span>9958</div> -->
+                          <h5 class="media-heading"><a href="">{{prof.user</a></h5>
+                        
                         </div>
                       </div>
-                    </div>
-                    {% endfor %}
+                    </div> -->
+                    <!-- {% endfor  -->
                     <!-- .media-group-item -->
   
                     

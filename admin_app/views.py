@@ -1,3 +1,5 @@
+from django.db.models.aggregates import Count
+from q_and_a.models import Answer, Question
 from challenges.models import ChallengeQuestion
 from challenges.forms import ChallengeTopicForm, challengeForm
 from tutorials.forms import McQForm, TutorialForm
@@ -5,7 +7,11 @@ from tutorials.models import McqQuestions, Topics, Tutorial
 from accounts.models import Accounts
 from django.shortcuts import render,redirect
 # from accounts.views import session_check
+from datetime import timezone
+from datetime import datetime,timedelta
+
 from accounts.forms import RegistrationForm
+from django.views.decorators.cache import cache_control
 
 # Create your views here.
 
@@ -291,3 +297,29 @@ def edit_challenge(request,id):
         return render(request,'admin/add_challenges.html',context)
     else:
         return render(request, 'admin/loginPage.html')
+
+
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+def admin_dashboard(request):
+    today = datetime.now().date()
+    tomorrow = datetime.now() + timedelta(days=1)
+    yesterday = datetime.now() + timedelta(days=-1)
+
+    if request.session['loggedin']:
+            today_question_count = Question.objects.filter(created_at__gte = yesterday,created_at__lte = tomorrow ).count()
+            today_questions = Question.objects.filter(created_at__gte = yesterday,created_at__lte = tomorrow )[:5]
+            today_answer_count = Answer.objects.filter(created_at__gte = yesterday,created_at__lte = tomorrow ).count()
+            today_user_count = Accounts.objects.all().count()
+            today_challenge_count = ChallengeQuestion.objects.all().count()
+            context = {
+                'question_count':today_question_count,
+                'answer_count':today_answer_count,
+                'user_count':today_user_count,
+                'challenge_count':today_challenge_count,
+                'today':today,
+                'today_questions':today_questions,
+            }
+             
+            return render(request, 'admin/dashboard.html',context)
+
+    return render(request, 'admin/loginPage.html')

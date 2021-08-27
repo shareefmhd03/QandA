@@ -33,7 +33,8 @@
         }
     </style>
 <div class="container">
-
+    
+    <a href="{% url 'leaderboard' %}" class="btn btn-success" style="position: relative; right: 0;">View leaderboard</a>
     <div class="row">
         <div class="col-lg-8" style="margin-bottom: 5rem; box-shadow: rgb(202, 199, 199) 8px 8px 8px; margin: solid 1px black;">
             
@@ -43,9 +44,181 @@
             
             {{question.challenge_question|safe}}
             
+            <p id="sol">{{question.test_case1_sol}}</p>
         </div> 
+
     </div>
 </div>
-{% include 'user/compiler/code_editor_content.html' %}
+{% if solvedquestion %}
+<h3 style="text-align: center;">You have already solved the challenge</h3>
+{% else %}
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+<div class="container">
+<form id = "data">
+{% csrf_token %}
+<style type="text/css" media="screen">
+    #editor {
+        position: absolute;
+        top: 0%;
+        right: 0%;
+        width: 890px;
+        height: 500px;
+        bottom: 0%;
+        left: 0%;
+        margin-top: 10px;
+        box-shadow: 5px 5px 12px 6px rgb(104, 103, 103);
+    }
+</style>
 
+
+<div class="container">
+    <div class="col-lg-6" id="header" style ="box-shadow: 5px 5px 12px 6px rgb(163, 162, 162);">
+        <div class="col-md-4" >
+            <h4 class="language-text">Select your language:</h4>
+        </div>
+        <div id="outer" class="col-lg-6 " style="padding-top: 5px; text-align: right;">
+            <select id="language" data-placeholder="Choose a Language..." class="" tabindex="1">
+            <!-- <option value="1">c</option> -->
+            <option value="3">python3</option>
+            <!-- <option value="3">java</option> -->
+            <!-- <option value="3">cpp14</option>
+            <option value="3">go</option>
+            <option value="3">sql</option>
+            <option value="3">csharp</option>
+            <option value="3">dart</option>
+            <option value="3">nodejs</option>
+            <option value="2">kotlin</option>
+            <option value="0">brainfuck</option> -->
+        </select>
+        </div>
+        <div class="col-sm-4"></div>
+    </div>
+    <br>
+    <div id="spacing" class="col-sm-12">
+        <div id="editor" style="width: 572px;"></div>
+    </div>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <div class="col-lg-6" id="footer-compiler" style="box-shadow: 5px 5px 12px 6px rgb(104, 103, 103); margin-top: 10px;">
+        <button id="btn" class="btn btn-sm btn-success">Run</button>
+    </div>
+</div>
+<div class="container" id="outermost" style="box-shadow: 5px 5px 12px 6px rgb(163, 162, 162); border: none;">
+        <div class="container innermost">
+            <div class="checkbox">
+                <label><input id="custom-input-checkbox" type="checkbox">Use custom input to test the code</label>
+            </div>
+
+            <h4>Testcases:</h4>
+            <textarea id="stdin" placeholder="Enter your testcases..." cols="50" rows="3" style="display: none;"></textarea>
+        </div>
+        <div class="container innermost">
+            <div id="output" class="well" style="background-color: white;border-color: black">
+                <h5>Output:</h5>
+            </div>
+    </div>
+
+</div>
+</form>
+</div>
+
+{% load static %}
+<script src="{% static 'compiler/src-min/ace.js' %}" type="text/javascript" charset="utf-8"></script>
+
+
+<script>
+    var solution = document.getElementById('sol').textContent
+    var editor = ace.edit("editor");
+    editor.setTheme("ace/theme/monokai");
+    editor.getSession().setMode("ace/mode/c_cpp");
+    editor.setShowPrintMargin(false);
+    editor.setFontSize("14px");
+    $('select').select2();
+
+    $("#language").change(function () {
+console.log('hiiiii------')
+        var l =($("select option:selected").text());
+        if (l=="python" || l=="python3")
+            {editor.getSession().setMode("ace/mode/python");}
+        else if (l=="c"){
+            editor.getSession().setMode("ace/mode/c_cpp");
+        }
+        else{
+            editor.getSession().setMode("ace/mode/"+l);
+        }
+
+
+    });
+
+     $('#custom-input-checkbox').click(function () {
+        
+        $("#stdin").slideToggle();
+       
+
+    });
+
+    $(document).on("submit","#data" ,function (e) {
+            e.preventDefault();
+            $("#output").html("Submitting..");
+            // disable submit btn
+            $("#btn").prop('disabled', true)
+        $.ajax(
+            {
+                type: "POST",
+                url : "{% url 'result' question.id %}",
+                data: {
+
+                    script: editor.getValue(),
+                    lang: $("select option:selected").text(),
+                    stdin:$("#stdin").val(),
+                    csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
+
+                },
+
+
+                success: function (output) {
+                    // enables submit btn
+                    $("#btn").prop('disabled', false)
+                    var str = (output.output).toString();
+                    str=decodeURIComponent(escape(str));
+                    console.log(typeof(solution));
+                    
+                    if (solution.trim() == (output.output).trim())
+                    {
+                        document.getElementById('output').style.border = '3px solid #19ff19'
+                        $("#output").html(str);
+                    }
+                    else{
+                        
+                        document.getElementById('output').style.color = 'red'
+                        document.getElementById('output').style.border = '3px solid red'
+                        $("#output").html(` Unexpected output  <br><br>  ${str} `);
+                        
+
+                        
+                    }
+                 
+                },
+
+                error:function (err) {
+                    // enables submit btn
+                    $("#btn").prop('disabled', false)
+                    $("#output").html("Something went wrong please try again");
+                },
+            })
+
+
+    })
+
+
+
+</script>
+{% endif%}
+
+
+<script>
+     
+     
+
+</script>
 {% endblock %}

@@ -5,7 +5,7 @@
 {% block content %}
 {% include 'user/includes/header_base.html' %}
 <div class="container">
-    {% for quest in solved %}
+    {% for quest in question %}
     <div class="row">
       <div class="col-md-8 ">
         
@@ -14,18 +14,22 @@
             Featured
           </div>
           <div class="card-body">
-            <h2 class="card-title">{{quest.questions.title}}</h2>
-            <p class="card-text">{{quest.questions.desc}}</p>
+            <!-- <h2 class="card-title">{{quest.questions.title</h2>
+            <p class="card-text">{{quest.questions.desc</p> -->
+            <h2 class="card-title">{{quest.title}}</h2>
+            <p class="card-text">{{quest.desc}}</p>
             
                   {% if quest.sol == True %}
                   <div style="position: relative;">
-                    <a href="{% url 'compiler' quest.questions.id  %}" class="btn btn-success">Solved <i class="far fa-check-circle"></i></a>
+                    <a href="{% url 'compiler' quest.id  %}" class="btn btn-success">Solved <i class="far fa-check-circle"></i></a>
+                    <!-- <a href="{% url 'compiler' quest.questions.id  " class="btn btn-success">Solved <i class="far fa-check-circle"></i></a> -->
 
                     </div>
                     {% else %}
                     <div style="position: relative;">
                     
-                      <a href="{% url 'compiler' quest.questions.id  %}" class="btn btn-success">Solve Challenge</a>
+                      <!-- <a href="url 'compiler' quest.questions.id  %}" class="btn btn-success">Solve Challenge</a> -->
+                      <a href="{% url 'compiler' quest.id  %}" class="btn btn-success">Solve Challenge</a>
                       </div>
                     {% endif %}
 

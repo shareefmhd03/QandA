@@ -5,11 +5,11 @@ from accounts.models import Accounts
 from froala_editor.fields import FroalaField
 
 
-class Tags(models.Model):
-    tag_name = models.CharField(max_length=20)
+# class Tags(models.Model):
+#     tag_name = models.CharField(max_length=20)
 
-    def __str__(self):
-        return self.tag_name
+#     def __str__(self):
+#         return self.tag_name
 
 class Question(models.Model):
     question_title = models.CharField(max_length=200)
@@ -17,7 +17,7 @@ class Question(models.Model):
     user = models.ForeignKey(Accounts,on_delete=models.CASCADE)
     view_count = models.ManyToManyField(Accounts,related_name='views')
     question = FroalaField()
-    tags = models.ManyToManyField(Tags)
+    # tags = models.ManyToManyField(Tags)
     solved = models.BooleanField(default=False)
     upvote = models.ManyToManyField(Accounts, related_name='ques_likes')
     downvote = models.ManyToManyField(Accounts, related_name='ques_dislikes')
@@ -49,7 +49,7 @@ class Answer(models.Model):
         Question, on_delete=models.CASCADE, blank=True, null=True)
     upvote = models.ManyToManyField(Accounts, related_name='likes')
     downvote = models.ManyToManyField(Accounts, related_name='dislikes')
-    tags = models.ManyToManyField(Tags)
+    # tags = models.ManyToManyField(Tags)
     is_solution =models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

@@ -42,28 +42,27 @@ LANG_CODE = { 'c': 1, 'java': 3, 'cpp14': 3, 'python3': 3,'go': 3,
 def code_editor(request,topic):
     print(topic)
     if request.user.is_authenticated:
-       
+        
         quest = ChallengeQuestion.objects.get(id = topic)
-        # solvedquestion = Solved.objects.filter(user = request.user, sol = True)
+
+        solvedquestion = Solved.objects.filter(user = request.user,sol = True).exists()
+        print(solvedquestion)
         context = {
             'question' : quest,
+            'solvedquestion':solvedquestion,
         }
         return render(request,'user/compiler/code_editor.html',context)
     else:
         return redirect('login_view')
 
 def challenge_quest(request,topic):
-    # solved = False
-    # context = {}
-    # li = []
-
-    # quest = ChallengeQuestion.objects.filter(topic_id = topic)
+    quest = ChallengeQuestion.objects.filter(topic_id = topic)
     # quest = ChallengeQuestion.objects.filter(topic_id = topic)
     solved = Solved.objects.filter(questions__topic_id = topic).order_by('updated_at')
 
             
     context = {
-        # 'question' : quest,/
+        'question' : quest,
         'solved' : solved,
     }
     return render(request, 'user/challenge_quest.html',context)
@@ -78,6 +77,8 @@ def result(request,pk):
             stdin = request.POST.get("stdin")
             u_id = request.user.id
             test = ChallengeQuestion.objects.get(id = pk)
+            topic = ChallengeTopic.objects.get(id = test.topic_id)
+            
 
             usr = Profile.objects.get(user_id=u_id)
             usr.n_subm += 1
@@ -94,8 +95,10 @@ def result(request,pk):
             solved  = SolvedQuestions.objects.filter(user_id = request.user.id).exists()
             if solved:
                     user = SolvedQuestions.objects.get(user_id = request.user.id)
+                    print('in_if')
             else:
-                    user = SolvedQuestions.objects.create(user_id = request.user.id,topic_id = test.topic.id)
+                print('in_else')
+                user = SolvedQuestions.objects.create(user_id = request.user.id,topic_id = test.topic.id)
 
             try:
                 headers = {'Content-type': 'application/json'}
@@ -114,12 +117,16 @@ def result(request,pk):
                     if test in user.challenges.all():
                         solu = Solved.objects.filter(user = request.user, questions = test).exists()
                         if solu:
+                            solu = Solved.objects.get(user = request.user, questions = test)
                             solu.sol = True
-                            solu.points + 5
-                            solu.save()          
+                            solu.points =  solu.points + 5
+                            print(solu.points)
+                            solu.save()  
+                                   
                         else:
                             solv  = Solved.objects.create(user = request.user, questions = test, sol = True)
                             solv.save()
+
             except Exception as e:
                 print(e)
                 output = e

@@ -12,8 +12,7 @@ def user_profile(request):
         profile  = Profile.objects.get(user = request.user)
         question = Question.objects.filter(user = request.user)
         my_points = PointsTable.objects.get(user = request.user)
-        followers = profile.following.all().count()
-        
+        followers = profile.following.all().count()        
         blog = Blog.objects.filter(user = request.user)
         questions_count = Question.objects.filter(user = profile.user).count()
 
@@ -29,6 +28,19 @@ def user_profile(request):
         'questions_count':questions_count,
     }
     return render(request, 'user/user_profile.html', context)
+
+
+
+def prof_image(request):
+    if request.user.is_authenticated:
+
+        profile = Profile.objects.get(user = request.user)
+
+
+    context = {
+        'profile' : profile,
+    }
+    return render(request,'user/includes/profile_image.html',context)
 
 def get_profile(request, pk):
     followed = False

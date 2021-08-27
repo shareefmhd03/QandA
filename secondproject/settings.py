@@ -36,7 +36,7 @@ SECRET_KEY = 'django-insecure-m+$f1(@sj#if$m+&9ij$3#op@d%!)hhks$87@1%gxa8+8kn(3l
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -63,6 +63,7 @@ INSTALLED_APPS = [
     'admin_app',
     'allauth.socialaccount.providers.google',
     'challenges',
+    'django_pdb',
     
 ]
 
@@ -77,6 +78,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django_pdb.middleware.PdbMiddleware',
     
 ]
 

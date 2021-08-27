@@ -13,7 +13,7 @@ urlpatterns = [
     path('froala_editor/',include('froala_editor.urls')),
     path('community/', include('community.urls')),
     path('tutorials/', include('tutorials.urls')),
-    path('administrator/', include('admin_app.urls')),
+    path('admin/', include('admin_app.urls')),
     path('accounts/', include('allauth.urls')),
     path('challenges/', include('challenges.urls')),
     

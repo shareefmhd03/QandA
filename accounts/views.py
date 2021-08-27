@@ -77,15 +77,7 @@ def logout_view(request):
     logout(request)
     return redirect ('login_view')
 
-@cache_control(no_cache=True, must_revalidate=True, no_store=True)
-def admin_dashboard(request):
-    try:
-        if request.session['loggedin']:
-       
-            
-            return render(request, 'admin/dashboard.html')
-    except:
-        return render(request, 'admin/loginPage.html')
+
 
 
 
@@ -97,14 +89,20 @@ def admin_login(request):
     if request.method == 'POST':
         uname = request.POST['username']
         pswd = request.POST['password']
+        print(uname)
+        print(pswd)
 
         if pswd == password and uname == username:
             request.session['loggedin'] = True
+            print(request.session['loggedin'])
             return redirect('admin_dashboard')
         else:
-            return redirect('admin_login')
-    return render(request, 'admin/loginPage.html')
 
+            return redirect('admin_login')
+    else:       
+        return render(request, 'admin/loginPage.html')
+
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def admin_logout(request):
     del request.session['loggedin']
     return redirect('admin_login')

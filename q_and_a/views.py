@@ -1,7 +1,7 @@
 from django.db.models.aggregates import Count
 from blog.models import Blog
 from django.http.response import JsonResponse
-from q_and_a.models import Answer, PointsTable, Question, Tags
+from q_and_a.models import Answer, PointsTable, Question
 from profiles.models import Profile
 
 from django.shortcuts import redirect, render
@@ -17,6 +17,7 @@ def get_time():
 
 def index(request):
     profile = Profile.objects.all().order_by()[:5]
+    prof = Profile.objects.get(user = request.user)
     question = Question.objects.all().order_by('-created_at')
     
     
@@ -29,6 +30,7 @@ def index(request):
         
         'profile':profile,
         'blogs':blogs,
+        'prof':prof,
     }
     return render(request, 'user/index.html', context)
 
@@ -40,8 +42,6 @@ def question_from_index(request):
         return redirect('index')
 
 def ask_question(request):
-    try:
-        
         if request.user.is_authenticated:
 
             if request.method == 'POST':
@@ -67,8 +67,6 @@ def ask_question(request):
             return render(request, 'user/ask_question.html',context)
         else:
             return redirect('login_view')
-    except Exception as e:
-        print(e)
 
 
 
@@ -164,17 +162,25 @@ def delete_answer(request, pk):
 def view_answer(request, pk):
     context ={}
     view = 0
+    author = False
     quest = Question.objects.filter(slug = pk)
     questt = Question.objects.get(slug = pk)
     
     try:
         if Question.objects.filter(user = request.user, slug= pk).exists():
             author = Question.objects.filter(user = request.user, slug= pk).exists()
+            print(author,'rrrrr')
             context['author'] = author
     except:
         pass
     answer = Answer.objects.filter(question_id__slug = pk).order_by('created_at')
-    owner = Answer.objects.filter(question_id__slug = pk,user = request.user).exists()
+    try:
+    
+        owner = Answer.objects.filter(question_id__slug = pk,user = request.user).exists()
+        context['owner'] = owner
+    except:
+        pass
+
    
     profile = Profile.objects.get(user = questt.user)
     now = get_time()
@@ -201,10 +207,12 @@ def view_answer(request, pk):
         'question':quest,
         'answer':answer,
 
-        'form':form,
+        'form'   :form,
         'profile':profile,
-        'owner':owner,
+        'owner'  :owner,
+        'author' : author
     }
+    # print(context)
     return render(request, 'user/single_question.html', context)
 
 
