@@ -18,5 +18,7 @@ urlpatterns = [
     path('voting_down/', voting_down, name = 'voting_down'),
     path('voting_up_question/', voting_up_question, name = 'voting_up_question'),
     path('voting_down_question/', voting_down_question, name = 'voting_down_question'),
+    path('notification_delete/<int:notification_pk>', notification_delete, name='notification_delete'),
+    path('notification_delete_ajax/', notification_delete_ajax, name='notification_delete_ajax'),
 
 ]

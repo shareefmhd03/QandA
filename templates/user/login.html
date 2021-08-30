@@ -134,7 +134,14 @@
                       <div class="checkbox flat-checkbox">
                         <label>
                           <input type="checkbox">
-                          <span class="fa fa-check"></span> Remember me?
+                          <!-- <span class="fa fa-check"></span> Remember me? -->
+                          {% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %} style="color: red;">{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
                         </label>
                       </div>
                     </div>

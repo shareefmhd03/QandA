@@ -59,8 +59,8 @@
 					</div>
 					<div class="panel-body">
 						<div class="tab-content">
+							{% for que in question %}
 							<div id="tab1" class="tab-pane active app-table ">
-								{% for que in question %}
 								<div class="listing-grid">
 									<div class="row ">
 								
@@ -76,8 +76,8 @@
 										
 									</div>
 								</div>
-								{% endfor %}
 							</div>
+							{% endfor %}
 
 							<div class="table-output">
 								<div id="tab1" class="tab-pane active list-body">
@@ -113,11 +113,11 @@
 								{% endfor %}
 								
 							</div>
-							<div class="table-output">
+							<!-- <div class="table-output">
 								<div id="tab1" class="tab-pane active list-body">
 
 								</div>
-							</div>
+							</div> -->
 							<div id="tab3" class="tab-pane">
 								<!-- Question Listing -->
 								{% for answered in recently_answered %}
@@ -211,7 +211,7 @@
 					AppTable.style.display = 'none'
 					tableOutput.style.display = 'block'
 					console.log(body.length,'44444')
-					if (body.length < 1) {
+					if (body.length === 0) {
 						console.log(body.length,'444eeeee44')
 						tableOutput.innerHTML = `<h1> No Result Found </h1>`
 					} else {

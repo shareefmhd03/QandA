@@ -12,11 +12,7 @@ import random
 from twilio.rest import Client
 from decouple import config
 
-# Create your views here.
 
-# def session_check(request):
-#     if request.session['loggedin'] == True:
-#         return True
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 
 def login_view(request):
@@ -27,15 +23,17 @@ def login_view(request):
                 usernam   = request.POST['username']
                 passwd  = request.POST['password1']
                 
+                try:
+                    user = authenticate(request, username = usernam, password=passwd)
+                    use = Accounts.objects.get(username = usernam)
+                    if use.is_active == False:
+                        return redirect('otp_login')
 
-                user = authenticate(request, username = usernam, password=passwd)
-                use = Accounts.objects.get(username = usernam)
-                print(use)
-                if use.is_active == False:
-                    return redirect('otp_login')
-
-                login(request, user)
-                return redirect('index')
+                    login(request, user)
+                    return redirect('index')
+                except:
+                    messages.error(request, 'Invalid username or Password')
+                    return render(request, 'user/login.html')
     
                 
             return render(request, 'user/login.html')
@@ -117,6 +115,7 @@ def validate_username(request):
     if data['is_taken']:
         data['error_message'] = 'A user with this email already exists.'
     return JsonResponse(data)
+    
 def validate_email(request):
 
     email = request.GET.get('email', None)
@@ -127,7 +126,6 @@ def validate_email(request):
     if data['is_taken']:
         data['error_message'] = 'A user with this email already exists.'
     return JsonResponse(data)
-
 
 def otp_login(request):
     if request.method == 'POST':

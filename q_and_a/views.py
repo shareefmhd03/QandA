@@ -1,7 +1,7 @@
 from django.db.models.aggregates import Count
 from blog.models import Blog
-from django.http.response import JsonResponse
-from q_and_a.models import Answer, PointsTable, Question
+from django.http.response import HttpResponse, JsonResponse
+from q_and_a.models import Answer, Notification, PointsTable, Question
 from profiles.models import Profile
 
 from django.shortcuts import redirect, render
@@ -16,8 +16,13 @@ def get_time():
 
 
 def index(request):
+    context={}
     profile = Profile.objects.all().order_by()[:5]
-    prof = Profile.objects.get(user = request.user)
+    try:
+        prof = Profile.objects.get(user = request.user)
+        context['prof']=prof
+    except:
+        pass
     question = Question.objects.all().order_by('-created_at')
     
     
@@ -30,7 +35,7 @@ def index(request):
         
         'profile':profile,
         'blogs':blogs,
-        'prof':prof,
+        # 'prof':prof,
     }
     return render(request, 'user/index.html', context)
 
@@ -133,6 +138,7 @@ def answer(request, question):
                     desc = form.cleaned_data['description']
                     
                     ans.save()
+                    
                     return redirect('view_answer', quest.slug)
         else:
 
@@ -143,6 +149,7 @@ def answer(request, question):
                     desc = form.cleaned_data['description']
                     ans = Answer(user = request.user, description = desc, question = quest )
                     ans.save()
+                    Notification.objects.create(from_user=request.user, to_user = ans.question.user, answered = ans)
                     return redirect('view_answer', quest.slug)
             form = AnswerForm()
             context ={
@@ -364,3 +371,25 @@ def voting_down_question(request):
             ques.save()
             return JsonResponse({'total_vote':ques.vote_total(),'answer_id':ques_id})
     return redirect('index')
+
+
+
+def notification_delete(request, notification_pk, *args, **kwargs):
+        notification = Notification.objects.get(pk=notification_pk)
+
+        notification.user_has_seen = True
+        notification.save()
+
+        return HttpResponse('Success', content_type='text/plain')
+
+        
+def notification_delete_ajax(request):
+        va = request.POST['data']
+        notification = Notification.objects.get(id=va)
+        
+
+        notification.user_has_seen = True
+        notification.save()
+        count = Notification.objects.filter(to_user = request.user, user_has_seen = False).count()
+        print(count)
+        return JsonResponse({'data':count})

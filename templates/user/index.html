@@ -1,4 +1,5 @@
 ﻿{% extends 'user/user-base.html' %}
+{% load custom_tags %}
 {% load static %}
     {% block content %}
 
@@ -22,6 +23,10 @@
           <div class="col-lg-8 col-md-8 col-sm-6 col-xs-8">
             <ul class="top-nav nav-right">
               {% if user.is_authenticated %}
+              <div class="nav-item">
+ 
+                {% show_notifications %}
+              </div>
               <li class="dropdown">
                 <a class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown" data-animations="fadeInUp">
               {% block prof_image %}
@@ -32,6 +37,7 @@
                     <i class="fa fa-caret-down"></i>
                   </span>
                 </a>
+                
                 <ul class="dropdown-menu ">
                   <li><a href=""><i class=" icon-bargraph"></i> Dashboard</a></li>
                   <li><a href="{% url 'user_profile' %}"><i class=" icon-gears"></i> Profile Setting</a></li>
@@ -39,6 +45,7 @@
                   <li><a href="{% url 'logout' %}"><i class="icon-lock"></i> Logout</a></li>
                 </ul>
               </li>
+              
               {% else %}
               <li><a href="{% url 'login_view' %}"><i class="fa fa-lock" aria-hidden="true"></i>Login</a>
               </li>

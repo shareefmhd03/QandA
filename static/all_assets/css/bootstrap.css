@@ -34,6 +34,10 @@ html {
     display: inline-block;
     vertical-align: baseline;
   }
+  .d-none {
+    display: none !important;
+  }
+  
   audio:not([controls]) {
     display: none;
     height: 0;

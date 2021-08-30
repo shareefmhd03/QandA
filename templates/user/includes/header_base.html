@@ -1,4 +1,4 @@
-
+{% load custom_tags %}
 {% block header %}
 {% load static %}
 
@@ -6,6 +6,7 @@
 <div class="preloader"><span class="preloader-gif"></span>
 </div>
 <!-- =-=-=-=-=-=-= HEADER =-=-=-=-=-=-= -->
+
 <div class="top-bar">
   <div class="container">
     <div class="row">
@@ -22,6 +23,9 @@
       <div class="col-lg-8 col-md-8 col-sm-6 col-xs-8">
         <ul class="top-nav nav-right">
           {% if user.is_authenticated %}
+          <div class="nav-item">
+            {% show_notifications %}
+        </div>
           <li class="dropdown">
             <a class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown" data-animations="fadeInUp">
               {% block prof_image %}
@@ -38,6 +42,7 @@
               <li><a href="{% url 'logout' %}"><i class="icon-lock"></i> Logout</a></li>
             </ul>
           </li>
+          
           {% else %}
           <li><a href="{% url 'login_view' %}"><i class="fa fa-lock" aria-hidden="true"></i>Login</a>
           </li>
@@ -48,6 +53,7 @@
 
         </ul>
       </div>
+      
     </div>
   </div>
 </div>
@@ -116,6 +122,8 @@
       window.location.href = ('/search/?keyword=' + result)
     }
   })
+  
 </script>
+
 
 {% endblock %}

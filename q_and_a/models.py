@@ -3,6 +3,7 @@ from django.db import models
 from django.db.models.fields import SlugField
 from accounts.models import Accounts
 from froala_editor.fields import FroalaField
+from django.utils import timezone
 
 
 # class Tags(models.Model):
@@ -79,4 +80,13 @@ class PointsTable(models.Model):
     def downvote_count(self):
         return self.downvote.all().count()
     
-    
+
+class Notification(models.Model):
+        to_user = models.ForeignKey(Accounts, related_name='notification_to', on_delete=models.CASCADE, null=True)
+        from_user = models.ForeignKey(Accounts, related_name='notification_from', on_delete=models.CASCADE, null=True)
+        answered = models.ForeignKey(Answer, on_delete=models.CASCADE, related_name='+', blank=True, null=True)
+        date = models.DateTimeField(default=timezone.now)
+        user_has_seen = models.BooleanField(default=False)
+
+        def __str__(self):
+                return self.to_user.first_name

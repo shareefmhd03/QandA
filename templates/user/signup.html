@@ -145,34 +145,37 @@
                 <button class="btn btn-primary btn-lg btn-block">Create Account</button>
 
               </form> -->
-              <form action="{% url 'register' %}" method="POST">
-                {% csrf_token %}
+              <form action="/account/register/" method="POST">
+               {% csrf_token %}
             
                 <div class="form-group">
                   <label>First Name</label>
-                  {{form.first_name}}
+                  <input type="text" name="first_name" maxlength="150" class="form-control" id="id_first_name" pattern="[a-zA-Z]" onblur="validateName()">
+                  <span class='error-message' id='name-error' style="font-size:small"></span>
                 </div>
                 <div class="form-group">
                   <label>Last Name</label>
-                  {{form.last_name}}
+                  <input type="text" name="last_name" maxlength="150" class="form-control" id="id_last_name" onblur="validateLname()">
+                  <span class='error-message' id='lname-error' style="font-size:small"></span>
                 </div>
                 <div class="form-group">
                   <label>Email</label>
-                  {{form.email}}
+                  <input type="email" name="email" maxlength="254" class="form-control" id="id_email" onblur="validateEmail()">
                   <span class='error-message' id='email-error' style="font-size:small"></span>
                 </div>
                 <div class="form-group">
                   <label>Phone</label>
-                  {{form.phone}}
+                  <input type="text" name="phone" maxlength="50" class="form-control" required id="id_phone" onblur="validatePhone()">
                   <span class='error-message' id='phone-error' style="font-size:small"></span>
                 </div>
                 <div class="form-group">
                   <label>Password</label>
-                  {{form.password1}}
+                  <input type="password" name="password1" autocomplete="new-password" class="form-control" required id="id_password1">
                 </div>
                 <div class="form-group">
                   <label>Confirm-Password</label>
-                  {{form.password2}}
+                  <input type="password" name="password2" autocomplete="new-password" class="form-control" required id="id_password2" oninput="validatePassword()">
+                  <span class='error-message' id='password-error' style="font-size:small"></span>
                 </div>
                 <p class="form-submit text-center" >
                     <input type="submit" value="Signup" class="btn btn-md btn-default">
@@ -195,11 +198,6 @@
   <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 
   <script>
-function producePrompt(message, promptLocation, color) {
-
-document.getElementById(promptLocation).innerHTML = message;
-document.getElementById(promptLocation).style.color = color;
-}
 
 $(document).ready(function () {
 $("#id_email").change(function () {
@@ -228,4 +226,147 @@ $("#id_email").change(function () {
 });
 });
   </script>
+
+<script>
+function validateName() {
+
+var name = document.getElementById('id_first_name').value;
+
+if(name.length == 0) {
+
+  producePrompt('Name is required', 'name-error' , 'red')
+  return false;
+
+}
+
+if (!name.match(/^[A-Za-z]+$/)) {
+
+  producePrompt('Only Alphabets allowed','name-error', 'red');
+  return false;
+
+}
+
+
+producePrompt('', 'name-error', 'green');
+return true;
+
+}
+function validateLname() {
+
+var name = document.getElementById('id_last_name').value;
+
+if(name.length == 0) {
+
+  producePrompt('last name is required', 'lname-error' , 'red')
+  return false;
+
+}
+
+if (!name.match(/^[A-Za-z]+$/)) {
+
+  producePrompt('Only Alphabets allowed','lname-error', 'red');
+  return false;
+
+}
+
+
+producePrompt('', 'lname-error', 'green');
+return true;
+
+}
+
+function validatePhone() {
+
+var phone = document.getElementById('id_phone').value;
+
+  if(phone.length == 0) {
+    producePrompt('Phone number is required.', 'phone-error', 'red');
+    return false;
+  }
+  if(phone.length != 10) {
+    producePrompt('Enter a valid number', 'phone-error', 'red');
+    return false;
+  }
+
+
+  if(!phone.match(/^[0-9]{10}$/)) {
+    producePrompt('Only numbers Allowed' ,'phone-error', 'red');
+    return false;
+  }
+
+  
+  
+  producePrompt('', 'phone-error', 'green');
+  return true;
+
+}
+
+function validateEmail () {
+
+var email = document.getElementById('id_email').value;
+
+if(email.length == 0) {
+
+  producePrompt('Email Required','email-error', 'red');
+  return false;
+
+}
+
+if(!email.match(/^[A-Za-z\._\-[0-9]*[@][A-Za-z]*[\.][a-z]{2,4}$/)) {
+
+  producePrompt('Invalid Email', 'email-error', 'red');
+  return false;
+
+}
+
+producePrompt('', 'email-error', 'green');
+return true;
+
+}
+
+function validatePassword () {
+
+var password2 = document.getElementById('id_password2').value;
+var password1 = document.getElementById('id_password1').value;
+
+if(!password2.match(password1)) {
+
+  producePrompt('Password not Matching','password-error', 'red');
+  return false;
+
+}}
+
+
+function validateForm() {
+if (!validateName() && !validatePhone() && !validateEmail()) {
+  jsShow('submit-error');
+  producePrompt(' ', 'submit-error', 'red');
+  setTimeout(function(){jsHide('submit-error');}, 2000);
+}
+else {
+
+}
+}
+
+function jsShow(id) {
+document.getElementById(id).style.display = 'block';
+}
+
+function jsHide(id) {
+document.getElementById(id).style.display = 'none';
+}
+
+
+
+
+function producePrompt(message, promptLocation, color) {
+
+document.getElementById(promptLocation).innerHTML = message;
+document.getElementById(promptLocation).style.color = color;
+
+
+}
+
+</script>
+
              {% endblock %}

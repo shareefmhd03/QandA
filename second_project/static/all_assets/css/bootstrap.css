@@ -1572,6 +1572,11 @@ html {
     border: 1px solid #ccc;
     border-radius: 4px;
   }
+
+  .d-none {
+    display: none !important;
+  }
+  
   pre code {
     padding: 0;
     font-size: inherit;
