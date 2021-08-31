@@ -9,6 +9,14 @@ from .forms import AnswerForm, AskQusestionForm
 from django.db.models import Q
 import datetime
 from accounts.models import Accounts
+# from django.views.decorators.http import require_GET, require_POST
+from django.shortcuts import get_object_or_404
+# from django.contrib.auth.models import User
+from django.views.decorators.csrf import csrf_exempt
+from webpush import send_user_notification
+from django.conf import settings
+
+import json
 
 
 def get_time():
@@ -17,6 +25,11 @@ def get_time():
 
 def index(request):
     context={}
+    webpush_settings = getattr(settings, 'WEBPUSH_SETTINGS', {})
+    vapid_key = webpush_settings.get('VAPID_PUBLIC_KEY')
+    if request.user.is_authenticated:
+        context['user'] = request.user
+    
     profile = Profile.objects.all().order_by()[:5]
     try:
         prof = Profile.objects.get(user = request.user)
@@ -30,13 +43,16 @@ def index(request):
     # popular_questions = Question.objects.filter
     
     blogs = Blog.objects.all()
+    
     context = {
-        'question':question,
-        
-        'profile':profile,
-        'blogs':blogs,
-        # 'prof':prof,
+    'question':question,
+    
+    'profile':profile,
+    'blogs':blogs,
+    # 'prof':prof,
+    'vapid_key': vapid_key
     }
+
     return render(request, 'user/index.html', context)
 
 def question_from_index(request):
@@ -136,9 +152,9 @@ def answer(request, question):
                 if form.is_valid():
                     # title = form.cleaned_data['answer_title']
                     desc = form.cleaned_data['description']
-                    
                     ans.save()
-                    
+                    #call the push notification function
+
                     return redirect('view_answer', quest.slug)
         else:
 
@@ -149,10 +165,13 @@ def answer(request, question):
                     desc = form.cleaned_data['description']
                     ans = Answer(user = request.user, description = desc, question = quest )
                     ans.save()
+                    print('about to call the send_push')
+                    data = {'head': '', 'body': quest.question_title +'answered', 'id': quest.user_id}
+                    send_push(request,data)
                     Notification.objects.create(from_user=request.user, to_user = ans.question.user, answered = ans)
                     return redirect('view_answer', quest.slug)
             form = AnswerForm()
-            context ={
+        context ={
 
             'owner':owner,
         }
@@ -170,6 +189,7 @@ def view_answer(request, pk):
     context ={}
     view = 0
     author = False
+    owner = False
     quest = Question.objects.filter(slug = pk)
     questt = Question.objects.get(slug = pk)
     
@@ -393,3 +413,29 @@ def notification_delete_ajax(request):
         count = Notification.objects.filter(to_user = request.user, user_has_seen = False).count()
         print(count)
         return JsonResponse({'data':count})
+
+
+
+#Push notification------------------------------------------------------->
+
+# @require_POST
+@csrf_exempt
+def send_push(request,data):
+    try:
+        body = request.body
+        # data = json.loads(body)
+        print(data)
+        
+        # data = {'head': '', 'body': 'asdf', 'id': '15'}
+        if 'head' not in data or 'body' not in data or 'id' not in data:
+            return JsonResponse(status=400, data={"message": "Invalid data format"})
+
+        user_id = data['id']
+        print(user_id)
+        user = get_object_or_404(Accounts, id=user_id)
+        payload = {'head': data['head'], 'body': data['body']}
+        send_user_notification(user=user, payload=payload, ttl=1000)
+
+        return JsonResponse(status=200, data={"message": "Web push successful"})
+    except TypeError:
+        return JsonResponse(status=500, data={"message": "An error occurred"})

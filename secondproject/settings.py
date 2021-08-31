@@ -64,6 +64,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',
     'challenges',
     'django_pdb',
+    'webpush',
     
 ]
 
@@ -89,6 +90,13 @@ AUTHENTICATION_BACKENDS = [
     'allauth.account.auth_backends.AuthenticationBackend',
 
 ]
+
+WEBPUSH_SETTINGS = {
+   "VAPID_PUBLIC_KEY": "BBt-jDaPdyJDkUrYGjg6uINnmQ7ypin79FQrDn0wtU-8HcZ5K0y91Zzehusmhpepw-2IRcH3rotoIUa0ZcICgMY",
+   "VAPID_PRIVATE_KEY": "0LZT1h7IiZdEe8Kxx4dyYwp4Vx9AbZ9GqdOaaSTOWS4",
+   "VAPID_ADMIN_EMAIL": "shareef.mk03@gmail.com"
+}
+
 
 ROOT_URLCONF = 'secondproject.urls'
 

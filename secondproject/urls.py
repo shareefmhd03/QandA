@@ -3,6 +3,7 @@ from django.urls import path
 from django.urls.conf import include
 from django.conf import settings
 from django.conf.urls.static import static
+from django.views.generic import TemplateView
 
 urlpatterns = [
     path('secure_admin/', admin.site.urls),
@@ -16,6 +17,8 @@ urlpatterns = [
     path('admin/', include('admin_app.urls')),
     path('accounts/', include('allauth.urls')),
     path('challenges/', include('challenges.urls')),
+    path('webpush/', include('webpush.urls')),
+    path('sw.js', TemplateView.as_view(template_name='sw.js', content_type='application/x-javascript'))
     
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
