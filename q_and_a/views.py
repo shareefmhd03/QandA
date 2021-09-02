@@ -98,7 +98,6 @@ def ask_question(request):
                 if form.is_valid():
                     title    = form.cleaned_data['question_title']
                     question = form.cleaned_data['question']
-                    
                     quest = Question(question_title = title, user = request.user, question= question)
                     quest.save()
                     points = PointsTable.objects.get(user = request.user)

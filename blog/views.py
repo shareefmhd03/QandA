@@ -53,12 +53,24 @@ def blog_detailed_view(request, slug):
     form = CommentForm()
     single_blog = Blog.objects.get(slug = slug)
     comments = Comments.objects.filter(blog_id = single_blog)
+    # for i in comments:
     reply = Reply.objects.all()
-    print(reply)
+        # print(reply)
     # if Blog.objects.filter(user = request.user, slug = slug).exists():
     #     author = True 
     # else:
     #     author = False
+
+    for i in comments:
+        # print('incommenttt')
+        for r in reply:
+            # print('replyyy')
+            # print(i.id,'<<<<<<<')
+            # print(r.comment_name_id,'>>>>')
+            if i.id == r.comment_name.id:
+                print(i.id,'comment',r.comment_name.id,'reply')
+                # print(,)
+
     context ={
         'form':form,
         # 'author':author,
@@ -117,6 +129,7 @@ def comment_section(request, slug):
                 return redirect('blog_detailed_view', slug)
 
 def reply_section(request, pk, slug):
+    print(pk,'lllllllllll')
     if request.user.is_authenticated:
         reply = Comments.objects.get(id = pk)
         

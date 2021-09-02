@@ -15,7 +15,7 @@ class challengeForm(forms.ModelForm):
 class ChallengeTopicForm(forms.ModelForm):
     class Meta:
         model = ChallengeTopic
-        fields = ['title','description'] 
+        fields = ['title','description','image'] 
 
     def __init__(self, *args, **kwargs):
         super(ChallengeTopicForm, self).__init__(*args, **kwargs)

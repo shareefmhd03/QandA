@@ -14,7 +14,6 @@ class Blog(models.Model):
     title = models.CharField(max_length=250)
     description = FroalaField(blank= True, null = True)
     slug = models.SlugField(max_length=1000, blank=True, null=True, unique=True)
-
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -40,7 +39,7 @@ class Comments(models.Model):
 class Reply(models.Model):
     user = models.ForeignKey(Accounts, on_delete=models.CASCADE)
     comment_name = models.ForeignKey(Comments, on_delete=models.CASCADE, blank=True, null=True)
-    comment = models.TextField(max_length= 255 , blank= True, null=True)
+    comment = models.TextField(max_length= 255, blank= True, null=True)
     
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

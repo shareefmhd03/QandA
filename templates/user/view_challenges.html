@@ -52,14 +52,17 @@
         </div>
    {% for topic in topics %}
    <a href="{% url 'challenge_quest' topic.id %}">
-        <div class="col-md-4">
+        <div class="col-md-4" >
                
             <div class="box-part text-center"  style="border: none ; border-radius: 10px; margin: 2rem; box-shadow: 5px 5px 12px rgb(199, 199, 199);">
+                <div >
+                    <img src="{{topic.image.url}}" style="height: 15rem;" alt="">
+                </div>
                 
                 <i class="fa fa-instagram fa-3x" aria-hidden="true"></i>
                 
                 <div class="title">
-                    <h2 style="color: #000000; font-weight: bolder; font-family: 'Manrope', sans-serif;">{{topic.title}}</h2>
+                    <h1 style="color: #056ca8; font-weight: bolder; font-family: 'Manrope', sans-serif;">{{topic.title}}</h1>
                 </div>
                 
                 <div class="text">

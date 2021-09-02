@@ -110,9 +110,10 @@
           }
         </style>
 				{% for ans in answer %}
-        {% if user == ans.user %}
-        {% else %}
+        
               <div class="media-block card-box ribbon-content">
+                {% if user == ans.user %}
+                {% else %}
                 <div class="pad-ver pull-left">
                   <button onclick="up_voting('{{ans.id}}')" id="upvote" class="btn btn-sm btn-primary" ><i  class="fas fa-chevron-up"></i></button><br>
                   <input id="counter{{ans.id}}" type="text" readonly value="{{ans.vote_total}}"  style="width: 3rem; border: none;">
@@ -128,12 +129,14 @@
                     <h4><a href="#" class="btn-link text-semibold media-heading box-inline">{{ans.user}}</a></h4>
 
                     <h4>{{ans.answer_title}}</h4>
-                    {% if owner %}
-                    <a href="{%url 'edit_answer' ans.id %}"><i class="far fa-edit"></i>Edit</a>
-                    <a href="{%url 'delete_answer' ans.id %}"><i class="far fa-edit"></i>Delete</a>
-                    {% else %}
-                    {% endif %}
-                    <p class="text-muted text-sm"><i class="fa fa-mobile fa-lg"></i> - {{ans.created_at}}</p>
+                    <div>
+                      {% if owner %}
+                      <a href="{%url 'edit_answer' ans.id %}"><i class="far fa-edit " style="color: red;"></i>Edit</a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                      <a href="{%url 'delete_answer' ans.id %}"><i class="fa fa-trash" aria-hidden="true" style="color: red;"></i></i>Delete</a>
+                      {% else %}
+                      {% endif %}
+                    </div>
+                    <p class="text-muted text-sm"><i class="fa fa-clock-o" aria-hidden="true" style="color: rgb(156, 222, 248);"></i></i> - {{ans.created_at}}</p>
                   </div>
                   <p>{{ans.description|safe}}</p>
                   {% if author %}

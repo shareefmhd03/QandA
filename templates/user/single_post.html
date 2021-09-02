@@ -74,7 +74,7 @@
 
             <div class="entry-footer">
               <div class="post-admin">
-                <i class="icon-profile-male"></i>Posted by<a href="#">{{single_blog.user}}</a>
+              Posted by<a>{{single_blog.user}}</a>
               </div>
               {% if author %}
               <a href="{% url 'edit_blog' single_blog.slug %}">edit your blog here</a>
@@ -102,16 +102,24 @@
                           <li><a>{{comment.created_at}}</a>
                           </li>
                           <li>
-                            <button onclick="showForm()" style="color: crimson; background-color: transparent; border: none;"></i>Reply</button>
+                            <button onclick="showreplybox('{{comment.id}}')" style="color: crimson; background-color: transparent; border: none;"></i>Reply</button>
                          
                         </ul>
                       </div>
                       <p>{{comment.comment}}</p>
                     </div>
                   </div>
+                  <div id ="asd"  >
+                    <form action="{% url 'reply_section' comment.id single_blog.slug%}" method="POST">
+                      {% csrf_token %}
+
+                      <input type="text" name="comment" class="form-control" required="" id="id_comment"/>
+                      <input type="submit" value="Post a Reply" id="replybtn" class="btn btn-sm btn-primary">
+                    </form>
+                </div>
                
                   {% for rep in reply %}
-                  {% if rep.comment_name_id == comment.id %}
+                  {% if comment.id == rep.comment_name.id %}
                   <ol class="children">
                     <li class="comment">
                       <div class="comment-info">
@@ -121,7 +129,7 @@
                           <div class="author-title">
                             <strong>{{rep.user}}</strong>
                             <ul class="list-inline pull-right">
-                              <li><a href="#">{{rep.created_at}}</a>
+                              <li><a>{{rep.created_at}}</a>
                               </li>
                              
                              <!-- <button onclick="showForm()" ><i class="fa fa-reply"></i>Reply</button> -->
@@ -130,20 +138,9 @@
                           </div>
                           <p>{{rep.comment}}</p>
                           
-                           
+                         
                           </div> 
-                          <div id ="asd" style="display: none;" >
-                            <form action="{% url 'reply_section' rep.comment_name_id single_blog.slug%}" method="POST">
-                              {% csrf_token %}
-                              {{form}}
-                           
-                              <input type="submit" value="Reply">
-            
-                            </form>
                           
-                          
-  
-                        </div>
                       </div>
                       <!-- .comment-info -->
                     </li>
@@ -152,10 +149,10 @@
                   
                   {% endif %}
                   
-                    
+                  
                   {% endfor%}
-                  
-                  
+                 
+
               
               {% endfor %}
               
@@ -195,26 +192,21 @@
 
 </div>
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+
+
 <script>
+      function showreplybox(a) {
+	const container = document.getElementById('asd');
 
-function showForm() {
-    console.log('working')
-
-    
-    if (document.getElementById("asd").style.display = "none") {
-      document.getElementById("asd").style.display = "block";
-    } else if (document.getElementById("asd").style.display = "block"){
-      document.getElementById("asd").style.display = "none";
-    }
-  }
-//   window.onload = function () {
-
-// document.getElementById("asd").style.display = "none";
-// };
-
-//   $( "#asd" ).click(function() {
-//   alert( "Handler for .click() called." );
-// });
+  var replybtn = document.getElementById('replybtn').value = a
+	if (container.classList.contains('d-none')) {
+        console.log('true');
+		container.classList.remove('d-none');
+	} else {
+		container.classList.add('d-none');
+        console.log('false');
+	}
+}
 </script>
 
 {% endblock %}

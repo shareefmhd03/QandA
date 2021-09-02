@@ -240,8 +240,9 @@ def add_challenge_topic(request):
         if request.method == 'POST':
             form = ChallengeTopicForm(request.POST, request.FILES)
             if form.is_valid():
+                
                 form.save()
-                return redirect('view_')
+                return redirect('view_challenges_admin')
 
         form = ChallengeTopicForm()
         context={
