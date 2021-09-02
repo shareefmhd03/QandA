@@ -19,6 +19,33 @@ from django.conf import settings
 import json
 
 
+
+#Push notification------------------------------------------------------->
+
+# @require_POST
+@csrf_exempt
+def send_push(request,data):
+    try:
+        # body = request.body
+        # data = json.loads(body)
+        print(data)
+        
+        # data = {'head': '', 'body': 'asdf', 'id': '15'}
+        if 'head' not in data or 'body' not in data or 'id' not in data:
+            return JsonResponse(status=400, data={"message": "Invalid data format"})
+
+        user_id = data['id']
+        
+        user = get_object_or_404(Accounts, id=user_id)
+
+        payload = {'head': data['head'], 'body': data['body']}
+        send_user_notification(user=user, payload=payload, ttl=1000)
+
+        return JsonResponse(status=200, data={"message": "Web push successful"})
+    except TypeError:
+        return JsonResponse(status=500, data={"message": "An error occurred"})
+
+
 def get_time():
     return datetime.datetime.now()
 
@@ -416,26 +443,3 @@ def notification_delete_ajax(request):
 
 
 
-#Push notification------------------------------------------------------->
-
-# @require_POST
-@csrf_exempt
-def send_push(request,data):
-    try:
-        body = request.body
-        # data = json.loads(body)
-        print(data)
-        
-        # data = {'head': '', 'body': 'asdf', 'id': '15'}
-        if 'head' not in data or 'body' not in data or 'id' not in data:
-            return JsonResponse(status=400, data={"message": "Invalid data format"})
-
-        user_id = data['id']
-        print(user_id)
-        user = get_object_or_404(Accounts, id=user_id)
-        payload = {'head': data['head'], 'body': data['body']}
-        send_user_notification(user=user, payload=payload, ttl=1000)
-
-        return JsonResponse(status=200, data={"message": "Web push successful"})
-    except TypeError:
-        return JsonResponse(status=500, data={"message": "An error occurred"})
