@@ -1,13 +1,16 @@
+
 from django.contrib import admin
 from django.urls import path
 from django.urls.conf import include
 from django.conf import settings
 from django.conf.urls.static import static
-from django.views.generic import TemplateView
+# from django.views.generic import TemplateView
+
 
 urlpatterns = [
     path('secure_admin/', admin.site.urls),
     path('account/', include('accounts.urls')),
+    # path('sw.js', TemplateView.as_view(template_name='user/sw.js', content_type='application/x-javascript'), name='sw.js'),    
     path('', include('q_and_a.urls')),
     path('blog/', include('blog.urls')),
     path('profiles/', include('profiles.urls')),
@@ -17,9 +20,10 @@ urlpatterns = [
     path('admin/', include('admin_app.urls')),
     path('accounts/', include('allauth.urls')),
     path('challenges/', include('challenges.urls')),
-    path('webpush/', include('webpush.urls')),
-    path('sw.js', TemplateView.as_view(template_name='sw.js', content_type='application/x-javascript'))
+    path('chat/', include('chat.urls')),
+    # path('webpush/', include('webpush.urls')),
+
     
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+] + static(settings.STATIC_URL,document_root=settings.STATIC_ROOT)
 
 urlpatterns +=static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

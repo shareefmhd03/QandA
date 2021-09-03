@@ -1,14 +1,12 @@
 ﻿{% extends 'user/user-base.html' %}
+
 {% load static %}
 
 
 {% block content %}
 {% include 'user/includes/header_base.html' %}
-
-
-
-
   <!-- =-=-=-=-=-=-= Main Area =-=-=-=-=-=-= -->
+
   <div class="main-content-area">
 
     <!-- =-=-=-=-=-=-= Page Breadcrumb =-=-=-=-=-=-= -->
@@ -57,9 +55,10 @@
                 
                 <div class="col-md-12 col-sm-12 col-xs-12">
                   <div class="pad-ver pull-left" style="padding-right: 2rem;">
-                  
-                    <button onclick="up_vote('{{que.id}}')" id="upvoting" class="btn btn-sm btn-primary" ><i class="fas fa-chevron-up"></i></button> <br>
-                    
+                  <br>
+                    <!-- <button onclick="up_vote('{{que.id}}')" id="upvoting" class="btn btn-sm btn-primary" ><i class="fas fa-chevron-up"></i></button> <br> -->
+                    <button onclick="up_vote('{{que.id}}')" id="upvoting" class="btn btn-sm btn-primary" ><i class="fas fa-chevron-up"></i></button>
+                    <br>
                     <input id="counterq{{que.id}}" type="text" readonly value="{{que.vote_total}}"  style="width: 3rem; border: none;">
                     <br>
                     <button onclick="down_vote('{{que.id}}')" id="downvoting" class="btn btn-sm btn-primary" ><i class="fas fa-chevron-down"></i></button>
@@ -115,10 +114,10 @@
                 {% if user == ans.user %}
                 {% else %}
                 <div class="pad-ver pull-left">
-                  <button onclick="up_voting('{{ans.id}}')" id="upvote" class="btn btn-sm btn-primary" ><i  class="fas fa-chevron-up"></i></button><br>
+                  <button onclick="up_voting('{{ans.id}}')" id="upvote" class="btn btn-sm btn-primary" ><i class="fas fa-chevron-up"></i></button><br>
                   <input id="counter{{ans.id}}" type="text" readonly value="{{ans.vote_total}}"  style="width: 3rem; border: none;">
                   <br>
-                  <button onclick="down_voting('{{ans.id}}')" id="downvote" class="btn btn-sm btn-primary" ><i  class="fas fa-chevron-down"></i></button>
+                  <button onclick="down_voting('{{ans.id}}')" id="downvote" class="btn btn-sm btn-primary" ><i class="fas fa-chevron-down"></i></button>
                   
                 </div>
                 {% endif %}
@@ -130,7 +129,7 @@
 
                     <h4>{{ans.answer_title}}</h4>
                     <div>
-                      {% if owner %}
+                      {% if ans.user == request.user %}
                       <a href="{%url 'edit_answer' ans.id %}"><i class="far fa-edit " style="color: red;"></i>Edit</a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
                       <a href="{%url 'delete_answer' ans.id %}"><i class="fa fa-trash" aria-hidden="true" style="color: red;"></i></i>Delete</a>
                       {% else %}
@@ -145,7 +144,7 @@
                   <div class="ribbon base"><span>Correct Answer</span>
                   </div>
                   {% else%} 
-                  <input type="checkbox" class="searchType" value="{{ans.id}}">            
+                  <input type="checkbox" class="searchType" value="{{ans.id}}"> Mark as correct Answer</input>           
                   {% endif %}
                   {%else%}
                   {% endif%} 
@@ -334,4 +333,4 @@
         }
       </script>
 
-  {% endblock %}
+{%  endblock %}

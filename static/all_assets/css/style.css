@@ -507,7 +507,7 @@ hr.main {
 	outline: medium none;
 	text-decoration: none;
 	text-transform: uppercase;
-	color: #fff ;
+	color: rgb(255, 255, 255) ;
 }
 .top-bar ul.top-nav li i {
 	margin-right: 10px;
@@ -539,9 +539,9 @@ hr.main {
 	width: 100%;
 	border-bottom: 1px solid #f3f3f4;
 }
-.top-bar ul.top-nav li:hover, .top-bar ul.top-nav li:hover a {
+/* .top-bar ul.top-nav li:hover, .top-bar ul.top-nav li:hover a {
 	color: #fff;
-}
+} */
 .profile .profile-img {
 	display: inline-block;
 	height: 23px;
@@ -740,7 +740,7 @@ hr.main {
 }
 /* =-=-=-=-=-=-= Search Form =-=-=-=-=-=-= */
 .full-section.search-section {
-	background: #353b65 url("../images/slider3.jpg") no-repeat scroll center top ;
+	/* background: #353b65 url("../images/slider3.jpg") no-repeat scroll center top ; */
 	-webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;

@@ -5,7 +5,7 @@
 {% block content %}
 {% include 'user/includes/header_base.html' %}
 <style>
-  .social-card-header{
+  .social-card-header {
     position: relative;
     display: -ms-flexbox;
     display: flex;
@@ -14,241 +14,189 @@
     -ms-flex-pack: center;
     justify-content: center;
     height: 96px;
-}
-.social-card-header i {
+  }
+
+  .social-card-header i {
     font-size: 32px;
-    color:#FFF;
-}
-.bg-facebook {
-    background-color:#3b5998;
-}
-.text-facebook {
-    color:#3b5998;
-}
-.bg-google-plus{
-    background-color:#dd4b39;
-}
-.text-google-plus {
-    color:#dd4b39;
-}
-.bg-twitter {
-    background-color:#1da1f2;
-}
-.text-twitter {
-    color:#1da1f2;
-}
-.bg-pinterest {
-    background-color:#bd081c;
-}
-.text-pinterest {
-    color:#bd081c;
-}
-.share:hover {
-        text-decoration: none;
+    color: #FFF;
+  }
+
+  .bg-facebook {
+    background-color: #3b5998;
+  }
+
+  .text-facebook {
+    color: #3b5998;
+  }
+
+  .bg-google-plus {
+    background-color: #dd4b39;
+  }
+
+  .text-google-plus {
+    color: #dd4b39;
+  }
+
+  .bg-twitter {
+    background-color: #1da1f2;
+  }
+
+  .text-twitter {
+    color: #1da1f2;
+  }
+
+  .bg-pinterest {
+    background-color: #bd081c;
+  }
+
+  .text-pinterest {
+    color: #bd081c;
+  }
+
+  .share:hover {
+    text-decoration: none;
     opacity: 0.8;
-}
+  }
 </style>
-  <!-- =-=-=-=-=-=-= Main Area =-=-=-=-=-=-= -->
-  <div class="main-content-area">
+<!-- =-=-=-=-=-=-= Main Area =-=-=-=-=-=-= -->
+<div class="main-content-area">
 
-    <!-- =-=-=-=-=-=-= Page Breadcrumb =-=-=-=-=-=-= -->
-    <section class="page-title">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-6 col-sm-7 co-xs-12 text-left ">
-            <h1>Latest News & Post</h1>
-          </div>
-          <!-- end col -->
-          <div class="col-md-6 col-sm-5 co-xs-12 text-right">
-            <div class="bread">
-              <ol class="breadcrumb">
-                <li><a href="#">Home</a>
-                </li>
-                <li><a href="#">Pages</a>
-                </li>
-                <li class="active">Blog</li>
-              </ol>
-            </div>
-            <!-- end bread -->
-          </div>
-          <!-- end col -->
+  <!-- =-=-=-=-=-=-= Page Breadcrumb =-=-=-=-=-=-= -->
+  <section class="page-title">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 col-sm-7 co-xs-12 text-left ">
+          <h1>Latest News & Post</h1>
         </div>
-        <!-- end row -->
-      </div>
-      <!-- end container -->
-    </section>
-
-    <!-- =-=-=-=-=-=-= Page Breadcrumb End =-=-=-=-=-=-= -->
-
-    <!-- =-=-=-=-=-=-= Blog & News =-=-=-=-=-=-= -->
-    <section id="blog" class="custom-padding white">
-      <div class="container">
-        {% if request.user.is_authenticated %}
-        <a href="{% url 'add_blog' %}" class="btn btn-danger btn-md" style="margin-bottom: 2rem;">Post Something..</a>
-        {% endif %}
-        <!-- Row -->
-        <div class="row">
-
-          <!-- Left Side Content -->
-          <div class="col-sm-12 col-xs-12 col-lg-8 text-center">
-
-            <!-- Blog Masonry Grid -->
-
-              <!-- Blog Grid -->
-
-              <!-- Blog Grid -->
-			  {% for blog in paged_blogs  %}
-            <div class="card mb-4 " style="padding: 2rem; border: 1px solid rgb(219, 216, 216); margin-bottom: 10px; border-radius: 10px; box-shadow:3px 3px 15px rgb(204, 200, 200);">
-              <a href="#!"><img class="card-img-top" src="{{blog.img.url}}" alt="..."></a>
-              <div class="card-body ">
-                  <div class="small text-muted">January 1, 2021</div>
-                  <h2 class="card-title">{{blog.title}}</h2>
-                  <!-- <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!</p> -->
-                  <a class="btn btn-primary" href="{% url 'blog_detailed_view' blog.slug %}">Read more →</a>
-              </div>
+        <!-- end col -->
+        <div class="col-md-6 col-sm-5 co-xs-12 text-right">
+          <div class="bread">
+            <ol class="breadcrumb">
+              <li><a href="#">Home</a>
+              </li>
+              <li><a href="#">Pages</a>
+              </li>
+              <li class="active">Blog</li>
+            </ol>
           </div>
-			  {% endfor %}
-
-
-            <!-- Blog Masonry Grid -->
-
-            <!-- Pagination -->
-            <!-- <div class="text-center  section-padding-40">
-              <ul class="pagination ">
-                <li>
-                  <a href="#" aria-label="Previous">
-                    <span aria-hidden="true">&lt;</span>
-                  </a>
-                </li>
-                <li><a href="#">1</a>
-                </li>
-                <li class="active"><a href="#">2</a>
-                </li>
-                <li><a href="#">3</a>
-                </li>
-                <li>
-                  <a href="#" aria-label="Next">
-                    <span aria-hidden="true">&gt;</span>
-                  </a>
-                </li>
-              </ul>
-            </div>
-
-            <div class="clearfix"></div>
-            Pagination End -->
-
-<br><br>
-<br>
-            <nav class="mt-4" aria-label="Page navigation sample">
-              {% if paged_blogs.has_other_pages %}
-               <ul class="pagination">
-                {% if paged_blogs.has_previous %}
-                 <li class="page-item"><a class="page-link" href="?page={{ paged_blogs.previous_page_number }}">Previous</a></li>
-                 {% else %}
-                 <li class="page-item disabled"><a class="page-link">Previous</a></li>
-                 {% endif%}
-            
-                    <li class="page-item page-link ">Page {{ paged_blogs.number }}</li>
-           
-                 {% if paged_blogs.has_next %}
-          
-                 <li class="page-item"><a class="page-link" href="?page={{ paged_blogs.next_page_number }}">Next</a></li>
-                 {% else %}
-                 <li class="page-item disabled"><a class="page-link" >Next</a></li>
-                 {% endif %}
-         
-               </ul>
-               {% endif %}
-             </nav>
-          </div>
-          <!-- Left Content End -->
-
-          <!-- Blog Right Sidebar -->
-          <div class="col-sm-12 col-xs-12 col-md-4">
-
-            <!-- sidebar -->
-            <div class="side-bar">
-
-              <!-- widget -->
-              
-              <div class="widget">
-                <div class="latest-news">
-                  <h2>Latest Blogs</h2>
-                  <hr class="widget-separator no-margin">
-                  
-                  {% for blog in all_blogs  %}
-                  <div class="news-post">
-                    <div class="post">
-                      <figure class="post-thumb"><img alt="" src="{{blog.img.url}}">
-                      </figure>
-                      <h4><a href="{% url 'blog_detailed_view' blog.slug %}">{{blog.title}} </a></h4>
-                      <div class="post-info">1 hour ago</div>
-                    </div>
-
-                  </div>
-                  {% endfor %}
-
-                </div>
-              </div>
-              <!-- widget end -->
-
-              <!-- widget -->
-            
-
-              <!-- widget -->
-              <div class="widget">
-                <div class="gallery">
-                  <h2>Gallery</h2>
-                  <hr class="widget-separator no-margin">
-                  <div class="gallery-image">
-                    {% for blog in all_blogs  %}
-                    <a href="#"><img alt="" src="{{blog.img.url}}">
-                    </a>
-                    {% endfor %}
-                  </div>
-
-                </div>
-              </div>
-              <!-- widget end -->
-
-              <!-- widget -->
-              
-
-  
-
-              
-
-            </div>
-            <!-- sidebar end -->
-
-          </div>
-          <!-- Blog Right Sidebar End -->
-
+          <!-- end bread -->
         </div>
-
-        <!-- Row End -->
+        <!-- end col -->
       </div>
-      <!-- end container -->
-    </section>
-    <!-- =-=-=-=-=-=-= Blog & News end =-=-=-=-=-=-= -->
+      <!-- end row -->
+    </div>
+    <!-- end container -->
+  </section>
 
-    <!-- =-=-=-=-=-=-= Our Clients =-=-=-=-=-=-= -->
+  <!-- =-=-=-=-=-=-= Page Breadcrumb End =-=-=-=-=-=-= -->
+
+  <!-- =-=-=-=-=-=-= Blog & News =-=-=-=-=-=-= -->
+  <section id="blog" class="custom-padding white">
+    <div class="container">
+      {% if request.user.is_authenticated %}
+      <a href="{% url 'add_blog' %}" class="btn btn-danger btn-md" style="margin-bottom: 2rem;">Post Something..</a>
+      {% endif %}
+      <!-- Row -->
+      <div class="row">
+
+        <!-- Left Side Content -->
+        <div class="col-sm-12 col-xs-12 col-lg-8 text-center">
+
+ 
+          {% for blog in paged_blogs %}
+          <div class="card mb-4 "
+            style="padding: 2rem; border: 1px solid rgb(219, 216, 216); margin-bottom: 10px; border-radius: 10px; box-shadow:3px 3px 15px rgb(204, 200, 200);">
+            <a href="#!"><img class="card-img-top" src="{{blog.img.url}}" alt="..."></a>
+            <div class="card-body ">
+              <div class="small text-muted">January 1, 2021</div>
+              <h2 class="card-title">{{blog.title}}</h2>
+              <!-- <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!</p> -->
+              <a class="btn btn-primary" href="{% url 'blog_detailed_view' blog.slug %}">Read more →</a>
+            </div>
+          </div>
+          {% endfor %}
+
+
     
-    <!-- =-=-=-=-=-=-= Our Clients -end =-=-=-=-=-=-= -->
 
-  </div>
-  <!-- =-=-=-=-=-=-= Main Area End =-=-=-=-=-=-= -->
-  <!-- <script type="text/javascript">
-    (function($) {
-      "use strict";
-      $('#posts-masonry').imagesLoaded(function() {
-        $('#posts-masonry').isotope({
-          layoutMode: 'masonry',
-          transitionDuration: '0.3s'
-        });
-      });
-    })(jQuery);
-  </script> -->
+          <br><br>
+          <br>
+          <nav class="mt-4" aria-label="Page navigation sample">
+            {% if paged_blogs.has_other_pages %}
+            <ul class="pagination">
+              {% if paged_blogs.has_previous %}
+              <li class="page-item"><a class="page-link"
+                  href="?page={{ paged_blogs.previous_page_number }}">Previous</a></li>
+              {% else %}
+              <li class="page-item disabled"><a class="page-link">Previous</a></li>
+              {% endif%}
+
+              <li class="page-item page-link ">Page {{ paged_blogs.number }}</li>
+
+              {% if paged_blogs.has_next %}
+
+              <li class="page-item"><a class="page-link" href="?page={{ paged_blogs.next_page_number }}">Next</a></li>
+              {% else %}
+              <li class="page-item disabled"><a class="page-link">Next</a></li>
+              {% endif %}
+
+            </ul>
+            {% endif %}
+          </nav>
+        </div>
+        <!-- Left Content End -->
+
+        <!-- Blog Right Sidebar -->
+        <div class="col-sm-12 col-xs-12 col-md-4">
+
+          <!-- sidebar -->
+          <div class="side-bar">
+
+            <!-- widget -->
+
+            <div class="widget">
+              <div class="latest-news">
+                <h2>Latest Blogs</h2>
+                <hr class="widget-separator no-margin">
+
+                {% for blog in all_blogs %}
+                <div class="news-post">
+                  <div class="post">
+                    <figure class="post-thumb"><img alt="" src="{{blog.img.url}}">
+                    </figure>
+                    <h4><a href="{% url 'blog_detailed_view' blog.slug %}">{{blog.title}} </a></h4>
+                    <div class="post-info">{{blog.created_at}}</div>
+                  </div>
+
+                </div>
+                {% endfor %}
+
+              </div>
+            </div>
+            <div class="widget">
+              <div class="gallery">
+                <h2>Gallery</h2>
+                <hr class="widget-separator no-margin">
+                <div class="gallery-image">
+                  {% for blog in all_blogs %}
+                  <a href="#"><img alt="" src="{{blog.img.url}}">
+                  </a>
+                  {% endfor %}
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+        </div>
 
 
-  {% endblock %}
+      </div>
+
+    </div>
+
+  </section>
+
+</div>
+
+{% endblock %}

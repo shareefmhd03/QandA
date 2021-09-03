@@ -1,5 +1,6 @@
-from django.urls import path,include
+from django.urls import path
 from .views import *
+
 urlpatterns = [
     path('',index, name = 'index'),
     path('ask_question/', ask_question, name = 'ask_question'),
@@ -20,7 +21,4 @@ urlpatterns = [
     path('voting_down_question/', voting_down_question, name = 'voting_down_question'),
     path('notification_delete/<int:notification_pk>', notification_delete, name='notification_delete'),
     path('notification_delete_ajax/', notification_delete_ajax, name='notification_delete_ajax'),
-    path('send_push/', send_push, name = "send_push"),
-    
-
 ]

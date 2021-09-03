@@ -1,9 +1,11 @@
 from django.db.models import Count,Sum
+from django.db.models.query_utils import Q
 from q_and_a.models import PointsTable
 from profiles.models import Profile
 from q_and_a.models import Question, Answer
 from blog.models import Blog
 from django.shortcuts import redirect, render
+from chat.models import Thread
 
 
 
@@ -16,9 +18,6 @@ def user_profile(request):
         blog = Blog.objects.filter(user = request.user)
         questions_count = Question.objects.filter(user = profile.user).count()
 
-        
-        # owner = Accounts.objects.filter(id = 17)
-        # print(owner)
     context ={
         'profile':profile,
         'my_points':my_points,
@@ -35,8 +34,6 @@ def prof_image(request):
     if request.user.is_authenticated:
 
         profile = Profile.objects.get(user = request.user)
-
-
     context = {
         'profile' : profile,
     }
@@ -49,34 +46,33 @@ def get_profile(request, pk):
     points = PointsTable.objects.get(user = profile.user)
     followers = profile.following.all().count()
     
-    questions = Question.objects.filter(user = profile.user)
+    questions = Question.objects.filter(user_id = profile.user)
+    print(questions)
     questions_count = Question.objects.filter(user = profile.user).count()
     if request.method =='POST':
-        print('inside_post')
         if request.user in profile.following.all():
             followed = True
-
         if followed:
             profile.following.remove(request.user)
             profile.save()
         else:
             profile.following.add(request.user)
             profile.save()
-    
-    # print(profile.following.use,'eeeee')
-    print(followed)
+            if Thread.objects.filter(Q(first_person=request.user,second_person=profile.user) | Q(first_person=profile.user,second_person=request.user)).exists():
 
+                print('hello')
+            else:
+                thread_obj=Thread(first_person=request.user,second_person=profile.user)
+                thread_obj.save()
     context={
-        'profile':profile,
-        'followers':followers,
-        'blogs':blog,
-        'questions':questions,
-        'questions_count':questions_count,
-        'followed':followed,
-        'my_points':points,
-        
-
-    }
+            'profile'        :profile,
+            'followers'      :followers,
+            'blogs'          : blog,
+            'questions'      : questions,
+            'questions_count':questions_count,
+            'followed'       :followed,
+            'my_points'      :points, 
+        }
     return render(request, 'user/user_profile.html', context)
 
 
@@ -114,6 +110,6 @@ def follow(request):
 
 
 def leaderboard(request):
-    p = User_profile.objects.order_by("-n_subm")
+    p =Profile.objects.order_by("-n_subm")
     users = {"user":p}
     return render(request,"user/leaderboard.html",users)

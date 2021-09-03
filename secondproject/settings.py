@@ -64,10 +64,11 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',
     'challenges',
     'django_pdb',
-    'webpush',
+    # 'webpush',
+    'channels',
+    'chat',
     
 ]
-
 
 SITE_ID = 1
 
@@ -79,24 +80,21 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'django_pdb.middleware.PdbMiddleware',
+    # 'django_pdb.middleware.PdbMiddleware',
     
 ]
 
 AUTHENTICATION_BACKENDS = [
    
-    'django.contrib.auth.backends.ModelBackend',
-    
+    'django.contrib.auth.backends.ModelBackend',  
     'allauth.account.auth_backends.AuthenticationBackend',
-
 ]
 
 WEBPUSH_SETTINGS = {
-   "VAPID_PUBLIC_KEY": "BBt-jDaPdyJDkUrYGjg6uINnmQ7ypin79FQrDn0wtU-8HcZ5K0y91Zzehusmhpepw-2IRcH3rotoIUa0ZcICgMY",
-   "VAPID_PRIVATE_KEY": "0LZT1h7IiZdEe8Kxx4dyYwp4Vx9AbZ9GqdOaaSTOWS4",
-   "VAPID_ADMIN_EMAIL": "shareef.mk03@gmail.com"
+   "VAPID_PUBLIC_KEY": "BCiUlB00zxInK-NMEy3qQ5N9Umpu1db_J8OkIFWOwWI1FE6aSknJilMuhTPBudF0kQ2pbc57g9-xffAYeruzhDM",
+   "VAPID_PRIVATE_KEY": "nsaNzK-QRIf9YXWh8jQb8eD0mc8YFslu_OZqjdjhqDU",
+   "VAPID_ADMIN_EMAIL": "shareef.mk03@gmail.com",
 }
-
 
 ROOT_URLCONF = 'secondproject.urls'
 
@@ -118,18 +116,13 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'secondproject.wsgi.application'
+# ASGI_APPLICATION = 'secondproject.asgi.application'
+# ASGI_APPLICATION = 'secondproject.asgi.application'
+
+ASGI_APPLICATION = 'secondproject.asgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
 
 DATABASES = {
    'default': {
@@ -200,3 +193,13 @@ MEDIA_ROOT = BASE_DIR/'media'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL = '/'
+
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels.layers.InMemoryChannelLayer',
+        # 'CONFIG': {
+        #     'hosts': [('127.0.0.1', 6379)],
+        # }
+    }
+}

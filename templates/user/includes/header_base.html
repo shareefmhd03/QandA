@@ -16,8 +16,6 @@
           </li>
           <li class="hidden-xs"><a href="{% url 'view_blog' %}">Blog</a>
           </li>
-          <!-- <li  class="hidden-xs"><a href="#">Contact Us</a> -->
-          </li>
         </ul>
       </div>
       <div class="col-lg-8 col-md-8 col-sm-6 col-xs-8">
@@ -28,9 +26,8 @@
         </div>
           <li class="dropdown">
             <a class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown" data-animations="fadeInUp">
-              {% block prof_image %}
-              {% endblock %}
-              <span class="hidden-xs small-padding">
+              <span class="small-padding" style="margin: 0px 0 0 36px;"> 
+                
                 <span>{{user}}</span>
                 <i class="fa fa-caret-down"></i>
               </span>
