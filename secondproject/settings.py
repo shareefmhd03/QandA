@@ -63,8 +63,6 @@ INSTALLED_APPS = [
     'admin_app',
     'allauth.socialaccount.providers.google',
     'challenges',
-    'django_pdb',
-    # 'webpush',
     'channels',
     'chat',
     
@@ -80,7 +78,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    # 'django_pdb.middleware.PdbMiddleware',
+
     
 ]
 

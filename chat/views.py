@@ -1,21 +1,23 @@
 from django.http.response import HttpResponse
 from chat.models import Thread
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from .models import *
 from accounts.models import Accounts
+from profiles.models import Profile
 
 
 # Create your views here.
 
 
 def messages_pages(request):
-    print("login user..............",request.user)
-    threads=Thread.objects.by_user(user=request.user).prefetch_related('chatmessage_thread')
-    context={
-        'Threads':threads
-    }
-    print(threads)
-    return render(request,'messages.html',context)
+    if request.user.is_authenticated:
+        threads=Thread.objects.by_user(user=request.user).prefetch_related('chatmessage_thread')
+        context={
+            'Threads':threads
+        }
+        print(threads)
+        return render(request,'messages.html',context)
+    return redirect('login_view')
 
 # def create_thread(request):
 #     if request.method=='POST':

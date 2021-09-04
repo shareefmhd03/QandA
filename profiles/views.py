@@ -10,6 +10,7 @@ from chat.models import Thread
 
 
 def user_profile(request):
+    thread = False
     if request.user.is_authenticated:
         profile  = Profile.objects.get(user = request.user)
         question = Question.objects.filter(user = request.user)
@@ -18,12 +19,19 @@ def user_profile(request):
         blog = Blog.objects.filter(user = request.user)
         questions_count = Question.objects.filter(user = profile.user).count()
 
+        if Thread.objects.filter(Q(first_person=request.user) | Q(second_person=request.user)).exists():
+            thread = True
+
+
+
     context ={
         'profile':profile,
         'my_points':my_points,
         'followers':followers,
         'questions':question,
         'blogs':blog,
+        'thread':thread,
+
         'questions_count':questions_count,
     }
     return render(request, 'user/user_profile.html', context)
@@ -42,31 +50,36 @@ def prof_image(request):
 def get_profile(request, pk):
     followed = False
     profile  = Profile.objects.get(id =pk)
+    user_profile  = Profile.objects.get(user =request.user)
     blog = Blog.objects.filter(user = profile.user).order_by('created_at')
     points = PointsTable.objects.get(user = profile.user)
-    followers = profile.following.all().count()
+    followers_count = profile.following.all().count()
     
+
+    followers = user_profile.following.all()
+    
+
     questions = Question.objects.filter(user_id = profile.user)
     print(questions)
     questions_count = Question.objects.filter(user = profile.user).count()
-    if request.method =='POST':
-        if request.user in profile.following.all():
-            followed = True
-        if followed:
-            profile.following.remove(request.user)
-            profile.save()
-        else:
-            profile.following.add(request.user)
-            profile.save()
-            if Thread.objects.filter(Q(first_person=request.user,second_person=profile.user) | Q(first_person=profile.user,second_person=request.user)).exists():
 
-                print('hello')
-            else:
-                thread_obj=Thread(first_person=request.user,second_person=profile.user)
-                thread_obj.save()
+
+    if profile.user in followers:
+        followed = True
+
+           
+        # else:
+        #     profile.following.add(request.user)
+        #     profile.save()
+            # if Thread.objects.filter(Q(first_person=request.user,second_person=profile.user) | Q(first_person=profile.user,second_person=request.user)).exists():
+
+            #     print('hello')
+            # else:
+            #     thread_obj=Thread(first_person=request.user,second_person=profile.user)
+            #     thread_obj.save()
     context={
             'profile'        :profile,
-            'followers'      :followers,
+            'followers'      :followers_count,
             'blogs'          : blog,
             'questions'      : questions,
             'questions_count':questions_count,
@@ -75,6 +88,32 @@ def get_profile(request, pk):
         }
     return render(request, 'user/user_profile.html', context)
 
+
+
+def follow(request):
+    val = request.POST['data']
+    profile  = Profile.objects.get(id =val)
+    user_profile  = Profile.objects.get(user =request.user)
+
+    user_profile.following.add(profile.user)
+    user_profile.save()
+
+    if Thread.objects.filter(Q(first_person=request.user,second_person=profile.user) | Q(first_person=profile.user,second_person=request.user)).exists():
+        print('thread already exist!!!')
+    else:
+        thread_obj=Thread(first_person=request.user,second_person=profile.user)
+        thread_obj.save()
+    return redirect('get_profile', val)
+
+
+def unfollow(request):
+    val = request.POST['data']
+    profile  = Profile.objects.get(id =val)
+    user_profile  = Profile.objects.get(user =request.user)
+    user_profile.following.remove(profile.user)
+    user_profile.save()
+    print('sdfgsdfgdsfff--------------')
+    return redirect('get_profile', val)
 
 
 def update_profile_image(request):
@@ -100,13 +139,13 @@ def update_profile(request):
             profile.save()
             return redirect('user_profile')
 
-def follow(request):
-    if request.method == 'POST':
-        val = request.POST['data']
-        profile = Profile.objects.get(id = val)
-        profile.following.add(profile.user)
-        profile.save()
-    return redirect('user_profile')
+# def follow(request):
+#     if request.method == 'POST':
+#         
+#         profile = Profile.objects.get(id = val)
+#         profile.following.add(profile.user)
+#         profile.save()
+#     return redirect('user_profile')
 
 
 def leaderboard(request):

@@ -189,28 +189,46 @@ h5 {
 				  </div>
 				</div>
 			  </div>
+			  
 			  <div class="col-md-6 col-xs-12 col-sm-6 no-padding">
 				<ul class="profile-count">
-				  <li>{{followers}}<i>Followers</i>
-				  </li>
-				  <li>{{my_points.point}}<i>Points</i>
-				  </li>
-				  <li>{{questions_count}}<i>Questions</i>
-				  </li>
-				</ul>
-				{% if not profile.user == request.user %}
-				<ul class="profile-connect">
-					<form action="{% url 'get_profile' profile.id %}" method="POST">
-						{% csrf_token %}
-					{%if followed %}
-					<li><button value="{{profile.id}}" id="follow" class="btn btn-md text-white" style="background-color: black;"  title="">Unfollow</button>
+					<li>
+						{% if followed %}
+
+				<a href="{% url 'messages_page' %}" class="btn btn-md btn-primary" style="margin-top: 6px;">Chat</a>
+
+			  {% endif %}
 					</li>
-					{%else%}
-					<li><button value="{{profile.id}}" id="follow" class="btn btn-md text-white" style="background-color: black;"  title="">follow</button>
+					<li>{{my_points.point}}<i>Points</i>
 					</li>
-					</form>
-				  {% endif %}
+					<li>{{questions_count}}<i>Questions</i>
+					</li>
+					{% if not profile.user == request.user %}
+					
+				</li>
+			</ul>
+			<ul class="profile-connect">
+				{%if followed %}
+				<div > 
+					<li><button value="{{profile.id}}" id="unfollow" class="btn btn-md text-white" style="background-color: black;"  title="">Unfollow</button>
+					</li>
+				</div>
+				{%else%}
+				<li><button value="{{profile.id}}" id="follow" class="btn btn-md text-white" style="background-color: black;"  title="">follow</button>
+				</li>
 				{% endif %}
+				{% else %}
+				
+				<li>{{followers}}<i>Following</i>
+					
+				{% endif %}
+
+				{% if thread %}
+					<li>
+						<a href="{% url 'messages_page' %}" class="btn btn-md btn-primary" style="margin-top: 6px;">Chat</a>
+					</li>
+
+					{%  endif %}
 				</ul>
 			  </div>
 			</div>
@@ -370,6 +388,24 @@ h5 {
           'csrfmiddlewaretoken': '{{ csrf_token }}'
         }
         const url = "{% url 'follow' %}"
+          $.ajax({
+            type: "POST",
+            url: url,
+            data: data,
+            success: function(data) {
+        
+        window.location.reload()
+		
+            },
+          })
+        });
+	$('#unfollow').click(function() {
+        
+        data = {
+          'data':this.value,
+          'csrfmiddlewaretoken': '{{ csrf_token }}'
+        }
+        const url = "{% url 'unfollow' %}"
           $.ajax({
             type: "POST",
             url: url,
