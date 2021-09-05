@@ -85,8 +85,8 @@
         <!-- content-wrapper ends -->
 
 
-        <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+        
         <script>
           $('.status').click(function() {
         console.log('hello')
@@ -103,7 +103,6 @@
             data: data,
             success: function(data) {
               window.location.reload();
-        
             },
           })
         });
@@ -118,7 +117,7 @@
           'csrfmiddlewaretoken': '{{ csrf_token }}'
         }
         const url = "{% url 'delete_user' %}"
-          $.ajax({
+          $jQuesr.ajax({
             type: "POST",
             url: url,
             data: data,

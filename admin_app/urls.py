@@ -19,4 +19,6 @@ urlpatterns = [
     path('show_challenge/<int:id>',views.show_challenge, name='show_challenge'),
     path('edit_challenge/<int:id>',views.edit_challenge, name='edit_challenge'),
     path('admin_dashboard/', views.admin_dashboard, name = 'admin_dashboard'),
+    path('delete_topic/<int:pk>', views.delete_topic, name = 'delete_topic'),
+    path('delete_challenge/<int:pk>', views.delete_challenge, name = 'delete_challenge'),
 ]

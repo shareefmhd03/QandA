@@ -1,6 +1,7 @@
 ﻿
 {% extends 'user/user-base.html' %}
 {% load static %}
+{% load socialaccount %}
     {% block content %}
   <!-- =-=-=-=-=-=-= PRELOADER =-=-=-=-=-=-= -->
   <div class="preloader"><span class="preloader-gif"></span>
@@ -31,39 +32,6 @@
 	</div>
 </div>
   <!-- =-=-=-=-=-=-= HEADER Navigation =-=-=-=-=-=-= -->
-  <div class="navbar navbar-default">
-    <div class="container">
-      <!-- header -->
-      <div class="navbar-header">
-        <button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <!-- logo -->
-        <a href="https://templates.scriptsbundle.com/knowledge/demo/index.html" class="navbar-brand"><img class="img-responsive" alt="" src="https://templates.scriptsbundle.com/knowledge/demo/images/logo.png">
-        </a>
-        <!-- header end -->
-      </div>
-      <!-- navigation menu -->
-      <div class="navbar-collapse collapse">
-        <!-- right bar -->
-        <ul class="nav navbar-nav navbar-right">
-          <li class="hidden-sm"><a href="https://templates.scriptsbundle.com/knowledge/demo/how-work.html">How  It Works</a>
-          </li>
-          <li><a href="https://templates.scriptsbundle.com/knowledge/demo/listing.html">Browse Questions</a>
-          </li>
-          
-          <li>
-            <div class="btn-nav"><a href="https://templates.scriptsbundle.com/knowledge/demo/post-question.html" class="btn btn-primary btn-small navbar-btn">Post Question</a>
-            </div>
-          </li>
-        </ul>
-      </div>
-      <!-- navigation menu end -->
-      <!--/.navbar-collapse -->
-    </div>
-  </div>
   <!-- HEADER Navigation End -->
 
   <!-- =-=-=-=-=-=-= Main Area =-=-=-=-=-=-= -->
@@ -105,6 +73,8 @@
           <div class="col-sm-6 col-sm-offset-3 col-md-6 col-md-offset-3">
 
             <div class="box-panel" style="box-shadow: rgb(218, 215, 215) 3px 3px 12px; border-radius: 10px;">
+
+              <a href="{% provider_login_url 'google' %}" class="btn btn-default google"><i class="fa fa-google-plus icons"></i> Sign up with Google</a> 
 
               <!-- buttons top -->
               <!-- <a href="#" class="btn btn-default facebook"><i class="fa fa-facebook icons"></i> Sign Up with Facebook</a>

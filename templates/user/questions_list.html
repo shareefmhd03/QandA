@@ -68,9 +68,7 @@
 											<h3><a href="{% url 'view_answer' que.slug %}">{{que.question_title}}</a>
 											</h3>
 											<div class="listing-meta"> <span><i class="fa fa-clock-o"
-														aria-hidden="true"></i>{{que.created_at}}</span> <span>
-															<!-- <i
-														class="fa fa fa-eye" aria-hidden="true"></i> 750 Views</span> -->
+														aria-hidden="true"></i>{{que.created_at}}</span> 
 											</div>
 										</div>
 										
@@ -211,10 +209,10 @@
 
 					AppTable.style.display = 'none'
 					tableOutput.style.display = 'block'
-					console.log(body.length,'44444')
 					if (body.length === 0) {
-						console.log(body.length,'444eeeee44')
-						tableOutput.innerHTML = `<h1> No Result Found </h1>`
+						// tableOutput.innerHTML = `<h1> No Result Found </h1>`
+						$('.table-output').html(`<h1> No Result Found </h1>`)
+
 					} else {
 						body.forEach((items) => {
 							console.log(items.question_title);
@@ -244,7 +242,6 @@
 										</div>
 									</div>                                                              
                                     `;
-
 						})
 					}
 				}

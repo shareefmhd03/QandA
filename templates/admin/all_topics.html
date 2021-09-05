@@ -374,7 +374,7 @@ h1 a{color:#131313; font-weight:bold;}
     		        </div>
                     <div class="card-body pt-0 text-center">
                     <a href="{% url 'mcqquestions' topic.id %}" class="card-title  text-primary">{{topic.tutorial}}</a>
-                   
+                    <a href="{% url 'delete_topic' topic.id %}"><i class="far fa-trash-alt"></i></a>
                     
                   </div>
                 </div>
