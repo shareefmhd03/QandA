@@ -1,18 +1,10 @@
-from django.core.checks import messages
+
 from chat.models import ChatMessage, Thread
 from channels.consumer import AsyncConsumer
 import json
 
-from django.http import response
-
 from channels.db import database_sync_to_async
 from accounts.models import Accounts
-# from django.contrib.auth import get_user_model
-
-    # from chat.models import Thread, ChatMessage
-
-# User=get_user_model()   
-
 
 
 class ChatConsumer(AsyncConsumer):
