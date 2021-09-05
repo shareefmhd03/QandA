@@ -8,6 +8,7 @@ urlpatterns = [
     path('delete_user/',views.delete_user, name='delete_user'),
     path('view_tutorials/',views.view_tutorials, name='view_tutorials'),
     path('add_tutorials/',views.add_tutorials, name='add_tutorials'),
+    path('add_topic/',views.add_topic, name='add_topic'),
     path('add_mcq/',views.add_mcq, name='add_mcq'),
     path('mcqquestions/<int:id>',views.mcqquestions, name='mcqquestions'),
     path('all_topics/',views.all_topics, name='all_topics'),
@@ -21,4 +22,5 @@ urlpatterns = [
     path('admin_dashboard/', views.admin_dashboard, name = 'admin_dashboard'),
     path('delete_topic/<int:pk>', views.delete_topic, name = 'delete_topic'),
     path('delete_challenge/<int:pk>', views.delete_challenge, name = 'delete_challenge'),
+    path('delete_tutorial/<int:pk>', views.delete_tutorial, name = 'delete_tutorial'),
 ]

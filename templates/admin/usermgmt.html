@@ -59,6 +59,7 @@
                           {% if user.is_active %}
                           <td>
                             <p style="color: green;">Active</p>
+             
                             <button  class="status" style="border: none; background-color: white; color: red;" value = "{{user.id}}"><i class="fas fa-ban"></i></button>
                           </td>
                           {% else %}
@@ -84,9 +85,8 @@
         </div>
         <!-- content-wrapper ends -->
 
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js" integrity="sha512-n/4gHW3atM3QqRcbCn6ewmpxcLAHGaDjpEBu4xZd47N0W2oQ+6q7oc3PXstrJYXcbNU1OHdQ1T7pAP+gi5Yu8g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>        
 
-        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-        
         <script>
           $('.status').click(function() {
         console.log('hello')
@@ -117,7 +117,7 @@
           'csrfmiddlewaretoken': '{{ csrf_token }}'
         }
         const url = "{% url 'delete_user' %}"
-          $jQuesr.ajax({
+          $.ajax({
             type: "POST",
             url: url,
             data: data,

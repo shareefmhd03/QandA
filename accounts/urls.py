@@ -16,5 +16,6 @@ urlpatterns = [
     path('validate_email/', views.validate_email, name = 'validate_email'),
     path('verify_otp/', views.verify_otp, name = 'verify_otp'),
     path('otp_login/', views.otp_login, name = 'otp_login'),
+    path('social_login/', views.social_login, name = 'social_login'),
 
     ]

@@ -6,16 +6,15 @@
     <div class="row">
         <div class="col-lg-8">
             <a href="{% url 'edit_challenge' challenge.id %}" class="btn btn-md"><i class="fas fa-edit">Edit</i></a>
+            <a href="{% url 'delete_challenge' challenge.id %}"><i class="far fa-trash-alt" style="color: red;"></i></a>
             <div> 
                 <h3>{{challenge.title}}</h3>
-            </div>
-            
+            </div>   
             {{challenge.challenge_question|safe}} <br>
             {{challenge.sample_input}} <br><br>
             {{challenge.sample_output}} <br><br>
             {{challenge.test_case1}} <br><br>
             {{challenge.test_case1_sol}}
-
         </div>
 
     </div>

@@ -60,7 +60,7 @@
 					<div class="panel-body">
 						<div class="tab-content">
 							{% for que in question %}
-							<div id="tab1" class="tab-pane active app-table ">
+							<div id="tab1" class="tab-pane active app-table "  >
 								<div class="listing-grid">
 									<div class="row ">
 								
@@ -77,8 +77,8 @@
 							</div>
 							{% endfor %}
 
-							<div class="table-output">
-								<div id="tab1" class="tab-pane active list-body">
+							<div class="table-output" id="result">
+								<div  style="display: none" class="tab-pane active list-body">
 
 								</div>
 							</div>
@@ -187,12 +187,12 @@
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script>
 	const searchField = document.querySelector("#searchField")
-	const tableOutput = document.querySelector(".table-output")
-	const AppTable = document.querySelector(".app-table")
+	const tableOutput = document.querySelector("#result")
+	const AppTable = document.querySelector("#tab1")
 	const listBody = document.querySelector(".list-body")
 
 
-	tableOutput.style.display = 'none'
+	// tableOutput.style.display = 'none'
 
 	searchField.addEventListener("keyup", (e) => {
 		const searchvalue = e.target.value;
@@ -210,8 +210,9 @@
 					AppTable.style.display = 'none'
 					tableOutput.style.display = 'block'
 					if (body.length === 0) {
-						// tableOutput.innerHTML = `<h1> No Result Found </h1>`
-						$('.table-output').html(`<h1> No Result Found </h1>`)
+						tableOutput.innerHTML = `<h1> No Result Found </h1>`
+						// AppTable.style.display='none'
+						// $('.table-output').html(`<h1> No Result Found </h1>`)
 
 					} else {
 						body.forEach((items) => {

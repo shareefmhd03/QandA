@@ -173,8 +173,8 @@ def answer(request, question):
                     Notification.objects.create(
                         from_user=request.user, to_user=ans.question.user, answered=ans)
                     print('about to call the send_push')
-                    data = {'head': '', 'body': quest.question_title +
-                            'answered', 'id': quest.user_id}
+                    # data = {'head': '', 'body': quest.question_title +
+                    #         'answered', 'id': quest.user_id}
                     # send_push(request, data)
                     return redirect('view_answer', quest.slug)
             form = AnswerForm()

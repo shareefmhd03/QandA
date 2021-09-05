@@ -52,7 +52,8 @@
 <a href="{% url 'show_challenge' challenge.id %}"> <div class="notice notice-success mt-4">
         <strong>{{challenge.topic}}</strong> {{challenge.title}}
     </div></a>
-    <a href="{% url 'delete_challenge' challenge.id %}"><i class="far fa-trash-alt"></i></a>
+   
 </div>
+
 {% endfor %}
 {% endblock %}

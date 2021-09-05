@@ -34,9 +34,9 @@
     </style>
 <div class="container">
     
-    <a href="{% url 'leaderboard' %}" class="btn btn-success" style="position: relative; right: 0;">View leaderboard</a>
+    <a href="{% url 'leaderboard' %}" class="btn btn-success" style="position: relative; right: 0; margin-bottom: 3rem;">View leaderboard</a>
     <div class="row">
-        <div class="col-lg-8" style="margin-bottom: 5rem; box-shadow: rgb(202, 199, 199) 8px 8px 8px; margin: solid 1px black;">
+        <div class="col-lg-8" style="margin-bottom: 5rem; box-shadow: 8px 8px 23px; margin: solid 1px rgb(243, 240, 240); border: solid 1px;">
             
             {{question.title}}
             
@@ -117,6 +117,10 @@
                 <h5>Output:</h5>
             </div>
     </div>
+    <div style="display: none;" id="next">
+        <span style="color: green;">Correct answer</span>
+        <a class="btn btn-success" href="{% url 'challenge_quest' question.topic_id %}">Try another question</a>
+    </div>
 
 </div>
 </form>
@@ -186,6 +190,7 @@ console.log('hiiiii------')
                     if (solution.trim() == (output.output).trim())
                     {
                         document.getElementById('output').style.border = '3px solid #19ff19'
+                        document.getElementById('next').style.display = 'block'
                         $("#output").html(str);
                     }
                     else{

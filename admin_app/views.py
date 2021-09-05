@@ -2,7 +2,7 @@ from django.db.models.aggregates import Count
 from q_and_a.models import Answer, Question
 from challenges.models import ChallengeQuestion
 from challenges.forms import ChallengeTopicForm, challengeForm
-from tutorials.forms import McQForm, TutorialForm
+from tutorials.forms import McQForm, TopicForm, TutorialForm
 from tutorials.models import McqQuestions, Topics, Tutorial
 from accounts.models import Accounts
 from django.shortcuts import render, redirect
@@ -86,40 +86,43 @@ def delete_user(request):
         return render(request, 'admin/loginPage.html')
 
 
+
 def view_tutorials(request):
-    try:
+    if request.session['loggedin']:
+        tutorials = Tutorial.objects.all()
+        context = {
+            'tutorials': tutorials,
+        }
+        return render(request, 'admin/tutorials.html', context)
 
-        if request.session['loggedin']:
-            tutorials = Tutorial.objects.all()
-            context = {
-                'tutorials': tutorials,
-            }
-            return render(request, 'admin/tutorials.html', context)
+    return render(request, 'admin/loginPage.html')
 
-    except:
-        return render(request, 'admin/loginPage.html')
 
 
 def add_tutorials(request):
+    if request.session['loggedin']:
+            if request.method == 'POST':
+                form = TutorialForm(request.POST, request.FILES)
+                if form.is_valid():
+                    form.save()
+                    return redirect('view_tutorials')
 
-    try:
-        if request.method == 'POST':
-            form = TutorialForm(request.POST, request.FILES)
-            if form.is_valid():
-                form.save()
-                return redirect('view_tutorials')
-
-        form = TutorialForm()
-        context = {
-            'form': form,
-        }
-        return render(request, 'admin/add_tutorials.html', context)
-    except:
-        return render(request, 'admin/loginPage.html')
+            form = TutorialForm()
+            context = {
+                    'form': form,
+                    }
+            return render(request, 'admin/add_tutorials.html', context)
+    else:
+            return render(request, 'admin/loginPage.html')
+    
+def delete_tutorial(request,pk):
+    tutorials = Tutorial.objects.get(id = pk)
+    tutorials.delete()
+    return redirect('view_tutorials')
 
 
 def view_tutorial(request, id):
-    try:
+
         if request.session['loggedin']:
             tutorials = Tutorial.objects.get(id=id)
             context = {
@@ -127,8 +130,8 @@ def view_tutorial(request, id):
             }
             return render(request, 'admin/view_tutorial.html', context)
 
-    except:
-        return render(request, 'admin/loginPage.html')
+        else:
+            return render(request, 'admin/loginPage.html')
 
 
 def add_mcq(request):
@@ -163,15 +166,14 @@ def mcqquestions(request, id):
 
 
 def all_topics(request):
-    try:
         if request.session['loggedin']:
             topics = Topics.objects.all()
             context = {
                 'topics': topics
             }
             return render(request, 'admin/all_topics.html', context)
-    except:
-        return render(request, 'admin/loginPage.html')
+        else:
+            return render(request, 'admin/loginPage.html')
 
 
 def delete_topic(request, pk):
@@ -223,6 +225,25 @@ def view_challenges_admin(request):
     else:
         return render(request, 'admin/loginPage.html')
 
+
+def add_topic(request):
+    form = TopicForm()
+    if request.session['loggedin']:
+        if request.method == 'POST':
+            print('in post')
+            form = TopicForm(request.POST, request.FILES)
+            if form.is_valid():
+                form.save()
+  
+                return redirect('all_topics')
+
+        context = {
+           'form': form,
+        }
+
+        return render(request, 'admin/add_topic.html',context)
+    else:
+        return render(request, 'admin/loginPage.html')
 
 def add_challenges(request):
     form = challengeForm()

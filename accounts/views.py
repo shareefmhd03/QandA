@@ -1,6 +1,6 @@
 from tutorials.models import Topics
 from django.contrib.auth import authenticate
-from django.http.response import JsonResponse
+from django.http.response import HttpResponse, JsonResponse
 from accounts.models import Accounts
 from django.shortcuts import redirect, render
 from .forms import RegistrationForm
@@ -168,3 +168,7 @@ def verify_otp(request):
         else:
             return redirect('otp_login')
     return render(request, 'user/verifyotp.html')
+
+
+def social_login(requsest):
+    return HttpResponse('dasfsdfadsf')
