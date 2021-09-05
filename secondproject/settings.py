@@ -36,6 +36,7 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+    'channels',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -57,12 +58,12 @@ INSTALLED_APPS = [
     'admin_app',
     'allauth.socialaccount.providers.google',
     'challenges',
-    'channels',
+    
     'chat',
     
 ]
 
-SITE_ID = 3
+SITE_ID = 5
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -196,6 +197,7 @@ LOGIN_REDIRECT_URL = '/'
 
 CHANNEL_LAYERS = {
     'default': {
+        # 'BACKEND': 'channels_redis.core.RedisChannelLayer',
         'BACKEND': 'channels.layers.InMemoryChannelLayer',
         # 'CONFIG': {
         #     'hosts': [('127.0.0.1', 6379)],
