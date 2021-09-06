@@ -36,7 +36,6 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
-    'channels',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -44,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
+    'channels',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -58,12 +58,11 @@ INSTALLED_APPS = [
     'admin_app',
     'allauth.socialaccount.providers.google',
     'challenges',
-    
     'chat',
     
 ]
 
-SITE_ID = 5
+SITE_ID = 1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
