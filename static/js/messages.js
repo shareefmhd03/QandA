@@ -180,6 +180,7 @@ socket.onmessage = async function (e) {
 };
 
 socket.onerror = async function (e) {
+  console.log(endpoint);
   console.log("error", e);
 };
 
