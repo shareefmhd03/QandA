@@ -1,5 +1,4 @@
-
-from chat.models import ChatMessage, Thread
+from . models import ChatMessage, Thread
 from channels.consumer import AsyncConsumer
 import json
 

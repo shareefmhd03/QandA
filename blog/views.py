@@ -30,7 +30,6 @@ def view_blog(request):
         return redirect('login_view')
 
 
-
 def add_blog(request):
     context = {}
     print('-------------------///////--------------')

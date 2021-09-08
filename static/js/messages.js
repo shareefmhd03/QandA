@@ -135,16 +135,21 @@ let send_message_form = $("#send-message-form");
 const USER_ID = $("#logged-in-user").val();
 
 let loc = window.location;
-let wsStart = "ws://";
-
+// let wsStart = "ws://";
+let wsStart
 if (loc.protocol === "https") {
   wsStart = "wss://";
+}
+else
+{
+  wsStart = "ws://"; 
 }
 let endpoint = wsStart + loc.host + loc.pathname;
 
 var socket = new WebSocket(endpoint);
 
 socket.onopen = async function (e) {
+  console.log(loc.protocol);
   console.log("open", e);
   send_message_form.on("submit", function (e) {
     e.preventDefault();
@@ -165,6 +170,7 @@ socket.onopen = async function (e) {
 };
 
 socket.onmessage = async function (e) {
+
   console.log("message", e);
   let data = JSON.parse(e.data);
   let message = data["message"];

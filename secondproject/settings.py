@@ -44,10 +44,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
     'channels',
+    'accounts',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-    'accounts',
+    'allauth.socialaccount.providers.google',
+    'chat',
     'posts',
     'profiles',
     'q_and_a.apps.QAndAConfig',
@@ -56,9 +58,7 @@ INSTALLED_APPS = [
     'storages',
     'tutorials',
     'admin_app',
-    'allauth.socialaccount.providers.google',
     'challenges',
-    'chat',
     
 ]
 
