@@ -136,14 +136,14 @@ const USER_ID = $("#logged-in-user").val();
 
 let loc = window.location;
 // let wsStart = "ws://";
-let wsStart
-if (loc.protocol === "https") {
-  wsStart = "wss://";
-}
-else
-{
-  wsStart = "ws://"; 
-}
+let wsStart = "wss://";
+// if (loc.protocol === "https") {
+//   wsStart = "wss://";
+// }
+// else
+// {
+//   wsStart = "ws://"; 
+// }
 let endpoint = wsStart + loc.host + loc.pathname;
 
 var socket = new WebSocket(endpoint);
