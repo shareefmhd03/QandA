@@ -145,7 +145,7 @@ const USER_ID = $("#logged-in-user").val();
 //   wsStart = "ws://"; 
 // }
 // let endpoint = wsStart + loc.host + loc.pathname;
-var socket = new WebSocket('ws://www.shareef.tech:8001');
+var socket = new WebSocket('ws://www.shareef.tech:8001/chat/');
 
 // var socket =  new WebSocket(
 //   (window.location.protocol === 'https:' ? 'wss://' : 'ws://')
