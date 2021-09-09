@@ -134,19 +134,25 @@ let message_body = $(".msg_card_body");
 let send_message_form = $("#send-message-form");
 const USER_ID = $("#logged-in-user").val();
 
-let loc = window.location;
-let wsStart = "ws://";
-// let wsStart = "wss://";
-// if (loc.protocol === "https") {
-//   wsStart = "wss://";
-// }
-// else
-// {
-//   wsStart = "ws://"; 
-// }
-let endpoint = wsStart + loc.host + loc.pathname;
+// let loc = window.location;
+// let wsStart = "ws://";
+// // let wsStart = "wss://";
+// // if (loc.protocol === "https") {
+// //   wsStart = "wss://";
+// // }
+// // else
+// // {
+// //   wsStart = "ws://"; 
+// // }
+// let endpoint = wsStart + loc.host + loc.pathname;
 
-var socket = new WebSocket(endpoint);
+// var socket = new WebSocket(endpoint);
+
+var socket =  new WebSocket(
+  (window.location.protocol == 'https:' ? 'wss://' : 'ws://')
+  + window.location.host
+  + '/ws/'
+);
 
 socket.onopen = async function (e) {
   console.log(loc.protocol);
