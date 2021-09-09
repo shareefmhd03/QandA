@@ -187,6 +187,7 @@ socket.onmessage = async function (e) {
 
 socket.onerror = async function (e) {
   console.log(socket,'=======');
+  console.log(endpoint,'---endpoint---')
   console.log("error", e);
 };
 
