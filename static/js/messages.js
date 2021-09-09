@@ -155,7 +155,7 @@ var socket = new WebSocket(endpoint);
 // );
 
 socket.onopen = async function (e) {
-  console.log('=====',loc.host);
+console.log(socket,'=======');
   console.log("open", e);
   send_message_form.on("submit", function (e) {
     e.preventDefault();
