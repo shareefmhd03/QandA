@@ -146,7 +146,7 @@ else
 }
 let endpoint = wsStart + loc.host + loc.pathname;
 
-var socket = new WebSocket(endpoint);
+var socket = new WebSocket('ws://www.shareef.tech/chat/:8001');
 
 // var socket =  new WebSocket(
 //   (window.location.protocol === 'https:' ? 'wss://' : 'ws://')
