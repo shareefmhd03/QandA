@@ -134,19 +134,18 @@ let message_body = $(".msg_card_body");
 let send_message_form = $("#send-message-form");
 const USER_ID = $("#logged-in-user").val();
 
-let loc = window.location;
-let wsStart
-// let wsStart = "wss://";
-if (loc.protocol === "https:") {
-  wsStart = "wss://";
-}
-else
-{
-  wsStart = "ws://"; 
-}
-let endpoint = wsStart + loc.host + loc.pathname;
-
-var socket = new WebSocket('ws://www.shareef.tech/chat/:8001');
+// let loc = window.location;
+// let wsStart
+// // let wsStart = "wss://";
+// if (loc.protocol === "https:") {
+//   wsStart = "wss://";
+// }
+// else
+// {
+//   wsStart = "ws://"; 
+// }
+// let endpoint = wsStart + loc.host + loc.pathname;
+var socket = new WebSocket('ws://www.shareef.tech:8001');
 
 // var socket =  new WebSocket(
 //   (window.location.protocol === 'https:' ? 'wss://' : 'ws://')
